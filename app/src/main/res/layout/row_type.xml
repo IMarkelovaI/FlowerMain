@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentPadding="10dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/white"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/categoryTv"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="Тип"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/black"/>
+
+        <ImageButton
+            android:id="@+id/deltaBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_deleate_white"
+            android:contentDescription="Как много вы хотите выделить"
+            android:background="@drawable/shape_button"
+            />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
