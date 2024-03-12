@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="5dp"
+    app:cardBackgroundColor="@color/grey"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0dp"
+    app:contentPadding="5dp"
+    >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <RelativeLayout
+            android:id="@+id/pngRl"
+            android:layout_width="100dp"
+            android:layout_height="148dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/white"
+            >
+            <ImageView
+                android:id="@+id/pngView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ImageView>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_toStartOf="@+id/moreBtn"
+            android:text="Название растения"
+            android:layout_toEndOf="@+id/pngRl"
+            android:maxLines="1"
+            />
+
+        <ImageButton
+            android:id="@+id/moreBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:background="@color/grey"
+            android:contentDescription="Как много вы хотите выделить"
+            android:padding="5dp"
+            android:src="@drawable/ic_more_grin">
+
+        </ImageButton>
+        
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

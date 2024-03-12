@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FlowerAplication"
         tools:targetApi="31">
         <activity
+            android:name=".PngListAdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".LightingActivity"
             android:exported="false" />
         <activity

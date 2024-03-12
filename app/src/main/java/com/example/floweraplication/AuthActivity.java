@@ -71,7 +71,7 @@ public class AuthActivity extends AppCompatActivity {
         if (password.isEmpty()) {
             binding.loginPassAuth.setError("Пароль не может быть пустым");
         }
-        else if (!Patterns.EMAIL_ADDRESS.matcher(email) .matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email) .matches()){
         binding.emailUserAuth.setError("Неверный шаблон электронной почты или ее не заполнили");
         }
         else {

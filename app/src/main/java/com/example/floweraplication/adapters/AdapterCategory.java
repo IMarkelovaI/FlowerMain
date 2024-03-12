@@ -1,8 +1,9 @@
-package com.example.floweraplication;
+package com.example.floweraplication.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.floweraplication.databinding.RowPurposeBinding;
+import com.example.floweraplication.PngListAdminActivity;
+import com.example.floweraplication.models.ModelCategory;
 import com.example.floweraplication.databinding.RowTypeBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,41 +24,42 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class AdapterPurpose extends RecyclerView.Adapter<AdapterPurpose.HolderPurpose>{
+public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.HolderCategory>{
 
     private Context context;
-    private ArrayList<ModelPurpose> purposeArrayList;
+    private ArrayList<ModelCategory> categoryArrayList;
 
-    private RowPurposeBinding binding;
-    public  AdapterPurpose(Context context, ArrayList<ModelPurpose> purposeArrayList){
+    private RowTypeBinding binding;
+    public  AdapterCategory(Context context, ArrayList<ModelCategory> categoryArrayList){
         this.context = context;
-        this.purposeArrayList = purposeArrayList;
+        this.categoryArrayList = categoryArrayList;
     }
+
     @NonNull
     @Override
-    public AdapterPurpose.HolderPurpose onCreateViewHolder(@NonNull ViewGroup parent, int viewPurpose) {
-        binding = RowPurposeBinding.inflate(LayoutInflater.from(context), parent, false);
-        return new AdapterPurpose.HolderPurpose(binding.getRoot());
+    public HolderCategory onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        binding = RowTypeBinding.inflate(LayoutInflater.from(context), parent, false);
+        return new HolderCategory(binding.getRoot());
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterPurpose.HolderPurpose holder, int position) {
-        ModelPurpose model = purposeArrayList.get(position);
-        String id = model.getId();
+    public void onBindViewHolder(@NonNull AdapterCategory.HolderCategory holder, int position) {
+        ModelCategory model = categoryArrayList.get(position);
+        String id =model.getId();
         String name = model.getName();
-        holder.PurposeTv.setText(name);
+        holder.categoryTv.setText(name);
 
         holder.deltaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Удалить")
-                        .setMessage("Точно хотите удалить предназначение?")
+                        .setMessage("Точно хотите удалить тип?")
                         .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(context, "Удаляется", Toast.LENGTH_SHORT).show();
-                                deletePurpose(model, holder);
+                                deleteType(model, holder);
                             }
                         })
                         .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
@@ -68,17 +71,29 @@ public class AdapterPurpose extends RecyclerView.Adapter<AdapterPurpose.HolderPu
                         .show();
             }
         });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PngListAdminActivity.class);
+                intent.putExtra("type_id", id);
+                intent.putExtra("name", name);
+                context.startActivity(intent);
+            }
+        });
+
     }
-    private void deletePurpose(ModelPurpose model, AdapterPurpose.HolderPurpose holder) {
+
+    private void deleteType(ModelCategory model, HolderCategory holder) {
         String id = model.getId();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Purpose");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Type");
         ref.child(id)
                 .removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(context, "Данные успешно удалены", Toast.LENGTH_SHORT).show();
-                    }
+                        }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -90,18 +105,20 @@ public class AdapterPurpose extends RecyclerView.Adapter<AdapterPurpose.HolderPu
 
     @Override
     public int getItemCount() {
-        return purposeArrayList.size();
+        return categoryArrayList.size();
     }
 
-    class HolderPurpose extends RecyclerView.ViewHolder{
-        TextView PurposeTv;
+    class HolderCategory extends RecyclerView.ViewHolder{
+        TextView categoryTv;
         ImageButton deltaBtn;
 
-        public HolderPurpose(@NonNull View itemView) {
+        public HolderCategory(@NonNull View itemView) {
             super(itemView);
 
-            PurposeTv = binding.PurposeTv;
+            categoryTv = binding.categoryTv;
             deltaBtn = binding.deltaBtn;
         }
     }
+
+
 }

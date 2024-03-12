@@ -7,11 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.floweraplication.adapters.AdapterCategory;
 import com.example.floweraplication.databinding.ActivityAdminBinding;
-import com.example.floweraplication.databinding.ActivityAuthBinding;
-import com.example.floweraplication.databinding.ActivityMainBinding;
+import com.example.floweraplication.models.ModelCategory;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

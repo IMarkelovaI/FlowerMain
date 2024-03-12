@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.models;
 
 public class ModelCategory {
     String id, name;

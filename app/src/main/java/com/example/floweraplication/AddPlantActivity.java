@@ -46,8 +46,8 @@ public class AddPlantActivity extends AppCompatActivity {
     private static final String TAG = "ADD_PNG_TAG";
     private static final int PNG_PICK_CODE =1000;
 
-    private ArrayList<ModelCategory> categoryArrayList;
-    private ArrayList<ModelPurpose> purposeArrayList;
+    private ArrayList<String> categoryTitleArrayList, categoryIdArrayList;
+    private ArrayList<String> purposeTitleArrayList, purposeIdArrayList;
 
     private Uri pngUri = null;
 
@@ -104,7 +104,7 @@ public class AddPlantActivity extends AppCompatActivity {
         });
     }
 
-    private String name ="", description ="", habitat ="", size ="", type_id ="", purpose_id ="", Edur="", Tox="";
+    private String name ="", description ="", habitat ="", size ="", Edur="", Tox="",picture="";
 
     private void validateData() {
         //Before adding validate data
@@ -113,8 +113,8 @@ public class AddPlantActivity extends AppCompatActivity {
         description = binding.TypeDescr.getText().toString().trim();
         habitat = binding.TypeHabitat.getText().toString().trim();
         size = binding.TypeSize.getText().toString().trim();
-        type_id = binding.TypeC.getText().toString().trim();
-        purpose_id = binding.Pur.getText().toString().trim();
+        picture = String.valueOf(pngUri);
+
         if (binding.checkBox.isChecked()){
             Edur = "true";
         }
@@ -140,10 +140,10 @@ public class AddPlantActivity extends AppCompatActivity {
         else if (TextUtils.isEmpty(size)){
             Toast.makeText(this,  "Введите размер растения", Toast.LENGTH_SHORT).show();
         }
-        else if (TextUtils.isEmpty(type_id)){
+        else if (TextUtils.isEmpty(selectedCategoryTitle)){
             Toast.makeText(this,  "Выберите тип", Toast.LENGTH_SHORT).show();
         }
-        else if (TextUtils.isEmpty(purpose_id)){
+        else if (TextUtils.isEmpty(selectedPurposeTitle)){
             Toast.makeText(this,  "Выберите предназначение", Toast.LENGTH_SHORT).show();
         }
 
@@ -204,13 +204,14 @@ public class AddPlantActivity extends AppCompatActivity {
 
         hashMap.put("id", ""+timestamp);
         hashMap.put("name", ""+name);
-        hashMap.put("type_id", ""+type_id);
+        hashMap.put("type_id", ""+selectedCategoryId);
         hashMap.put("description", ""+description);
         hashMap.put("habitat", ""+habitat);
         hashMap.put("size", ""+size);
-        hashMap.put("purpose_id", ""+purpose_id);
+        hashMap.put("purpose_id", ""+selectedPurposeId);
         hashMap.put("degree_of_toxicity", ""+Tox);
         hashMap.put("endurance", ""+Edur);
+        hashMap.put("picture", ""+picture);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Plant");
         ref.child(""+timestamp)
@@ -235,16 +236,21 @@ public class AddPlantActivity extends AppCompatActivity {
     private void loadPngPurposes() {
 
         Log.d(TAG, "loadPngTypes: Loading png purpose");
-        purposeArrayList = new ArrayList<>();
+        purposeTitleArrayList = new ArrayList<>();
+        purposeIdArrayList = new ArrayList<>();
 
         DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Purpose");
         ref1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                purposeTitleArrayList.clear();
+                purposeIdArrayList.clear();
                 for (DataSnapshot ds: snapshot.getChildren()){
-                    ModelPurpose model1 = ds.getValue(ModelPurpose.class);
-                    purposeArrayList.add(model1);
-                    Log.d(TAG, "onDataChange"+model1.getName());
+                    String purposeId = ""+ds.child("id").getValue();
+                    String purposeName =""+ds.child("name").getValue();
+
+                    purposeTitleArrayList.add(purposeName);
+                    purposeIdArrayList.add(purposeId);
                 }
             }
             @Override
@@ -255,16 +261,21 @@ public class AddPlantActivity extends AppCompatActivity {
     }
     private void loadPngTypes() {
         Log.d(TAG, "loadPngTypes: Loading png types");
-        categoryArrayList = new ArrayList<>();
+        categoryTitleArrayList = new ArrayList<>();
+        categoryIdArrayList = new ArrayList<>();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Type");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                categoryTitleArrayList.clear();
+                categoryIdArrayList.clear();
                 for (DataSnapshot ds: snapshot.getChildren()){
-                    ModelCategory model = ds.getValue(ModelCategory.class);
-                    categoryArrayList.add(model);
-                    Log.d(TAG, "onDataChange"+model.getName());
+                    String categoryId = ""+ds.child("id").getValue();
+                    String categoryName =""+ds.child("name").getValue();
+
+                    categoryTitleArrayList.add(categoryName);
+                    categoryIdArrayList.add(categoryId);
                 }
             }
 
@@ -275,44 +286,48 @@ public class AddPlantActivity extends AppCompatActivity {
         });
     }
 
+    private String selectedCategoryId, selectedCategoryTitle;
     private void typePickDialog() {
         Log.d(TAG, "typePickDialog: showing type pick dialog");
 
-        String[] categoriesArray = new String[categoryArrayList.size()];
-        for (int i=0; i<categoryArrayList.size(); i++){
-            categoriesArray[i]=categoryArrayList.get(i).getName();
+        String[] categoriesArray = new String[categoryTitleArrayList.size()];
+        for (int i = 0; i< categoryTitleArrayList.size(); i++){
+            categoriesArray[i]= categoryTitleArrayList.get(i);
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Выберите тип")
                 .setItems(categoriesArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String category= categoriesArray[which];
-                        binding.TypeC.setText(category);
+                        selectedCategoryTitle= categoryTitleArrayList.get(which);
+                        selectedCategoryId = categoryIdArrayList.get(which);
+                        binding.TypeC.setText(selectedCategoryTitle);
 
-                        Log.d(TAG, "onClick: Selected Type:"+category);
+                        Log.d(TAG, "onClick: Selected Type:"+selectedCategoryId+" "+selectedCategoryTitle);
                     }
                 })
                 .show();
     }
 
+    private String selectedPurposeId, selectedPurposeTitle;
     private void purposePickDialog() {
 
         Log.d(TAG, "purposePickDialog: showing purpose pick dialog");
 
-        String[] purposesArray = new String[purposeArrayList.size()];
-        for (int i=0; i<purposeArrayList.size(); i++){
-            purposesArray[i]=purposeArrayList.get(i).getName();
+        String[] purposesArray = new String[purposeTitleArrayList.size()];
+        for (int i = 0; i< purposeTitleArrayList.size(); i++){
+            purposesArray[i]= purposeTitleArrayList.get(i);
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Выберите предназначение")
                 .setItems(purposesArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String purpose= purposesArray[which];
-                        binding.Pur.setText(purpose);
+                        selectedPurposeTitle= purposeTitleArrayList.get(which);
+                        selectedPurposeId = purposeIdArrayList.get(which);
+                        binding.Pur.setText(selectedPurposeTitle);
 
-                        Log.d(TAG, "onClick: Selected Purpose:"+purpose);
+                        Log.d(TAG, "onClick: Selected Purpose:"+selectedPurposeId+" "+selectedPurposeTitle);
                     }
                 })
                 .show();
