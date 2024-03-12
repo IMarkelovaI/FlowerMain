@@ -104,7 +104,7 @@ public class AddPlantActivity extends AppCompatActivity {
         });
     }
 
-    private String name ="", description ="", habitat ="", size ="", type_id ="", purpose_id ="", endurance ="", degree_of_toxicity ="";
+    private String name ="", description ="", habitat ="", size ="", type_id ="", purpose_id ="", Edur="", Tox="";
 
     private void validateData() {
         //Before adding validate data
@@ -115,9 +115,18 @@ public class AddPlantActivity extends AppCompatActivity {
         size = binding.TypeSize.getText().toString().trim();
         type_id = binding.TypeC.getText().toString().trim();
         purpose_id = binding.Pur.getText().toString().trim();
-        endurance = binding.TypeEndure.getText().toString().trim();
-        degree_of_toxicity = binding.typeTox.getText().toString().trim();
-
+        if (binding.checkBox.isChecked()){
+            Edur = "true";
+        }
+        else {
+            Edur = "false";
+        }
+        if (binding.checkBox2.isChecked()){
+            Tox = "true";
+        }
+        else {
+            Tox = "false";
+        }
         //validate if not empty
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this,  "Введите название растения", Toast.LENGTH_SHORT).show();
@@ -137,12 +146,7 @@ public class AddPlantActivity extends AppCompatActivity {
         else if (TextUtils.isEmpty(purpose_id)){
             Toast.makeText(this,  "Выберите предназначение", Toast.LENGTH_SHORT).show();
         }
-        else if (TextUtils.isEmpty(endurance)){
-            Toast.makeText(this,  "Прихотливое или нет?", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(degree_of_toxicity)){
-            Toast.makeText(this,  "Токсичное или нет?", Toast.LENGTH_SHORT).show();
-        }
+
         else if (pngUri==null){
             Toast.makeText(this,  "Выберите фото", Toast.LENGTH_SHORT).show();
         }
@@ -185,7 +189,7 @@ public class AddPlantActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
                         Log.d(TAG, "onFailure: PNG upload failed due to"+e.getMessage());
-                        Toast.makeText(AddPlantActivity.this, "PNG upload failed due to"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddPlantActivity.this, "Загрузить изображение не удалось из-за"+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -204,9 +208,9 @@ public class AddPlantActivity extends AppCompatActivity {
         hashMap.put("description", ""+description);
         hashMap.put("habitat", ""+habitat);
         hashMap.put("size", ""+size);
-        hashMap.put("endurance", ""+endurance);
         hashMap.put("purpose_id", ""+purpose_id);
-        hashMap.put("degree_of_toxicity", ""+degree_of_toxicity);
+        hashMap.put("degree_of_toxicity", ""+Tox);
+        hashMap.put("endurance", ""+Edur);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Plant");
         ref.child(""+timestamp)
@@ -333,8 +337,8 @@ public class AddPlantActivity extends AppCompatActivity {
                 Log.d(TAG, "onActivityResult: URI: " + pngUri);
             }
         } else {
-            Log.d(TAG, "onActivityResult: cancelled picking pdf");
-            Toast.makeText(this, "cancelled picking pdf", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onActivityResult: cancelled picking png");
+            Toast.makeText(this, "Отменен выбор изображения", Toast.LENGTH_SHORT).show();
         }
     }
 }

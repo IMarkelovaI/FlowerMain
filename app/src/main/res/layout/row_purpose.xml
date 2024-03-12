@@ -7,7 +7,7 @@
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="8dp"
     app:cardElevation="0dp"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/grey"
     >
 
     <LinearLayout
@@ -22,8 +22,9 @@
             android:layout_width="0dp"
             android:text="Предназначение"
             android:textSize="20sp"
+            android:textColor="@color/black"
             android:layout_weight="1"
-            app:cardBackgroundColor="@color/black"/>
+            />
 
         <ImageButton
             android:id="@+id/deltaBtn"

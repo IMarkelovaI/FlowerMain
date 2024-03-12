@@ -5,13 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#1a1c18"
     tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#e2e4df"
         android:layout_gravity="center"
         android:layout_marginTop="170dp"
         android:textSize="25sp"
@@ -24,10 +22,8 @@
         android:layout_height="50dp"
         android:ems="10"
         android:inputType="text"
-        android:textColorHint="#6a6a6a"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textColor="#e2e4df"
         android:hint="Введите логин"
         />
 
@@ -37,10 +33,8 @@
         android:layout_height="50dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:textColorHint="#6a6a6a"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textColor="#e2e4df"
         android:hint="Введите email" />
 
     <EditText
@@ -49,10 +43,8 @@
         android:layout_height="50dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:textColorHint="#6a6a6a"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textColor="#e2e4df"
         android:hint="Введите пароль" />
     <EditText
         android:id="@+id/repeat_login_pass"
@@ -60,10 +52,8 @@
         android:layout_height="50dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:textColorHint="#6a6a6a"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textColor="#e2e4df"
         android:hint="Повторите пароль" />
 
     <Button
@@ -73,8 +63,6 @@
         android:textStyle="bold"
         android:text="Зарегистрироваться"
         android:layout_gravity="center"
-        android:textColor="#1b5013"
-        android:backgroundTint="#98d782"
         android:textSize="16sp"
         android:layout_marginTop="30dp"
         />
@@ -88,7 +76,6 @@
         android:minHeight="48dp"
         android:onClick="activity_auth"
         android:text="Авторизоваться"
-        android:textColor="#98d782"
         android:textSize="17sp" />
 
 </LinearLayout>

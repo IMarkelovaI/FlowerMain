@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FlowerAplication"
         tools:targetApi="31">
         <activity
+            android:name=".LightingActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddPurposeActivity"
             android:exported="false" />
         <activity
@@ -22,19 +25,7 @@
             android:name=".AdminButonsActivity"
             android:exported="false" />
         <activity
-            android:name=".PlantAddActivity"
-            android:exported="false" />
-        <activity
             android:name=".AddPlantActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PlantADDActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TypeAddActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LightActivity"
             android:exported="false" />
         <activity
             android:name=".TypeActivity"
@@ -47,11 +38,13 @@
             android:exported="false"
             android:label="@string/title_activity_user" />
         <activity
-            android:name=".AuthActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".AuthActivity"
             android:exported="true">
+
+            <!-- AuthActivity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

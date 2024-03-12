@@ -1,6 +1,9 @@
 package com.example.floweraplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +30,8 @@ public class UserActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
 
+        //binding.bottomNavigationView.setBackground(null);
+
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,10 +43,17 @@ public class UserActivity extends AppCompatActivity {
         binding.buttonLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserActivity.this, LightActivity.class));
+                startActivity(new Intent(UserActivity.this, LightingActivity.class));
             }
         });
     }
+
+    /*private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.commit();
+    }*/
 
     private void checkUser() {
         //get current user
@@ -54,9 +66,7 @@ public class UserActivity extends AppCompatActivity {
 
         else {
             //togged in, get user info
-            String email = firebaseUser.getEmail();
             //set in textview of toolbar
-            binding.textView.setText(email) ;
         }
     }
 }
