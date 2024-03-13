@@ -4,6 +4,8 @@ import static androidx.fragment.app.FragmentManager.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +13,14 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.floweraplication.adapters.AdapterPngAdmin;
 import com.example.floweraplication.databinding.ActivityPngListAdminBinding;
 import com.example.floweraplication.models.ModelPng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,9 +34,12 @@ public class PngListAdminActivity extends AppCompatActivity {
     private ActivityPngListAdminBinding binding;
     private ArrayList<ModelPng> pngArrayList;
     private AdapterPngAdmin adapterPngAdmin;
-    private String type_id, name;
+    private String id, type_id, name, picture;
     private static final String TAG = "PNG_LIST_TAG";
 
+    RecyclerView recyclerView;
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
 
 
     @Override
@@ -40,10 +49,27 @@ public class PngListAdminActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
+        id = intent.getStringExtra("id");
         type_id = intent.getStringExtra("type_id");
         name = intent.getStringExtra("name");
-
+        //loadImageList();
         loadPngList();
+        //loadImageList();
+
+        pngArrayList = new ArrayList<>();
+
+        recyclerView = findViewById(R.id.plantRv);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        AdapterPngAdmin adapterPngAdmin = new AdapterPngAdmin(getApplicationContext(), pngArrayList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        //recyclerView.setLayoutManager(line);
+
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
+
 
         binding.searchEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -100,4 +126,26 @@ public class PngListAdminActivity extends AppCompatActivity {
                     }
                 });
     }
+    /*private void loadImageList() {
+        pngArrayList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Plant");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren())
+                {
+                    ModelPng modelPng = ds.getValue(ModelPng.class);
+                    pngArrayList.add(modelPng);
+                }
+                adapterPngAdmin = new AdapterPngAdmin(PngListAdminActivity.this, pngArrayList);
+                binding.plantRv.setAdapter(adapterPngAdmin);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }*/
+
 }

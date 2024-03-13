@@ -1,20 +1,32 @@
 package com.example.floweraplication;
 
+import static android.app.PendingIntent.getActivity;
+
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.floweraplication.databinding.ActivityAddPlantBinding;
+import com.example.floweraplication.models.ModelPng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,11 +58,19 @@ public class AddPlantActivity extends AppCompatActivity {
 
     private static final String TAG = "ADD_PNG_TAG";
     private static final int PNG_PICK_CODE =1000;
+    private Bitmap bitmap;
 
     private ArrayList<String> categoryTitleArrayList, categoryIdArrayList;
     private ArrayList<String> purposeTitleArrayList, purposeIdArrayList;
 
-    private Uri pngUri = null;
+    private Uri pngUri;
+
+    private FirebaseDatabase database;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
+    private String PhotoUrl;
+
+    //ActivityResultLauncher<String> launcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +78,24 @@ public class AddPlantActivity extends AppCompatActivity {
         binding = ActivityAddPlantBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        /*launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result) {
+                binding.imageView.setImageURI(result);
+
+
+            }
+        });*/
+        storageReference=firebaseStorage.getReference();
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Подождите");
         progressDialog.setCanceledOnTouchOutside(false);
 
+        database = FirebaseDatabase.getInstance();
+        firebaseStorage =FirebaseStorage.getInstance();
 
         loadPngTypes();
         loadPngPurposes();
@@ -71,6 +104,11 @@ public class AddPlantActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AddPlantActivity.this, AdminButonsActivity.class));
+            }
+        });
+        binding.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
             }
         });
 
@@ -99,13 +137,31 @@ public class AddPlantActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+                /*reference.putFile(pngUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                ModelPng model = new ModelPng();
+                                model.setPicture(uri.toString());
+
+                                //name,type_id,description,habitat,size,purpose_id,degree_of_toxicity,endurance,picture;
+
+                                model.setId(id.getText());
+                            }
+                        });
+                    }
+                });*/
                 validateData();
+                UploadImage();
             }
         });
     }
 
+    //есть
     private String name ="", description ="", habitat ="", size ="", Edur="", Tox="",picture="";
-
     private void validateData() {
         //Before adding validate data
         // get data
@@ -151,12 +207,17 @@ public class AddPlantActivity extends AppCompatActivity {
             Toast.makeText(this,  "Выберите фото", Toast.LENGTH_SHORT).show();
         }
         else {
-            uploadPngToStorage();
+            //uploadPngToStorage();
+            /*DatabaseReference reference = database.getReference().child("Plant")
+                    .child(System.currentTimeMillis()+"");
+            ModelPng modelPng=new ModelPng(name,description,habitat,size,"","","","","","PhotoUrl");
+            reference.*/
+            //uploadPngInfoToDd();
         }
 
     }
 
-    private void uploadPngToStorage() {
+    /*private void uploadPngToStorage() {
         Log.d(TAG, "uploadPngToStorage: uploading to storage");
 
         progressDialog.setMessage("Идет доавление фото");
@@ -192,7 +253,7 @@ public class AddPlantActivity extends AppCompatActivity {
                         Toast.makeText(AddPlantActivity.this, "Загрузить изображение не удалось из-за"+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
+    }*/
 
     private void uploadPngInfoToDd(String uploadedPngUrl, long timestamp) {
         Log.d(TAG, "uploadPngInfoToDd: uploading Png info to firebase db");
@@ -211,7 +272,7 @@ public class AddPlantActivity extends AppCompatActivity {
         hashMap.put("purpose_id", ""+selectedPurposeId);
         hashMap.put("degree_of_toxicity", ""+Tox);
         hashMap.put("endurance", ""+Edur);
-        hashMap.put("picture", ""+picture);
+        hashMap.put("picture",""+PhotoUrl);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Plant");
         ref.child(""+timestamp)
@@ -234,7 +295,6 @@ public class AddPlantActivity extends AppCompatActivity {
     }
 
     private void loadPngPurposes() {
-
         Log.d(TAG, "loadPngTypes: Loading png purpose");
         purposeTitleArrayList = new ArrayList<>();
         purposeIdArrayList = new ArrayList<>();
@@ -334,6 +394,7 @@ public class AddPlantActivity extends AppCompatActivity {
 
     }
 
+    //есть
     private void pngPickIntent() {
 
         Log.d(TAG, "pngPickIntent: starting png pick intent");
@@ -341,12 +402,39 @@ public class AddPlantActivity extends AppCompatActivity {
         intent. setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser (intent, "Select PNG"), PNG_PICK_CODE);
+        launcher.launch(intent);
     }
+
+    //есть
+    ActivityResultLauncher<Intent> launcher
+            = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK){
+                    Intent data = result.getData();
+                    if (data != null && data.getData()!=null){
+                        pngUri=data.getData();
+                        try {
+                            bitmap= MediaStore.Images.Media.getBitmap(
+                                    this.getContentResolver(),pngUri
+                            );
+
+                        }
+                        catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                    if (pngUri != null){
+                        binding.imageView.setImageBitmap(bitmap);
+                    }
+                }
+    });
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == PNG_PICK_CODE) {
+
+                binding.imageView.setImageURI(pngUri);
                 Log.d(TAG, "onActivityResult: PNG Picked");
                 pngUri = data.getData();
                 Log.d(TAG, "onActivityResult: URI: " + pngUri);
@@ -354,6 +442,32 @@ public class AddPlantActivity extends AppCompatActivity {
         } else {
             Log.d(TAG, "onActivityResult: cancelled picking png");
             Toast.makeText(this, "Отменен выбор изображения", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //есть
+    private void UploadImage(){
+        if (pngUri != null) {
+            final StorageReference myRef = storageReference.child("photo/" + pngUri.getLastPathSegment());
+            myRef.putFile(pngUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    myRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            if (uri!=null){
+                                PhotoUrl = uri.toString();
+                                UploadImage();
+                            }
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(AddPlantActivity.this, "Failed to upload to db due to"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

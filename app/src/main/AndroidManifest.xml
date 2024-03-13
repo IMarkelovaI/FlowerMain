@@ -34,7 +34,7 @@
             android:name=".TypeActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".AuthActivity"
             android:exported="false" />
         <activity
             android:name=".UserActivity"
@@ -44,7 +44,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".AuthActivity"
+            android:name=".AdminActivity"
             android:exported="true">
 
             <!-- AuthActivity -->

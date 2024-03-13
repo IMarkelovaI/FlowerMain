@@ -42,7 +42,7 @@
         android:drawableStart="@drawable/ic_search_grin"
         android:drawablePadding="10dp"
         android:hint="Поиск"
-        android:padding="10dp"></EditText>
+        android:padding="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/plantRv"

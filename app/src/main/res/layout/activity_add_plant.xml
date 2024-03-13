@@ -92,26 +92,14 @@
         tools:ignore="MissingConstraints" />
 
 
-    <Button
-        android:id="@+id/buttonDobF"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="24dp"
-        android:text="Добавить фото"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonDob"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/buttonDob"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="12dp"
         android:text="Добавить"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -218,5 +206,27 @@
         app:layout_constraintEnd_toStartOf="@+id/checkBox"
         app:layout_constraintHorizontal_bias="0.081"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/buttonDobF"
+        android:layout_width="74dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDob"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_dashboard_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="81dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDob"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDobF"
+        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_addflower_grin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
