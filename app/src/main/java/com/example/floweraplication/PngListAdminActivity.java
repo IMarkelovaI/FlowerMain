@@ -4,9 +4,12 @@ import static androidx.fragment.app.FragmentManager.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,6 +24,7 @@ import com.example.floweraplication.databinding.ActivityPngListAdminBinding;
 import com.example.floweraplication.models.ModelPng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,19 +32,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class PngListAdminActivity extends AppCompatActivity {
 
     private ActivityPngListAdminBinding binding;
-    private ArrayList<ModelPng> pngArrayList;
+    private ArrayList<ModelPng> pngArrayList = new ArrayList<ModelPng>();
     private AdapterPngAdmin adapterPngAdmin;
-    private String id, type_id, name, picture;
+    private String name, image;
     private static final String TAG = "PNG_LIST_TAG";
 
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +52,27 @@ public class PngListAdminActivity extends AppCompatActivity {
         binding = ActivityPngListAdminBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Intent intent = getIntent();
-        id = intent.getStringExtra("id");
-        type_id = intent.getStringExtra("type_id");
-        name = intent.getStringExtra("name");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Plant");
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapterPngAdmin);
+        recyclerData();
+
+
+        //Intent intent = getIntent();
+        //id = intent.getStringExtra("id");
+        //type_id = intent.getStringExtra("type_id");
+        //name = intent.getStringExtra("name");
+        //image = intent.getStringExtra("image");
         //loadImageList();
-        loadPngList();
+        //loadPngList();
         //loadImageList();
 
-        pngArrayList = new ArrayList<>();
+
+
+        /*pngArrayList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.plantRv);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -65,10 +81,6 @@ public class PngListAdminActivity extends AppCompatActivity {
         //recyclerView.setLayoutManager(line);
 
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-
 
 
         binding.searchEt.addTextChangedListener(new TextWatcher() {
@@ -92,7 +104,7 @@ public class PngListAdminActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
         binding.ButtonB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +114,47 @@ public class PngListAdminActivity extends AppCompatActivity {
         });
     }
 
-    private void loadPngList() {
+    private void recyclerData(){
+        pngArrayList.clear();
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                allListData(dataSnapshot);
+                adapterPngAdmin.notifyDataSetChanged();
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+
+    }
+
+    @SuppressLint("NewApi")
+    public void allListData(final DataSnapshot dataSnapshot)
+    {
+        if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0)
+        {
+            Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+            if (map.get("image") != null){
+                image = map.get("image").toString();
+            }
+            if (map.get("name") != null){
+                name = map.get("name").toString();
+            }
+
+        }
+        pngArrayList.add(new ModelPng(name,image));
+    }
+
+    /*private void loadPngList() {
         pngArrayList = new ArrayList<>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Plant");
         ref.orderByChild("type_id").equalTo(type_id)
@@ -126,7 +178,7 @@ public class PngListAdminActivity extends AppCompatActivity {
                     }
                 });
     }
-    /*private void loadImageList() {
+    private void loadImageList() {
         pngArrayList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Plant");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -60,7 +60,7 @@ public class AdminButonsActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser==null) {
             //not logged in, goto main screen
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, AuthActivity.class));
             finish();
         }
 

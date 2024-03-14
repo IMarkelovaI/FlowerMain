@@ -53,8 +53,6 @@ public class AddPlantActivity extends AppCompatActivity {
 
     Dialog dialog;
 
-
-
     private ActivityAddPlantBinding binding;
 
     ProgressBar progressBar;
@@ -67,9 +65,9 @@ public class AddPlantActivity extends AppCompatActivity {
 
     private ArrayList<ModelCategory> categoryArrayList;
     private ArrayList<ModelPurpose> purposeArrayList;
-
     private Uri pngUri = null;
     Bitmap bitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -254,8 +252,6 @@ public class AddPlantActivity extends AppCompatActivity {
                     }
                 });
 
-
-
     }
     private void pngPickIntent() {
 
@@ -291,16 +287,6 @@ public class AddPlantActivity extends AppCompatActivity {
             Toast.makeText(this, "Отменен выбор изображения", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
-
-
-
-
-
-
-
 
     //loadID
     private void loadPngPurposes() {

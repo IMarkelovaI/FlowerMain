@@ -2,18 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/Home"
-        android:icon="@drawable/ic_home_grin"
-        android:title="Сад" />
+        android:title="Главная"
+        android:id="@+id/home"
+        android:icon="@drawable/home_nav"
+        />
 
     <item
-        android:id="@+id/AddFlower"
-        android:icon="@drawable/ic_addflower_grin"
-        android:title="Добавить растение" />
+        android:title="Добавить"
+        android:icon="@drawable/add_nav"
+        android:id="@+id/add_flowers"
+        />
 
     <item
-        android:id="@+id/Flowers"
-        android:icon="@drawable/ic_flower_grin"
-        android:title="Растения" />
+        android:title="Справочник"
+        android:id="@+id/flowers"
+        android:icon="@drawable/book_nav"
+        />
 
 </menu>
