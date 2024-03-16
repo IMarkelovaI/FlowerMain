@@ -15,11 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.floweraplication.R;
 import com.example.floweraplication.adapters.AdapterPngAdmin;
 import com.example.floweraplication.adapters.AdapterPngUser;
 import com.example.floweraplication.databinding.ActivityPngListAdminBinding;
 import com.example.floweraplication.databinding.FragmentFlowBinding;
 import com.example.floweraplication.models.ModelPng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,11 +37,12 @@ import java.util.Map;
 
 public class FlowFragment extends Fragment {
 
-    private @NonNull FragmentFlowBinding binding;
+    private FragmentFlowBinding binding;
     private ArrayList<ModelPng> Recycler;
     private AdapterPngUser adapterPngUser;
     private String name, image, id, purpose_id;
     private static final String TAG = "PNG_LIST_TAG";
+    private FirebaseAuth auth;
 
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
@@ -48,23 +52,28 @@ public class FlowFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        binding = FragmentFlowBinding.inflate(LayoutInflater.from(getContext()), container, false);
-        Log.d(TAG, "onCreate:Purpose: "+name);
+        binding = FragmentFlowBinding.inflate(getLayoutInflater());
 
 
+        /*View myview=inflater.inflate(R.layout.fragment_flow,container,false);
         recyclerView = binding.plantRv;
-
+        auth= FirebaseAuth.getInstance();
+        FirebaseUser mUser=auth.getCurrentUser();
+        String id = mUser.getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("ExpenseDatabase").child(id);
+        recyclerView=myview.findViewById(R.id.plantRv);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        layoutManager.setStackFromEnd(true);
+        layoutManager.setReverseLayout(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        return myview;*/
         //setUpRecyclerView();
-
-
         /*FirebaseDatabase database = FirebaseDatabase.getInstance();
-
         final ArrayList<ModelPng> Recycler = new ArrayList<>();
         final AdapterPngUser adapter = new AdapterPngUser(getContext(), Recycler);
-
         binding.plantRv.setAdapter(adapter);
         binding.plantRv.setLayoutManager(new LinearLayoutManager(getContext()));
-
         database.collection("users")
                 .orderBy("coins", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -72,13 +81,141 @@ public class FlowFragment extends Fragment {
                         for (DocumentSnapshot snapshot : queryDocumentSnapshots){
                             User user = snapshot.toObject(User.class);
                             users.add(user);
-
                         }
                         adapter.notifyDataSetChanged();
                     }
                 });*/
         return binding.getRoot();
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        recyclerView = binding.plantRv;
+        databaseReference = FirebaseDatabase.getInstance().getReference("Plant");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        Recycler = new ArrayList<>();
+        adapterPngUser = new AdapterPngUser(getContext(), Recycler);
+        recyclerView.setAdapter(adapterPngUser);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0)
+                    {
+                        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                        if (map.get("image") != null){
+                            image = map.get("image").toString();
+                        }
+                        if (map.get("name") != null){
+                            name = map.get("name").toString();
+                        }
+                        if (map.get("purpose_id")!= null){
+                            purpose_id = map.get("purpose_id").toString();
+                        }
+
+                    }
+                    Recycler.add(new ModelPng(name, image, purpose_id));
+                }
+                adapterPngUser.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    /*@Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Plant");
+        recyclerView = binding.plantRv;
+
+        adapterPngUser = new AdapterPngUser(getActivity(), Recycler);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapterPngUser);
+        recyclerData();
+
+    }
+
+    private void recyclerData(){
+        Recycler.clear();
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                allListData(dataSnapshot);
+                adapterPngUser.notifyDataSetChanged();
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+    }
+    @SuppressLint("NewApi")
+    public void allListData(final DataSnapshot dataSnapshot)
+    {
+        if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0)
+        {
+            Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+            if (map.get("image") != null){
+                image = map.get("image").toString();
+            }
+            if (map.get("name") != null){
+                name = map.get("name").toString();
+            }
+            if (map.get("id") != null){
+                id = map.get("id").toString();
+            }
+            if (map.get("purpose_id") != null){
+                id = map.get("purpose_id").toString();
+            }
+        }
+        Recycler.add(new ModelPng(id, name, image, purpose_id));
+    }/*
+
+    /*@Override
+    public void onStart(){
+        super.onStart();
+
+        FirebaseRecyclerOptions<Data> options=
+                new FirebaseRecyclerOptions.Builder<Data>()
+                        .setQuery(mExpenseDatabase,Data.class)
+                        .setLifecycleOwner(this)
+                        .build();
+
+        adapter = new FirebaseRecyclerAdapter<Data, com.example.expenseapp.MyViewHolder>(options) {
+
+            public com.example.expenseapp.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                return new com.example.expenseapp.MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_recycler_data, parent, false));
+            }
+
+            protected void onBindViewHolder(com.example.expenseapp.MyViewHolder holder, int position, @NonNull Data model) {
+                holder.setAmmount(model.getAmount());
+                holder.setType(model.getType());
+                holder.setNote(model.getNote());
+                holder.setDate(model.getDate());
+            }
+        };
+        recyclerView.setAdapter(adapter);
+    }*/
 
     /*public void setUpRecyclerView(){
         Query query = FirebaseDatabase.getInstance().getReference("Plant");
@@ -93,7 +230,7 @@ public class FlowFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }*/
 
-    @Override
+    /*@Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -133,7 +270,7 @@ public class FlowFragment extends Fragment {
             }
         });
 
-    }
+    }*/
 
     /*private void recyclerData(){
         Recycler.clear();

@@ -69,11 +69,11 @@ public class UserActivity extends AppCompatActivity {
                 }
                 else if (itemId ==R.id.add_flowers)
                 {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,flowFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container,dodFllowFragment).commit();
                 }
                 else if (itemId ==R.id.flowers)
                 {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,dodFllowFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container,flowFragment).commit();
                 }
                 return false;
             }

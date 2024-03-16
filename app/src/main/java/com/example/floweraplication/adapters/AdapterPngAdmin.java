@@ -5,7 +5,6 @@ import static com.example.floweraplication.Constants.MAX_BYTES_PNG;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.media.MediaSync;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +24,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.floweraplication.PngEditActivity;
 import com.example.floweraplication.databinding.RowPngAdminBinding;
 import com.example.floweraplication.filter.FilterPngAdmin;
 import com.example.floweraplication.models.ModelPng;
@@ -59,6 +57,7 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
     public AdapterPngAdmin (Context context, ArrayList<ModelPng> pngArrayList){
         this.context = context;
         this.pngArrayList = pngArrayList;
+
     }
 
     @NonNull
@@ -77,12 +76,12 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
 
 
 
-        holder.moreBtn.setOnClickListener(new View.OnClickListener() {
+        /*holder.moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //moreOptionsDialog(model, holder);
+                moreOptionsDialog(model, holder);
             }
-        });
+        });*/
     }
     @Override
     public int getItemCount() {
@@ -114,8 +113,7 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
                     public void onClick(DialogInterface dialog, int which) {
                         if(which==0)
                         {
-                            Intent intent = new Intent(context, PngEditActivity.class);
-                            intent.putExtra("id",model.getId());
+
                         }
                         else if (which==1)
                         {
@@ -124,13 +122,15 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
                     }
                 })
                 .show();
-    }
+    }*/
 
-    private void deleatPlant(ModelPng model, HolderPngAdmin holder) {
+    /*private void deleatPlant(ModelPng model, HolderPngAdmin holder) {
         String id = model.getId();
         String name = model.getName();
 
         Log.d(TAG, "deletePlant: Deleting");
+        progressDialog.setMessage("Удаляется: "+name);
+        progressDialog.show();
 
         Log.d(TAG, "deletePlant: Deleting from storage");
         StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(id);
@@ -148,6 +148,7 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d(TAG, "onSuccess: Deleted from db too");
+                                        progressDialog.dismiss();
                                         Toast.makeText(context, "Растение удалено", Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -155,6 +156,7 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Log.d(TAG, "onFailure: Failed to delete from db due to"+e.getMessage());
+                                        progressDialog.dismiss();
                                         Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -164,6 +166,7 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG, "onFailure: Failed to delete from storage"+e.getMessage());
+                        progressDialog.dismiss();
                         Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

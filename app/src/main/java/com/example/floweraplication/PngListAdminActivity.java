@@ -39,11 +39,12 @@ public class PngListAdminActivity extends AppCompatActivity {
     private ActivityPngListAdminBinding binding;
     private ArrayList<ModelPng> Recycler = new ArrayList<ModelPng>();
     private AdapterPngAdmin adapterPngAdmin;
-    private String name, image, id, purpose_id;
+    private String name, image, purpose_id;
     private static final String TAG = "PNG_LIST_TAG";
 
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,52 @@ public class PngListAdminActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapterPngAdmin);
         recyclerData();
+
+
+        //Intent intent = getIntent();
+        //id = intent.getStringExtra("id");
+        //type_id = intent.getStringExtra("type_id");
+        //name = intent.getStringExtra("name");
+        //image = intent.getStringExtra("image");
+        //loadImageList();
+        //loadPngList();
+        //loadImageList();
+
+
+
+        /*pngArrayList = new ArrayList<>();
+
+        recyclerView = findViewById(R.id.plantRv);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        AdapterPngAdmin adapterPngAdmin = new AdapterPngAdmin(getApplicationContext(), pngArrayList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        //recyclerView.setLayoutManager(line);
+
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        binding.searchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                try {
+                    adapterPngAdmin.getFilter().filter(s);
+                }
+                catch (Exception e){
+                    Log.d(TAG, "onTextChanged: "+e.getMessage());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });*/
 
         binding.ButtonB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +136,9 @@ public class PngListAdminActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
+
     }
+
     @SuppressLint("NewApi")
     public void allListData(final DataSnapshot dataSnapshot)
     {
@@ -102,13 +151,58 @@ public class PngListAdminActivity extends AppCompatActivity {
             if (map.get("name") != null){
                 name = map.get("name").toString();
             }
-            if (map.get("id") != null){
-                id = map.get("id").toString();
+            if (map.get("purpose_id")!= null){
+                purpose_id = map.get("purpose_id").toString();
             }
-            if (map.get("purpose_id") != null){
-                id = map.get("purpose_id").toString();
-            }
+
         }
-        Recycler.add(new ModelPng(id, name, image, purpose_id));
+        Recycler.add(new ModelPng(name, image, purpose_id));
     }
+
+    /*private void loadPngList() {
+        pngArrayList = new ArrayList<>();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Plant");
+        ref.orderByChild("type_id").equalTo(type_id)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        pngArrayList.clear();
+                        for (DataSnapshot ds: snapshot.getChildren()){
+                            ModelPng model = ds.getValue(ModelPng.class);
+                            pngArrayList.add(model);
+
+                            Log.d(TAG, "onDataChange: "+model.getId()+""+model.getName());
+                        }
+                        adapterPngAdmin = new AdapterPngAdmin(PngListAdminActivity.this, pngArrayList);
+                        binding.plantRv.setAdapter(adapterPngAdmin);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+    private void loadImageList() {
+        pngArrayList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Plant");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren())
+                {
+                    ModelPng modelPng = ds.getValue(ModelPng.class);
+                    pngArrayList.add(modelPng);
+                }
+                adapterPngAdmin = new AdapterPngAdmin(PngListAdminActivity.this, pngArrayList);
+                binding.plantRv.setAdapter(adapterPngAdmin);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }*/
+
 }
