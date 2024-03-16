@@ -4,7 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,25 +13,26 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.floweraplication.databinding.RowPngAdminBinding;
+import com.example.floweraplication.FilterPngUser;
 import com.example.floweraplication.databinding.RowPngUserBinding;
 import com.example.floweraplication.models.ModelPng;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 
-public class AdapterPngUser extends RecyclerView.Adapter<AdapterPngUser.HolderPngUser> {
+public class AdapterPngUser extends RecyclerView.Adapter<AdapterPngUser.HolderPngUser> implements Filterable {
     private Context context;
-    public ArrayList<ModelPng> pngArrayList;
+    public ArrayList<ModelPng> pngArrayList, filterList;
     private RowPngUserBinding binding;
     private RelativeLayout pngRl;
     private static final String TAG ="ADAPTER_PNG_USER_TAG";
+    private FilterPngUser filter;
 
     public AdapterPngUser(Context context, ArrayList<ModelPng> pngArrayList) {
         this.context = context;
         this.pngArrayList = pngArrayList;
+        this.filterList = pngArrayList;
     }
 
 
@@ -52,6 +54,15 @@ public class AdapterPngUser extends RecyclerView.Adapter<AdapterPngUser.HolderPn
     @Override
     public int getItemCount() {
         return pngArrayList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (filter == null)
+        {
+            filter = new FilterPngUser(filterList, this);
+        }
+        return filter;
     }
 
     class HolderPngUser extends RecyclerView.ViewHolder{

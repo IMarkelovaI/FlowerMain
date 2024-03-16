@@ -63,6 +63,8 @@ public class PngListAdminActivity extends AppCompatActivity {
         recyclerData();
 
 
+
+
         //Intent intent = getIntent();
         //id = intent.getStringExtra("id");
         //type_id = intent.getStringExtra("type_id");
