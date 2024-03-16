@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +10,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.floweraplication.databinding.ActivityAddPurposeBinding;
-import com.example.floweraplication.databinding.ActivityPurposeBinding;
 import com.example.floweraplication.databinding.ActivityTypeBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,9 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class AddPurposeActivity extends AppCompatActivity {
+public class TypeActivity extends AppCompatActivity {
 
-    private ActivityAddPurposeBinding binding;
+    private ActivityTypeBinding binding;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
 
@@ -31,20 +29,20 @@ public class AddPurposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityAddPurposeBinding.inflate(getLayoutInflater());
+        binding = ActivityTypeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         //init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
-
+        
         //configure progress dialog
 
         progressDialog = new ProgressDialog( this);
         progressDialog.setTitle("Подождите");
         progressDialog. setCanceledOnTouchOutside(false);
-
+        
         //nandle click, begin upload category
-        binding.buttonPurpose.setOnClickListener(new View.OnClickListener()
+        binding.buttonType.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
@@ -54,7 +52,7 @@ public class AddPurposeActivity extends AppCompatActivity {
         binding.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddPurposeActivity.this, PurposeActivity.class));
+                startActivity(new Intent(TypeActivity.this, AdminActivity.class));
             }
         });
     }
@@ -63,22 +61,22 @@ public class AddPurposeActivity extends AppCompatActivity {
     private void validateData() {
         //Before adding validate data
         // get data
-        name = binding.PurposeText.getText().toString().trim();
-        description = binding.PurposeDesText.getText().toString().trim();
+        name = binding.TypeText.getText().toString().trim();
+        description = binding.TypeDesText.getText().toString().trim();
         //validate if not empty
         if (TextUtils.isEmpty(name)){
-            Toast.makeText(this,  "Введите предназначение", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,  "Введите категорию", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(description)){
             Toast.makeText(this,  "Введите описание", Toast.LENGTH_SHORT).show();
         }
         else {
-            addPurposeFirebase();
+            addTypeFirebase();
         }
     }
-    private void addPurposeFirebase() {
+    private void addTypeFirebase() {
         //show progress
-        progressDialog.setMessage("Предназначение добавляется");
+        progressDialog.setMessage("Тип добавляется");
         progressDialog.show();
         //get timestamp
         long timestamp = System.currentTimeMillis();
@@ -90,21 +88,21 @@ public class AddPurposeActivity extends AppCompatActivity {
         hashMap.put("id", ""+timestamp);
         hashMap.put("description", ""+description);
 
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Purpose");
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Type");
         ref.child(""+timestamp)
                 .setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
-                        Toast.makeText(AddPurposeActivity.this, "Предназначение добавлено", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TypeActivity.this, "Тип добавлен", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(AddPurposeActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TypeActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

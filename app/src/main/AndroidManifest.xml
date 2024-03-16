@@ -31,32 +31,32 @@
             android:name=".LightingActivity"
             android:exported="false" />
         <activity
-            android:name=".AddPurposeActivity"
+            android:name=".Activity.AddPurposeActivity"
             android:exported="false" />
         <activity
-            android:name=".PurposeActivity"
+            android:name=".Activity.PurposeActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminButonsActivity"
+            android:name=".Activity.AdminButonsActivity"
             android:exported="false" />
         <activity
-            android:name=".AddPlantActivity"
+            android:name=".Activity.AddPlantActivity"
             android:exported="false" />
         <activity
-            android:name=".TypeActivity"
+            android:name=".Activity.TypeActivity"
             android:exported="false" />
         <activity
-            android:name=".AuthActivity"
+            android:name=".Activity.AuthActivity"
             android:exported="false" />
         <activity
-            android:name=".UserActivity"
+            android:name=".Activity.UserActivity"
             android:exported="false"
             android:label="@string/title_activity_user" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".Activity.AdminActivity"
             android:exported="true">
 
             <!-- AuthActivity -->

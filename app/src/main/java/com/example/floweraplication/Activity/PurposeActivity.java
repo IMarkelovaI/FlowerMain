@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.floweraplication.adapters.AdapterCategory;
-import com.example.floweraplication.databinding.ActivityAdminBinding;
-import com.example.floweraplication.models.ModelCategory;
+import com.example.floweraplication.adapters.AdapterPurpose;
+import com.example.floweraplication.databinding.ActivityPurposeBinding;
+import com.example.floweraplication.models.ModelPurpose;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,54 +19,53 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AdminActivity extends AppCompatActivity {
+public class PurposeActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private ActivityAdminBinding binding;
+    private ActivityPurposeBinding binding;
 
-    private ArrayList<ModelCategory> categoryArrayList;
-    private AdapterCategory adapterCategory;
+    private ArrayList<ModelPurpose> purposeArrayList;
+    private AdapterPurpose adapterPurpose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityAdminBinding.inflate(getLayoutInflater());
+        binding = ActivityPurposeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         firebaseAuth = FirebaseAuth.getInstance();
-        loadTypes();
+        loadPurpose();
 
-        binding.addCategoryBtn.setOnClickListener(new View.OnClickListener() {
+        binding.addPurposeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminActivity.this, TypeActivity.class));
+                startActivity(new Intent(PurposeActivity.this, AddPurposeActivity.class));
             }
         });
 
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminActivity.this, AdminButonsActivity.class));
+                startActivity(new Intent(PurposeActivity.this, AdminButonsActivity.class));
             }
         });
     }
+    private void loadPurpose() {
+        purposeArrayList = new ArrayList<>();
 
-    private void loadTypes() {
-        categoryArrayList = new ArrayList<>();
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Type");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Purpose");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                categoryArrayList.clear();
+                purposeArrayList.clear();
                 for(DataSnapshot ds: snapshot.getChildren()){
-                    ModelCategory model = ds.getValue(ModelCategory.class);
+                    ModelPurpose model = ds.getValue(ModelPurpose.class);
 
-                    categoryArrayList.add(model);
+                    purposeArrayList.add(model);
                 }
-                adapterCategory = new AdapterCategory(AdminActivity.this, categoryArrayList);
-                binding.typesRv.setAdapter(adapterCategory);
+                adapterPurpose = new AdapterPurpose(PurposeActivity.this, purposeArrayList);
+                binding.PurposeRv.setAdapter(adapterPurpose);
             }
 
             @Override
@@ -75,5 +74,4 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
     }
-
 }

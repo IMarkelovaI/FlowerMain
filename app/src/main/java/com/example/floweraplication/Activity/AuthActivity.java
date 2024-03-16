@@ -1,6 +1,5 @@
-package com.example.floweraplication;
+package com.example.floweraplication.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.floweraplication.databinding.ActivityAuthBinding;
-import com.example.floweraplication.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
