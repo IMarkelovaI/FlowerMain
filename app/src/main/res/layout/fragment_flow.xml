@@ -2,58 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.SearchBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Fragments.FlowFragment">
+    android:orientation="vertical">
+
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="66dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/productsans"
+        android:paddingTop="5dp"
         android:text="Растения"
-        android:textStyle="bold"
-        android:textSize="40dp"
-        android:layout_marginEnd="10dp">
+        android:textSize="40dp"></TextView>
 
-    </TextView>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="30dp">
 
-    <EditText
-        android:id="@+id/searchEt"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@color/grey"
-        android:drawableStart="@drawable/ic_search_grin"
-        android:hint="Поиск"
-        android:padding="10dp"/>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_height="79dp">
-
-    </androidx.viewpager.widget.ViewPager>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchEt"
+            style="@style/Widget.Material3.TextInputEditText.FilledBox"
+            android:layout_width="364dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@null"
+            android:backgroundTint="#FFFFFF"
+            android:drawableStart="@drawable/ic_search_grin"
+            android:drawablePadding="20dp"
+            android:fontFamily="@font/productsans"
+            android:hint="Поиск"
+            android:outlineSpotShadowColor="?attr/colorOutline"
+            android:padding="10dp"
+            android:textColor="?attr/colorOnBackground" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/plantRv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="373dp"
+        android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:stackFromEnd="true"
-        app:reverseLayout="true"
+        android:layout_weight="1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_png_user"
-        >
-    </androidx.recyclerview.widget.RecyclerView>
-
+        tools:listitem="@layout/row_png_user"></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

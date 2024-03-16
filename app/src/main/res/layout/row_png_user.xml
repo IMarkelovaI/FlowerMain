@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="140dp"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="5dp"
-    app:cardBackgroundColor="@color/grey"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="0dp"
-    app:contentPadding="5dp"
-    >
-    
-    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="?attr/colorSecondaryContainer">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
-        <RelativeLayout
-            android:id="@+id/pngRl"
-            android:layout_width="100dp"
-            android:layout_height="148dp"
-            android:layout_marginEnd="5dp"
-            android:background="@color/white"
-            >
-            <ImageView
-                android:id="@+id/pngView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </ImageView>
+        android:layout_height="match_parent"
+        android:id="@+id/pngRl"
+        >
 
-
-
-        </RelativeLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/pngView"
+            android:layout_width="149dp"
+            android:layout_height="136dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/book_nav"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/rounded"
+            app:srcCompat="@drawable/secondary_container" />
 
         <TextView
             android:id="@+id/titleTv"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Название растения"
-            android:layout_toEndOf="@+id/pngRl"
-            android:maxLines="1"
-            />
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/productsans"
+            android:text="Фикус"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/pngView"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

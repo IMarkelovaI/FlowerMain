@@ -8,14 +8,13 @@
     tools:context=".Activity.UserActivity">
 
     <FrameLayout
-        android:layout_width="409dp"
         android:id="@+id/container"
-        android:layout_height="649dp"
+        android:layout_width="413dp"
+        android:layout_height="730dp"
         android:background="?attr/colorSurface"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        tools:ignore="MissingConstraints">
-    </FrameLayout>
+        tools:layout_editor_absoluteY="1dp"></FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
