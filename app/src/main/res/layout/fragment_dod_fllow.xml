@@ -30,6 +30,61 @@
 
         </TextView>
 
+        <LinearLayout
+            android:layout_width="387dp"
+            android:layout_height="71dp"
+            android:background="?attr/colorSurface"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="316dp"
+                android:layout_height="match_parent"
+                app:boxCornerRadiusBottomEnd="30dp"
+                app:boxCornerRadiusBottomStart="30dp"
+                app:boxCornerRadiusTopEnd="30dp"
+                app:boxCornerRadiusTopStart="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchEt"
+                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    android:layout_width="303dp"
+                    android:layout_height="57dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@null"
+                    android:backgroundTint="#FFFFFF"
+                    android:drawableStart="?android:attr/actionModeWebSearchDrawable"
+                    android:drawablePadding="20dp"
+                    android:fontFamily="@font/productsans"
+                    android:outlineSpotShadowColor="?attr/colorOutline"
+                    android:padding="10dp"
+                    android:textColor="?attr/colorOnBackground" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:layout_width="6dp"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/deltaBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/secondary_container"
+                android:contentDescription="Как много вы хотите выделить"
+                android:src="@android:drawable/ic_menu_camera">
+
+            </ImageButton>
+
+        </LinearLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="375dp"
             android:layout_height="wrap_content"
@@ -57,48 +112,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.93">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchEt"
-            style="@style/Widget.Material3.TextInputEditText.FilledBox"
-            android:layout_width="330dp"
-            android:layout_height="57dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:backgroundTint="#FFFFFF"
-            android:drawableStart="@drawable/ic_search_grin"
-            android:drawablePadding="20dp"
-            android:fontFamily="@font/productsans"
-            android:hint="Поиск"
-            android:outlineSpotShadowColor="?attr/colorOutline"
-            android:padding="10dp"
-            android:textColor="?attr/colorOnBackground" />
-
-        <ImageButton
-            android:id="@+id/deltaBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/shape_button"
-            android:contentDescription="Как много вы хотите выделить"
-            android:src="@drawable/ic_camera_grin">
-
-        </ImageButton>
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
