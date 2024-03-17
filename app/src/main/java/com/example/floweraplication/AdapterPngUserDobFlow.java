@@ -56,17 +56,9 @@ public class AdapterPngUserDobFlow extends RecyclerView.Adapter<AdapterPngUserDo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, PlantDetailActivity.class);
+                Intent intent = new Intent(context, DobUserPlantActivity.class);
 
-                intent.putExtra("PlName", model.getName());
-                intent.putExtra("PlText", model.getDescription());
-                intent.putExtra("PlType", model.getType_id());
-                intent.putExtra("PlHabitat", model.getHabitat());
-                intent.putExtra("PlSize", model.getSize());
-                intent.putExtra("PlEndurance", model.getEndurance());
-                intent.putExtra("PlPurpose", model.getPurpose_id());
-                intent.putExtra("PlTox", model.getDegree_of_toxicity());
-                intent.putExtra("PlImage", model.getImage());
+                intent.putExtra("pngView", model.getImage());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

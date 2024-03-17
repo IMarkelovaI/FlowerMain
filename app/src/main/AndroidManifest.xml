@@ -13,10 +13,12 @@
         android:theme="@style/Theme.FlowerAplication"
         tools:targetApi="31">
         <activity
+            android:name=".DobUserPlantActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.PlantDetailActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.MainActivity"
-            />
+            android:parentActivityName=".Activity.UserActivity" />
         <activity
             android:name=".PngEditActivity"
             android:exported="false" />
