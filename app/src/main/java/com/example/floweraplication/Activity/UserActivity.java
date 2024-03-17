@@ -75,7 +75,7 @@ public class UserActivity extends AppCompatActivity {
                 {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container,flowFragment).commit();
                 }
-                return false;
+                return true;
             }
         });
         //binding.bottomNavigationView.setBackground(null);
