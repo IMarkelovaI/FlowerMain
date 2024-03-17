@@ -39,7 +39,7 @@ public class PngListAdminActivity extends AppCompatActivity {
     private ActivityPngListAdminBinding binding;
     private ArrayList<ModelPng> Recycler = new ArrayList<ModelPng>();
     private AdapterPngAdmin adapterPngAdmin;
-    private String name, image, purpose_id;
+    private String name, image, purpose_id, id, degree_of_toxicity, description,endurance,habitat,size,type_id;
     private static final String TAG = "PNG_LIST_TAG";
 
     RecyclerView recyclerView;
@@ -158,7 +158,8 @@ public class PngListAdminActivity extends AppCompatActivity {
             }
 
         }
-        Recycler.add(new ModelPng(name, image, purpose_id));
+        Recycler.add(new ModelPng(name, image, purpose_id, id, degree_of_toxicity, description,endurance,habitat,size,type_id));
+
     }
 
     /*private void loadPngList() {

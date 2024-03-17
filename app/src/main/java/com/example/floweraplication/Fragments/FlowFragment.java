@@ -43,7 +43,7 @@ public class FlowFragment extends Fragment {
     private FragmentFlowBinding binding;
     private ArrayList<ModelPng> Recycler;
     private AdapterPngUser adapterPngUser;
-    private String name, image, id, purpose_id;
+    private String name, image, purpose_id, id, degree_of_toxicity, description,endurance,habitat,size,type_id;
     private static final String TAG = "PNG_LIST_TAG";
     private FirebaseAuth auth;
 
@@ -149,9 +149,30 @@ public class FlowFragment extends Fragment {
                         if (map.get("purpose_id")!= null){
                             purpose_id = map.get("purpose_id").toString();
                         }
+                        if (map.get("id")!= null){
+                            id= map.get("id").toString();
+                        }
+                        if (map.get("degree_of_toxicity")!= null){
+                            degree_of_toxicity= map.get("degree_of_toxicity").toString();
+                        }
+                        if (map.get("description")!= null){
+                            description= map.get("description").toString();
+                        }
+                        if (map.get("endurance")!= null){
+                            endurance= map.get("endurance").toString();
+                        }
+                        if (map.get("habitat")!= null){
+                            habitat= map.get("habitat").toString();
+                        }
+                        if (map.get("size")!= null){
+                            size= map.get("size").toString();
+                        }
+                        if (map.get("type_id")!= null){
+                            type_id= map.get("type_id").toString();
+                        }
 
                     }
-                    Recycler.add(new ModelPng(name, image, purpose_id));
+                    Recycler.add(new ModelPng(name, image, purpose_id, id, degree_of_toxicity, description,endurance,habitat,size,type_id));
                 }
                 adapterPngUser.notifyDataSetChanged();
             }
