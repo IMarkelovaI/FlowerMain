@@ -33,10 +33,10 @@ public class HomeFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 UserActivity activity = (UserActivity) v.getContext();
-                Fragment myFragment = new LightFragment();
+                //Fragment myFragment = new ();
 
                 //startActivity(new Intent(UserActivity.this, LightingActivity.class));
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container, myFragment).addToBackStack(null).commit();
+                //activity.getSupportFragmentManager().beginTransaction().replace(R.id.container, myFragment).addToBackStack(null).commit();
             }
         });
         return v;
