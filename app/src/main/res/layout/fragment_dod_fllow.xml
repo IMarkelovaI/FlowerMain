@@ -1,56 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.Material3.SearchBar"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Fragments.DodFllowFragment">
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:fontFamily="@font/productsans"
-        android:paddingTop="5dp"
-        android:text="Добавление растения в сад"
-        android:textSize="40dp"></TextView>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="375dp"
-        android:layout_height="wrap_content"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxCornerRadiusTopStart="30dp">
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/plantRv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_png_user_dob_flow">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    >
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/linearLayout2"
+        style="@style/Widget.Material3.SearchBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Fragments.DodFllowFragment">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/productsans"
+            android:paddingTop="5dp"
+            android:text="Добавление растения в сад"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="40dp">
+
+        </TextView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="30dp"
+            app:boxCornerRadiusBottomStart="30dp"
+            app:boxCornerRadiusTopEnd="30dp"
+            app:boxCornerRadiusTopStart="30dp">
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/plantRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/row_png_user_dob_flow">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
         android:gravity="center_vertical"
-        android:layout_width="match_parent">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.93">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/searchEt"
@@ -77,12 +94,11 @@
             android:layout_marginStart="1dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_camera_grin"
+            android:background="@drawable/shape_button"
             android:contentDescription="Как много вы хотите выделить"
-            android:background="@drawable/shape_button">
+            android:src="@drawable/ic_camera_grin">
 
         </ImageButton>
 
     </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

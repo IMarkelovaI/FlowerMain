@@ -4,5 +4,15 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20dp</item>
     </style>
+    <style name="rounded_large" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">95dp</item>
+    </style>
+
+    <style name="drawable_icon">
+        <item name="android:textSize">20sp</item>
+        <item name="android:scaleX">0.8</item>
+        <item name="android:scaleY">0.8</item>
+    </style>
 
 </resources>

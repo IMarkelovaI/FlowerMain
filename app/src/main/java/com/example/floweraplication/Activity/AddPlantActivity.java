@@ -142,16 +142,16 @@ public class AddPlantActivity extends AppCompatActivity {
         type_id = binding.TypeC.getText().toString().trim();
         purpose_id = binding.Pur.getText().toString().trim();
         if (binding.checkBox.isChecked()){
-            Edur = "true";
+            Edur = "Прихотливое";
         }
         else {
-            Edur = "false";
+            Edur = "Неприхотливое";
         }
         if (binding.checkBox2.isChecked()){
-            Tox = "true";
+            Tox = "Токсичное";
         }
         else {
-            Tox = "false";
+            Tox = "Нетоксичное";
         }
         //validate if not empty
         if (TextUtils.isEmpty(name)){
