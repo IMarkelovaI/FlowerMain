@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.Activity;
 
 import static androidx.fragment.app.FragmentManager.TAG;
 

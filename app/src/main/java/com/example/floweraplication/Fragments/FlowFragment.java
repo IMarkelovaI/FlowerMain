@@ -132,6 +132,7 @@ public class FlowFragment extends Fragment {
         adapterPngUser = new AdapterPngUser(getContext(), Recycler);
         recyclerView.setAdapter(adapterPngUser);
 
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

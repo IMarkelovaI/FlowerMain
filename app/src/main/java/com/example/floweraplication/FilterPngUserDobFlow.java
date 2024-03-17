@@ -2,19 +2,18 @@ package com.example.floweraplication;
 
 import android.widget.Filter;
 
-import com.example.floweraplication.adapters.AdapterPngAdmin;
 import com.example.floweraplication.adapters.AdapterPngUser;
 import com.example.floweraplication.models.ModelPng;
 
 import java.util.ArrayList;
 
-public class FilterPngUser extends Filter {
+public class FilterPngUserDobFlow extends Filter {
     ArrayList<ModelPng> filterList;
-    AdapterPngUser adapterPngUser;
+    AdapterPngUserDobFlow adapterPngUserDobFlow;
 
-    public FilterPngUser(ArrayList<ModelPng> filterList, AdapterPngUser adapterPngUser){
+    public FilterPngUserDobFlow(ArrayList<ModelPng> filterList, AdapterPngUserDobFlow adapterPngUserDobFlow){
         this.filterList = filterList;
-        this.adapterPngUser = adapterPngUser;
+        this.adapterPngUserDobFlow = adapterPngUserDobFlow;
     }
 
     @Override
@@ -40,7 +39,7 @@ public class FilterPngUser extends Filter {
 
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
-        adapterPngUser.pngArrayList = (ArrayList<ModelPng>)results.values;
-        adapterPngUser.notifyDataSetChanged();
+        adapterPngUserDobFlow.pngArrayList = (ArrayList<ModelPng>)results.values;
+        adapterPngUserDobFlow.notifyDataSetChanged();
     }
 }

@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.SearchBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragments.DodFllowFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/productsans"
+        android:paddingTop="5dp"
+        android:text="Добавление растения в сад"
+        android:textSize="40dp"></TextView>
 
-</FrameLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="30dp">
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/plantRv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        app:spanCount="2"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/row_png_user_dob_flow">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchEt"
+            style="@style/Widget.Material3.TextInputEditText.FilledBox"
+            android:layout_width="330dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@null"
+            android:backgroundTint="#FFFFFF"
+            android:drawableStart="@drawable/ic_search_grin"
+            android:drawablePadding="20dp"
+            android:fontFamily="@font/productsans"
+            android:hint="Поиск"
+            android:outlineSpotShadowColor="?attr/colorOutline"
+            android:padding="10dp"
+            android:textColor="?attr/colorOnBackground" />
+
+        <ImageButton
+            android:id="@+id/deltaBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_camera_grin"
+            android:contentDescription="Как много вы хотите выделить"
+            android:background="@drawable/shape_button">
+
+        </ImageButton>
+
+    </LinearLayout>
+
+</LinearLayout>

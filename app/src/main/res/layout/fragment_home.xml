@@ -7,20 +7,15 @@
     android:orientation="vertical"
     tools:context=".Fragments.HomeFragment">
 
-    <Button
-        android:id="@+id/button_akk"
+
+    <ImageButton
         android:layout_width="163dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:text="Аккаунт"
-        android:textSize="25dp"
-        android:textStyle="bold"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.867"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"

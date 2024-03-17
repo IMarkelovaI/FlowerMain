@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
