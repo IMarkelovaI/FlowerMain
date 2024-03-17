@@ -15,7 +15,7 @@
         <activity
             android:name=".Activity.PlantDetailActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.UserActivity"
+            android:parentActivityName=".Activity.MainActivity"
             />
         <activity
             android:name=".PngEditActivity"
