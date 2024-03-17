@@ -74,7 +74,7 @@ public class AdapterPngUser extends RecyclerView.Adapter<AdapterPngUser.HolderPn
             super(itemView);
             pngView = binding.pngView;
             titleTv = binding.titleTv;
-            pngRl = binding.pngRl;
+
         }
     }
 }

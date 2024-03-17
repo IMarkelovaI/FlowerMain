@@ -6,45 +6,41 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="18dp"
-    app:cardElevation="4dp"
-    app:cardBackgroundColor="?attr/colorSecondaryContainer">
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/pngRl"
-        >
+        android:id="@+id/pngRl">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/pngView"
             android:layout_width="149dp"
             android:layout_height="136dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginStart="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/book_nav"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/rounded"
-            app:srcCompat="@drawable/secondary_container" />
+            app:srcCompat="@drawable/secondary_container"/>
 
         <TextView
             android:id="@+id/titleTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/productsans"
             android:text="Фикус"
-            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="?attr/colorOnSecondaryContainer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/pngView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
