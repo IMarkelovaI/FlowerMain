@@ -67,10 +67,10 @@ public class AuthActivity extends AppCompatActivity {
         password = binding.loginPassAuth.getText().toString().trim();
 
         if (password.isEmpty()) {
-            binding.loginPassAuth.setError("Пароль не может быть пустым");
+            binding.loginPassAuthLayout.setError("Пароль не может быть пустым");
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email) .matches()){
-        binding.emailUserAuth.setError("Неверный шаблон электронной почты или ее не заполнили");
+        binding.emailUserAuthLayout.setError("Неверный шаблон электронной почты или ее не заполнили");
         }
         else {
             loginUser();

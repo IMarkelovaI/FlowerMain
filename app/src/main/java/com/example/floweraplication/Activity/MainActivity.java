@@ -72,16 +72,16 @@ public class MainActivity extends AppCompatActivity {
         String repeatLoginPass = binding.repeatLoginPass.getText().toString().trim();
         //validate data
         if (name.isEmpty()) {
-            binding.loginUser.setError("Логин не может быть пустым");
+            binding.loginUserLayout.setError("Логин не может быть пустым");
         }
         if (password.isEmpty()) {
-            binding.loginPass.setError("Пароль не может быть пустым");
+            binding.loginPassLayout.setError("Пароль не может быть пустым");
         }
         if (repeatLoginPass.isEmpty()) {
-            binding.repeatLoginPass.setError("Повторите пароль");
+            binding.repeatLoginPassLayout.setError("Повторите пароль");
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            binding.loginEmail.setError("Неверный шаблон электронной почты или ее не заполнили");
+            binding.loginEmailLayout.setError("Неверный шаблон электронной почты или ее не заполнили");
         }
         else{
             createUserAccount();
