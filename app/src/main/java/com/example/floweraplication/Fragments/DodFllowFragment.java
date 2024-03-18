@@ -51,6 +51,7 @@ public class DodFllowFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDodFllowBinding.inflate(getLayoutInflater());
         return binding.getRoot();
+
     }
     @Override
     public void onResume() {

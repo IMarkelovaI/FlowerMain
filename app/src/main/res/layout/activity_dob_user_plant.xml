@@ -9,9 +9,10 @@
     tools:context=".DobUserPlantActivity">
 
     <TextView
+        android:id="@+id/Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Редактирование"
+        android:text="Добавление"
         android:textSize="35dp"
         >
     </TextView>
@@ -40,6 +41,7 @@
             app:srcCompat="@drawable/secondary_container" />
 
         <ImageButton
+            android:id="@+id/Redact"
             android:layout_width="62dp"
             android:layout_height="62dp"
             android:src="@drawable/ic__create_white"
@@ -50,33 +52,135 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView15"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailUserAuthLayout"
         android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:hint="Название" />
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:hint="Солнце" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/PlName"
+            android:layout_width="342dp"
+            android:layout_height="55dp"
+            android:fontFamily="@font/gsr"
+            android:hint="Название"
+            android:imeOptions="actionNext"
+            android:inputType="none"
+            android:text=""
+            android:textIsSelectable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView17"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:hint="Высота растения" />
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:hint="Ширина растения" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Sun"
+            android:layout_width="342dp"
+            android:layout_height="55dp"
+            android:fontFamily="@font/gsr"
+            android:hint="Солнце"
+            android:imeOptions="actionNext"
+            android:inputType="none"
+            android:text=""
+            android:textIsSelectable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView19"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:hint="Описание" />
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Height"
+            android:layout_width="342dp"
+            android:layout_height="55dp"
+            android:fontFamily="@font/gsr"
+            android:hint="Высота растения"
+            android:imeOptions="actionNext"
+            android:inputType="none"
+            android:text=""
+            android:textIsSelectable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Width"
+            android:layout_width="342dp"
+            android:layout_height="55dp"
+            android:fontFamily="@font/gsr"
+            android:hint="Ширина растения"
+            android:imeOptions="actionNext"
+            android:inputType="none"
+            android:text=""
+            android:textIsSelectable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Description"
+            android:layout_width="342dp"
+            android:layout_height="55dp"
+            android:fontFamily="@font/gsr"
+            android:hint="Описание"
+            android:imeOptions="actionNext"
+            android:inputType="none"
+            android:text=""
+            android:textIsSelectable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/Dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 </LinearLayout>

@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.floweraplication.databinding.ActivityMainBinding;
+import com.example.floweraplication.models.ModelPurpose;
+import com.example.floweraplication.models.ModelUser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -19,7 +21,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.xml.parsers.DocumentBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     private ProgressDialog progressDialog;
-
+    public ModelUser model;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             createUserAccount();
+
         }
     }
 
@@ -115,15 +122,16 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Сохранение информации пользователя");
         long temeatamp = System.currentTimeMillis();
 
+        //ModelUser model = new ModelUser();
         String id = firebaseAuth.getUid();
-
+        String profileImage = "";
         HashMap<String, Object> hashMap = new HashMap<>();
 
         hashMap.put("id", id);
         hashMap.put("email", email);
         hashMap.put("name", name);
-        hashMap.put("profileImage", "");//add empty, will do later
-        hashMap.put("userType", "user");//add empty, will do later
+        hashMap.put("profileImage", profileImage);//add empty, will do later
+        hashMap.put("userType", "user");
 
         //set data to db
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users") ;
@@ -135,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
                         //data added to db
                     progressDialog.dismiss();
                     Toast.makeText(MainActivity.this, "Акаунт создан", Toast.LENGTH_SHORT).show();
+
+                        //DocumentReference documentReference =
 
                     startActivity(new Intent(MainActivity.this, UserActivity.class));
                     finish();

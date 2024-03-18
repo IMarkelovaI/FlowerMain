@@ -10,7 +10,9 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.floweraplication.DobUserPlantActivity;
 import com.example.floweraplication.databinding.ActivityAuthBinding;
+import com.example.floweraplication.models.ModelUser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +31,7 @@ public class AuthActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     private ProgressDialog progressDialog;
+    public ModelUser model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +100,8 @@ public class AuthActivity extends AppCompatActivity {
                 });
     }
 
+
+
     private void checkUser() {
 
         progressDialog.setMessage("Поиск пользователя");
@@ -111,12 +116,16 @@ public class AuthActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot snapshot) {
                         progressDialog.dismiss();
                         //get user type
-                        String userType = ""+snapshot .child("userType") .getValue();
+                        String userType = ""+snapshot.child("userType").getValue();
+
+                        String id = ""+snapshot.child("id").getValue();
 
                         //check user type
                         if (userType.equals("user")){
                             //this is simple user, open user dashboard
-                            startActivity(new Intent(AuthActivity.this, UserActivity.class));
+                            Intent intent = new Intent(AuthActivity.this, UserActivity.class);
+                            intent.putExtra("id",id);
+                            startActivity(intent);
                             finish();
                         }
 

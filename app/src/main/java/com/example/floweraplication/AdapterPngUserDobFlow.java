@@ -1,7 +1,10 @@
 package com.example.floweraplication;
 
+import static android.content.Intent.getIntent;
+
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,7 @@ import com.example.floweraplication.databinding.RowPngUserBinding;
 import com.example.floweraplication.databinding.RowPngUserDobFlowBinding;
 import com.example.floweraplication.filter.FilterPngUser;
 import com.example.floweraplication.models.ModelPng;
+import com.example.floweraplication.models.ModelUser;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -52,13 +56,16 @@ public class AdapterPngUserDobFlow extends RecyclerView.Adapter<AdapterPngUserDo
         String title = model.getName();
         holder.titleTv.setText(title);
         Glide.with(context).load(model.getImage()).into(holder.pngView);
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DobUserPlantActivity.class);
 
+
+
+                intent.putExtra("idPl",model.getId());
                 intent.putExtra("pngView", model.getImage());
+                intent.putExtra("PlName",model.getName());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

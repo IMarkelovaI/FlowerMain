@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.floweraplication.AdapterPngUserDobFlow;
 import com.example.floweraplication.Fragments.DodFllowFragment;
 import com.example.floweraplication.Fragments.FlowFragment;
 import com.example.floweraplication.Fragments.HomeFragment;
@@ -52,6 +53,9 @@ public class UserActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
 
+        Bundle arguments = getIntent().getExtras();
+        String user_id = arguments.get("id").toString();
+
         //вью пэйджер 8:22
         //setupViewPagerAdapter(binding.viewPager);
 
@@ -70,6 +74,8 @@ public class UserActivity extends AppCompatActivity {
                 else if (itemId ==R.id.add_flowers)
                 {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container,dodFllowFragment).commit();
+                    Intent intent = new Intent(UserActivity.this, DodFllowFragment.class);
+                    intent.putExtra("id",user_id);
                 }
                 else if (itemId ==R.id.flowers)
                 {
@@ -142,7 +148,7 @@ public class UserActivity extends AppCompatActivity {
         }
     }*/
 
-    private void checkUser() {
+    public void checkUser() {
         //get current user
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser==null) {
@@ -152,6 +158,8 @@ public class UserActivity extends AppCompatActivity {
         }
 
         else {
+            long timestamp= System.currentTimeMillis();
+
             //togged in, get user info
             //set in textview of toolbar
         }
