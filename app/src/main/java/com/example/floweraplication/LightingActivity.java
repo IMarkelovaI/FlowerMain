@@ -18,12 +18,12 @@ public class LightingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //lightLevel = (TextView) findViewById(R.id.light_level);
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+       /*sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL);*/
 
     }
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
         if (sensorManager != null) {
@@ -40,6 +40,6 @@ public class LightingActivity extends AppCompatActivity {
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
-    };
+    };*/
 }
 //</span>

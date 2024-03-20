@@ -12,7 +12,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.floweraplication.DobUserPlantActivity;
 import com.example.floweraplication.databinding.ActivityAuthBinding;
 import com.example.floweraplication.models.ModelUser;
 import com.google.android.gms.tasks.OnFailureListener;

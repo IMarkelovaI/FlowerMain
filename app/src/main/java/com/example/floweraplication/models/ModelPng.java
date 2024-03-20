@@ -6,8 +6,6 @@ public class ModelPng implements Serializable {
     String name,image, purpose_id, id, degree_of_toxicity, description,endurance,habitat,size,type_id;
     public ModelPng(){}
 
-
-
     public ModelPng(String name, String image, String purpose_id,String id, String degree_of_toxicity, String description,String endurance,String habitat,String size,String type_id) {
         this.name = name;
         this.image = image;
