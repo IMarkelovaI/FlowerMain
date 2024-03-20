@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -29,6 +31,8 @@ public class AuthActivity extends AppCompatActivity {
     private ActivityAuthBinding binding;
 
     private FirebaseAuth firebaseAuth;
+    public SharedPreferences apppref;
+    public static final String APP_PREFERENCES = "apppref";
 
     private ProgressDialog progressDialog;
     public ModelUser model;
@@ -46,6 +50,8 @@ public class AuthActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Подождите немного");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        apppref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         binding.linkToReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,12 +126,15 @@ public class AuthActivity extends AppCompatActivity {
 
                         String id = ""+snapshot.child("id").getValue();
 
+                        SharedPreferences.Editor editor = apppref.edit();
+                        editor.clear();
+
                         //check user type
                         if (userType.equals("user")){
                             //this is simple user, open user dashboard
-                            Intent intent = new Intent(AuthActivity.this, UserActivity.class);
-                            intent.putExtra("id",id);
-                            startActivity(intent);
+                            startActivity(new Intent(AuthActivity.this, UserActivity.class)) ;
+                            editor.putString("mAppIUD", id);
+                            editor.apply();
                             finish();
                         }
 

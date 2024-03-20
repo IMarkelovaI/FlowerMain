@@ -5,7 +5,9 @@ import static android.app.ProgressDialog.show;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     public ModelUser model;
     String userID;
 
+    public SharedPreferences apppref;
+    public static final String APP_PREFERENCES = "apppref";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setTitle("Подождите немного");
         progressDialog.setCanceledOnTouchOutside(false);
 
+        apppref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+
+        SharedPreferences sharedPreferences;
 
         //nandle click, begin register
         binding.buttonReg.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +142,9 @@ public class MainActivity extends AppCompatActivity {
         hashMap.put("profileImage", profileImage);//add empty, will do later
         hashMap.put("userType", "user");
 
+        SharedPreferences.Editor editor = apppref.edit();
+        editor.clear();
+
         //set data to db
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users") ;
         ref.child(id)
@@ -144,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     Toast.makeText(MainActivity.this, "Акаунт создан", Toast.LENGTH_SHORT).show();
 
-                        //DocumentReference documentReference =
+                        editor.putString("mAppIUD", id);
+                        editor.apply();
 
                     startActivity(new Intent(MainActivity.this, UserActivity.class));
                     finish();

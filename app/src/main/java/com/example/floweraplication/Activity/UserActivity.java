@@ -53,9 +53,6 @@ public class UserActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
 
-        Bundle arguments = getIntent().getExtras();
-        String user_id = arguments.get("id").toString();
-
         //вью пэйджер 8:22
         //setupViewPagerAdapter(binding.viewPager);
 
@@ -74,8 +71,7 @@ public class UserActivity extends AppCompatActivity {
                 else if (itemId ==R.id.add_flowers)
                 {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container,dodFllowFragment).commit();
-                    Intent intent = new Intent(UserActivity.this, DodFllowFragment.class);
-                    intent.putExtra("id",user_id);
+
                 }
                 else if (itemId ==R.id.flowers)
                 {

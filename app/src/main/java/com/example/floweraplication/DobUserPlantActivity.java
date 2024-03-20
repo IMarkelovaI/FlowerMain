@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +20,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.floweraplication.Activity.AddPurposeActivity;
+import com.example.floweraplication.Activity.AdminButonsActivity;
+import com.example.floweraplication.Activity.AuthActivity;
 import com.example.floweraplication.Activity.PlantDetailActivity;
+import com.example.floweraplication.Activity.UserActivity;
 import com.example.floweraplication.databinding.ActivityAddPlantBinding;
 import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
 import com.example.floweraplication.databinding.ActivityPlantDetailBinding;
@@ -43,6 +49,9 @@ public class DobUserPlantActivity extends AppCompatActivity {
     public ModelUser model;
     private FirebaseAuth firebaseAuth;
     private ActivityDobUserPlantBinding binding;
+
+    public SharedPreferences apppref;
+    public static final String APP_PREFERENCES = "apppref";
 
     private Uri pngUri = null;
     Bitmap bitmap;
@@ -118,7 +127,11 @@ public class DobUserPlantActivity extends AppCompatActivity {
 
         Bundle arguments = getIntent().getExtras();
         String plant_id = arguments.get("idPl").toString();
-        String user_id = "";
+
+
+        SharedPreferences sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        String user_id = sharedPref.getString("mAppIUD", "unknown");
+
 
         //get timestamp
         long timestamp = System.currentTimeMillis();
@@ -143,6 +156,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
                         Toast.makeText(DobUserPlantActivity.this, "Растение пользователя добавлено", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
