@@ -18,13 +18,13 @@
     </TextView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/pngRl"
+        android:id="@+id/pngRlRed"
         android:layout_width="150dp"
         android:layout_gravity="center"
         android:layout_height="150dp">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/pngView"
+            android:id="@+id/pngViewRed"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginTop="20dp"
@@ -41,7 +41,7 @@
             app:srcCompat="@drawable/secondary_container" />
 
         <ImageButton
-            android:id="@+id/Redact"
+            android:id="@+id/RedactRed"
             android:layout_width="62dp"
             android:layout_height="62dp"
             android:src="@drawable/ic__create_white"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/PlName"
+            android:id="@+id/NameRed"
             android:layout_width="342dp"
             android:layout_height="55dp"
             android:fontFamily="@font/gsr"
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Sun"
+            android:id="@+id/SunRed"
             android:layout_width="342dp"
             android:layout_height="55dp"
             android:fontFamily="@font/gsr"
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Height"
+            android:id="@+id/HeightRed"
             android:layout_width="342dp"
             android:layout_height="55dp"
             android:fontFamily="@font/gsr"
@@ -142,7 +142,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Width"
+            android:id="@+id/WidthRed"
             android:layout_width="342dp"
             android:layout_height="55dp"
             android:fontFamily="@font/gsr"
@@ -167,7 +167,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Description"
+            android:id="@+id/DescriptionRed"
             android:layout_width="342dp"
             android:layout_height="55dp"
             android:fontFamily="@font/gsr"
@@ -179,7 +179,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/Dob"
+        android:id="@+id/DobRed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button" />

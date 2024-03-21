@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -29,6 +30,8 @@ public class UserPlantDetailActivity extends AppCompatActivity {
     TextView PlName,Sun,Height,Width,Description;
     ImageView PlImage;
     ImageButton Redact;
+
+    private static final String TAG = "ADD_PLANT_TAG";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,21 +61,21 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Width.setText(getIntent().getStringExtra("plant_widthPlU"));
         Description.setText(getIntent().getStringExtra("descriptionPlU"));
 
-        /*Bundle arguments = getIntent().getExtras();
+        Bundle arguments = getIntent().getExtras();
         String id = arguments.get("idPlU").toString();
         String plant_id = arguments.get("plant_idPlU").toString();
-        String image = arguments.get("").toString();
-        String name = arguments.get("").toString();
-        String sun = arguments.get("").toString();
-        String hight = arguments.get("").toString();
-        String width = arguments.get("").toString();
-        String description = arguments.get("").toString();*/
+        String image = arguments.get("picturePl").toString();
+        String name = arguments.get("namePlU").toString();
+        String sun = arguments.get("sunPlU").toString();
+        String hight = arguments.get("plant_sizePlU").toString();
+        String width = arguments.get("plant_widthPlU").toString();
+        String description = arguments.get("descriptionPlU").toString();
 
         binding.Redact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                /*Intent intent = new Intent(UserPlantDetailActivity.this, UserPlantDetailActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UserPlantRedPlActivity.class);
 
                 intent.putExtra("idPlU",id);
                 intent.putExtra("descriptionPlU",description);
@@ -81,9 +84,10 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 intent.putExtra("plant_idPlU",plant_id);
                 intent.putExtra("plant_sizePlU",hight);
                 intent.putExtra("plant_widthPlU",width);
-                intent.putExtra("sunPlU",sun);*/
+                intent.putExtra("sunPlU",sun);
+                Log.d(TAG, "Пиздец"+name);
 
-                startActivity(new Intent(UserPlantDetailActivity.this, UserPlantRedPlActivity.class));
+                startActivity(intent);
             }
         });
 
