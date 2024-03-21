@@ -10,18 +10,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.floweraplication.AdapterHomeFragment;
-import com.example.floweraplication.ModelUserFlow;
-import com.example.floweraplication.adapters.AdapterPngUser;
+import com.example.floweraplication.adapters.AdapterHomeFragment;
+import com.example.floweraplication.models.ModelUserFlow;
 import com.example.floweraplication.databinding.FragmentHomeBinding;
-import com.example.floweraplication.models.ModelPng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

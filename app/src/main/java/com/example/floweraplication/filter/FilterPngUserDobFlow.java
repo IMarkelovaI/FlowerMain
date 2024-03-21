@@ -1,8 +1,8 @@
-package com.example.floweraplication;
+package com.example.floweraplication.filter;
 
 import android.widget.Filter;
 
-import com.example.floweraplication.adapters.AdapterPngUser;
+import com.example.floweraplication.adapters.AdapterPngUserDobFlow;
 import com.example.floweraplication.models.ModelPng;
 
 import java.util.ArrayList;

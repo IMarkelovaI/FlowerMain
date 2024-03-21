@@ -4,10 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
@@ -15,13 +13,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
-import com.example.floweraplication.AdapterPngUserDobFlow;
-import com.example.floweraplication.R;
-import com.example.floweraplication.adapters.AdapterPngUser;
+import com.example.floweraplication.adapters.AdapterPngUserDobFlow;
 import com.example.floweraplication.databinding.FragmentDodFllowBinding;
-import com.example.floweraplication.databinding.FragmentFlowBinding;
 import com.example.floweraplication.models.ModelPng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

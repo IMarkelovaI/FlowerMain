@@ -3,6 +3,7 @@ package com.example.floweraplication.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -64,6 +65,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
     TextView PlName;
     ImageView pngView;
     Button Dob;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,12 @@ public class DobUserPlantActivity extends AppCompatActivity {
 
         //init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
+
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //configure progress dialog
 
