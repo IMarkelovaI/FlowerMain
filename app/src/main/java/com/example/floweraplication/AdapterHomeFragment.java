@@ -51,6 +51,7 @@ public class AdapterHomeFragment extends RecyclerView.Adapter<AdapterHomeFragmen
 
         ModelUserFlow model = pngArrayList.get(position);
         Glide.with(context).load(model.getPicture()).into(holder.pngView);
+
         /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

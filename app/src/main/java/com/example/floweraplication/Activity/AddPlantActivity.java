@@ -192,6 +192,7 @@ public class AddPlantActivity extends AppCompatActivity {
         Date now = new Date();
         String fileName = formatter.format(now);
 
+
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName+".png");
         storageReference.putFile(pngUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

@@ -1,6 +1,7 @@
 package com.example.floweraplication.Fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.floweraplication.adapters.AdapterPngUser;
 import com.example.floweraplication.databinding.FragmentHomeBinding;
 import com.example.floweraplication.models.ModelPng;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +47,9 @@ public class HomeFragment extends Fragment  {
     private static final String TAG = "PNG_LIST_TAG";
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
+
+    public SharedPreferences apppref;
+    public static final String APP_PREFERENCES = "apppref";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -64,15 +69,39 @@ public class HomeFragment extends Fragment  {
         });*/
     }
 
+    /*public static void checkIsPlant(){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() ==null){
+
+        }
+        else {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+            reference.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+        }
+    }*/
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
 
         recyclerView = binding.moiFlow;
-        databaseReference = FirebaseDatabase.getInstance().getReference("User_plant");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapterHomeFragment);
         recyclerView.setHasFixedSize(true);
@@ -81,7 +110,15 @@ public class HomeFragment extends Fragment  {
         adapterHomeFragment = new AdapterHomeFragment(getContext(), Recycler);
         recyclerView.setAdapter(adapterHomeFragment);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        //SharedPreferences preferences = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        //String user = preferences.getString("mAppIUD", "unknown");
+
+        FirebaseUser useri=FirebaseAuth.getInstance().getCurrentUser();
+        String userid =useri.getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userid);
+
+        databaseReference.child("User_plant")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -89,36 +126,36 @@ public class HomeFragment extends Fragment  {
                     if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0)
                     {
                         Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                        if (map.get("description") != null){
-                            description = map.get("description").toString();
-                        }
-                        if (map.get("id") != null){
-                            id = map.get("id").toString();
-                        }
-                        if (map.get("name")!= null){
-                            name = map.get("name").toString();
-                        }
-                        if (map.get("picture")!= null){
-                            picture= map.get("picture").toString();
-                        }
-                        if (map.get("plant_id")!= null){
-                            plant_id= map.get("plant_id").toString();
-                        }
-                        if (map.get("plant_size")!= null){
-                            plant_size= map.get("plant_size").toString();
-                        }
-                        if (map.get("plant_width")!= null){
-                            plant_width= map.get("plant_width").toString();
-                        }
-                        if (map.get("sun")!= null){
-                            sun= map.get("sun").toString();
-                        }
-                        if (map.get("user_id")!= null){
-                            user_id= map.get("user_id").toString();
-                        }
-
+                            if (map.get("description") != null){
+                                description = map.get("description").toString();
+                            }
+                            if (map.get("id") != null){
+                                id = map.get("id").toString();
+                            }
+                            if (map.get("name")!= null){
+                                name = map.get("name").toString();
+                            }
+                            if (map.get("picture")!= null){
+                                picture= map.get("picture").toString();
+                            }
+                            if (map.get("plant_id")!= null){
+                                plant_id= map.get("plant_id").toString();
+                            }
+                            if (map.get("plant_size")!= null){
+                                plant_size= map.get("plant_size").toString();
+                            }
+                            if (map.get("plant_width")!= null){
+                                plant_width= map.get("plant_width").toString();
+                            }
+                            if (map.get("sun")!= null){
+                                sun= map.get("sun").toString();
+                            }
+                            if (map.get("user_id")!= null){
+                                user_id= map.get("user_id").toString();
+                            }
+                       // }
                     }
-                    Recycler.add(new ModelUserFlow(description,id,name,picture,plant_id,plant_size,plant_width,sun,user_id));
+                    Recycler.add(new ModelUserFlow(description,id,name,picture,plant_id,plant_size,plant_width,sun));
                 }
                 adapterHomeFragment.notifyDataSetChanged();
             }

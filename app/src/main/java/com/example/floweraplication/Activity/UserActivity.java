@@ -154,8 +154,6 @@ public class UserActivity extends AppCompatActivity {
         }
 
         else {
-            long timestamp= System.currentTimeMillis();
-
             //togged in, get user info
             //set in textview of toolbar
         }

@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 
@@ -135,6 +136,7 @@ public class DodFllowFragment extends Fragment {
                         }
 
                     }
+                    Collections.sort(Recycler,ModelPng.BY_NAME_ALPHABETICAL);
                     Recycler.add(new ModelPng(name, image, purpose_id, id, degree_of_toxicity, description,endurance,habitat,size,type_id));
                 }
                 adapterPngUserDobFlow.notifyDataSetChanged();

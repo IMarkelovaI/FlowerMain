@@ -1,6 +1,8 @@
 package com.example.floweraplication.models;
 
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.stream.Collector;
 
 public class ModelPng implements Serializable {
     String name,image, purpose_id, id, degree_of_toxicity, description,endurance,habitat,size,type_id;
@@ -20,6 +22,12 @@ public class ModelPng implements Serializable {
 
     }
 
+    public static final Comparator<ModelPng> BY_NAME_ALPHABETICAL = new Comparator<ModelPng>() {
+        @Override
+        public int compare(ModelPng modelPng1, ModelPng modelPng2) {
+            return modelPng1.name.compareTo(modelPng2.name);
+        }
+    };
 
     public String getId() {
         return id;

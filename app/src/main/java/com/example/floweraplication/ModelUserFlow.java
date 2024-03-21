@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class ModelUserFlow implements Serializable {
 
-    String description,id,name,picture,plant_id,plant_size,plant_width,sun,user_id;
+    String description,id,name,picture,plant_id,plant_size,plant_width,sun;
     public ModelUserFlow(){}
 
-    public ModelUserFlow(String description, String id, String name, String picture, String plant_id, String plant_size, String plant_width, String sun, String user_id) {
+    public ModelUserFlow(String description, String id, String name, String picture, String plant_id, String plant_size, String plant_width, String sun) {
         this.description = description;
         this.id = id;
         this.name = name;
@@ -16,7 +16,6 @@ public class ModelUserFlow implements Serializable {
         this.plant_size = plant_size;
         this.plant_width = plant_width;
         this.sun = sun;
-        this.user_id = user_id;
     }
 
     public String getDescription() {
@@ -81,13 +80,5 @@ public class ModelUserFlow implements Serializable {
 
     public void setSun(String sun) {
         this.sun = sun;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
     }
 }

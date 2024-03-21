@@ -50,6 +50,9 @@ public class AdapterPngUserDobFlow extends RecyclerView.Adapter<AdapterPngUserDo
         String title = model.getName();
         holder.titleTv.setText(title);
         Glide.with(context).load(model.getImage()).into(holder.pngView);
+
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

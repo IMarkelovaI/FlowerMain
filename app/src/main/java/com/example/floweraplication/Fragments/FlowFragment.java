@@ -35,6 +35,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 
@@ -49,10 +51,6 @@ public class FlowFragment extends Fragment {
 
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
-
-
-
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -122,13 +120,14 @@ public class FlowFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         recyclerView = binding.plantRv;
         databaseReference = FirebaseDatabase.getInstance().getReference("Plant");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Recycler = new ArrayList<>();
+
+
         adapterPngUser = new AdapterPngUser(getContext(), Recycler);
         recyclerView.setAdapter(adapterPngUser);
 
@@ -173,6 +172,7 @@ public class FlowFragment extends Fragment {
                         }
 
                     }
+                    Collections.sort(Recycler,ModelPng.BY_NAME_ALPHABETICAL);
                     Recycler.add(new ModelPng(name, image, purpose_id, id, degree_of_toxicity, description,endurance,habitat,size,type_id));
                 }
                 adapterPngUser.notifyDataSetChanged();

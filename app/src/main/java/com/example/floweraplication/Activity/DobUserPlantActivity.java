@@ -96,7 +96,14 @@ public class DobUserPlantActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v){
-                validateData();
+                //if (firebaseAuth.getCurrentUser() == null)
+                //{
+                    //Toast.makeText(DobUserPlantActivity.this, "Вы не авторизованы", Toast.LENGTH_SHORT).show();
+                //}
+                //else
+               // {
+                    validateData();
+                //}
             }
         });
 
@@ -147,6 +154,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
         //progressDialog.setMessage("Добавление нового растения");
         //progressDialog.show();
 
+
         long timestamp = System.currentTimeMillis();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
         Date now = new Date();
@@ -156,8 +164,8 @@ public class DobUserPlantActivity extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
         String plant_id = arguments.get("idPl").toString();
 
-        SharedPreferences sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        String user_id = sharedPref.getString("mAppIUD", "unknown");
+        //SharedPreferences sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        //String user_id = sharedPref.getString("mAppIUD", "unknown");
 
         Uri uri = Uri.parse(getIntent().getStringExtra("pngView"));
 
@@ -177,7 +185,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                 HashMap<String,Object> hashMap = new HashMap<>();
                                 hashMap.put("id", ""+timestamp);
                                 hashMap.put("plant_id", ""+plant_id);
-                                hashMap.put("user_id", ""+user_id);
+                                //hashMap.put("user_id", ""+user_id);
                                 hashMap.put("name", ""+name);
                                 hashMap.put("sun", ""+sun);
                                 hashMap.put("plant_size", ""+plant_size);
@@ -186,8 +194,9 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                 hashMap.put("picture",""+downloadImageUri); //uri of uploaded image
 
                                 //save to db
-                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User_plant");
-                                ref.child(""+timestamp).setValue(hashMap)
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+                                        .setValue(hashMap)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
@@ -220,7 +229,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("id", ""+timestamp);
             hashMap.put("plant_id", ""+plant_id);
-            hashMap.put("user_id", ""+user_id);
+            //hashMap.put("user_id", ""+user_id);
             hashMap.put("name", ""+name);
             hashMap.put("picture", ""+uri);
             hashMap.put("sun", ""+sun);
@@ -228,8 +237,8 @@ public class DobUserPlantActivity extends AppCompatActivity {
             hashMap.put("plant_width", ""+plant_width);
             hashMap.put("description", ""+description);
 
-            DatabaseReference ref= FirebaseDatabase.getInstance().getReference("User_plant");
-            ref.child(""+timestamp)
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
                     .setValue(hashMap)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
