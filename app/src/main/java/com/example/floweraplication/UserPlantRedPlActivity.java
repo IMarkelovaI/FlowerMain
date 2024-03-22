@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -66,8 +67,9 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
     Bitmap bitmap;
     TextView PlName,PlSun,PlHeight,PlWidth,PlDescription;
     ImageView pngView;
-    Button Dob;
+    Button Dob, DeleteRed;
     Toolbar toolbar;
+    String imageUrl="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +91,7 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
         PlWidth = binding.WidthRed;
         PlDescription = binding.DescriptionRed;
         Dob = binding.DobRed;
-
+        DeleteRed = binding.DeleteRed;
 
 
 
@@ -119,7 +121,106 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
             }
         });
 
+        binding.DeleteRed.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v){
+                deletePlantUser();
+            }
+        });
+
     }
+
+    private void deletePlantUser() {
+
+        Bundle arguments = getIntent().getExtras();
+        String plant_id = arguments.get("plant_idPlU").toString();
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+                .removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        progressDialog.dismiss();
+                        Toast.makeText(UserPlantRedPlActivity.this, "Растение пользователя удалено", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(UserPlantRedPlActivity.this, UserActivity.class));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(UserPlantRedPlActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
+        /*Bundle arguments = getIntent().getExtras();
+        String plant_id = arguments.get("plant_idPlU").toString();
+
+        FirebaseUser useri=FirebaseAuth.getInstance().getCurrentUser();
+        String userid =useri.getUid();
+
+
+        String id = arguments.get("idPlU").toString();
+        Uri uri = Uri.parse(getIntent().getStringExtra("picturePl"));
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+        reference.child(firebaseAuth.getUid()).child("User_plant").child(plant_id);
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        StorageReference storageReference = storage.getReferenceFromUrl(String.valueOf(uri));
+        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                reference.child(id).removeValue();
+                startActivity(new Intent(UserPlantRedPlActivity.this, UserActivity.class));
+            }
+        });*/
+
+
+        /*Log.d(TAG, "Пиздец нахуй блять");
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(userid);
+        storageReference.child(firebaseAuth.getUid()).child("User_plant").child(plant_id);
+        storageReference.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                        ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+                                .removeValue()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(UserPlantRedPlActivity.this, "Растение пользователя удалено", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(UserPlantRedPlActivity.this, UserActivity.class));
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });*/
+
+
+
+    }
+
+
     private String description ="";
     private String sun="";
     private String plant_size="";
@@ -284,8 +385,8 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
         hashMap.put("plant_width", ""+plant_width);
         hashMap.put("description", ""+description);
 
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("User_plant");
-        ref.child(""+timestamp)
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
                 .setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
