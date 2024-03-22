@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import android.media.ThumbnailUtils;
@@ -49,9 +50,14 @@ public class Photoplant extends AppCompatActivity {
     TextView TextDisease, TextDiseaseAcc, caption, textView;
     ImageView imagePredictDisease;
 
+    byte[] bytes;
     ImageButton arrowPredict;
+    Uri uri;
+    Uri dat;
 
+    Bitmap bitmap;
     Button AddPlant;
+    public static  String IMAGE_RES_ID_KEY = "IMAGE_RES_ID_KEY";
 
     private static final String TAG = "ADD_PLANT_TAG";
 
@@ -150,16 +156,17 @@ public class Photoplant extends AppCompatActivity {
                 //Bitmap bitmap = imagePredictDisease.getDrawingCache();
 
                 Intent i = new Intent(Photoplant.this, ActivityPhotoplantDob.class);
-                Bitmap b = imagePredictDisease.getDrawingCache(); // ваша картинка
-                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-                b.compress(Bitmap.CompressFormat.PNG, 50, bs);
-                i.putExtra("Picture", bs.toByteArray());
-                i.putExtra("PlName",TextDisease.getText().toString());
-                Log.d(TAG, "Пиздец"+bs.toByteArray());
-                startActivity(i);
 
-                //intent.putExtra("PlPicture",bitmap);
-                //intent.putExtra("PlName",TextDisease.getText().toString());
+                //BitmapDrawable bitmapDrawable = ((BitmapDrawable) imagePredictDisease.getDrawable());
+                //Bitmap b = bitmapDrawable.getBitmap();
+                //Bundle extras = new Bundle();
+                //extras.putParcelable("Image",b);
+
+                i.putExtra("Bitmap", bytes);
+                i.putExtra("PlName",TextDisease.getText().toString());
+                startActivity(i);
+                Log.i(TAG, "Пиздец"+bytes);
+                //ByteArra
                 //Log.d(TAG, "Пиздец"+bitmap);
                 //startActivity(intent);
 
@@ -234,32 +241,59 @@ public class Photoplant extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Intent i = new Intent(Photoplant.this, ActivityPhotoplantDob.class);
         if (resultCode==RESULT_OK) {
             if (requestCode == 3) {
+                uri = data.getData();
                 Bitmap image = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap = image;
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
+                bytes = stream.toByteArray();
                 int dimension = Math.min(image.getWidth(), image.getHeight());
                 image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
                 imagePredictDisease.setImageBitmap(image);
+
+                //assert image != null;
+                //bitmap = Bitmap.createScaledBitmap(image, 359,359,false);
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
                 imagePredictDisease.setAlpha(1f);
                 imagePredictDisease.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 String picture = imagePredictDisease.toString();
+                Log.d(TAG, "ALLLLLPP "+uri);
+
+                i.putExtra("Picture",uri);
+                i.putExtra("PlName",TextDisease.getText().toString());
+                Log.i(TAG, "Пиздец"+uri);
+
             }
             else {
                 Uri dat = data.getData();
                 Bitmap image = null;
                 try {
                     image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), dat);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 imagePredictDisease.setImageBitmap(image);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap = image;
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
+                bytes = stream.toByteArray();
+                //assert image != null;
+                //bitmap = Bitmap.createScaledBitmap(image, 359,359,false);
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
+
                 imagePredictDisease.setAlpha(1f);
                 imagePredictDisease.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 String picture = imagePredictDisease.toString();
+                i.putExtra("Picture",dat);
+                i.putExtra("PlName",TextDisease.getText().toString());
+                Log.i(TAG, "Пиздец"+dat);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

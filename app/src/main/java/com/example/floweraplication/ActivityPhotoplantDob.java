@@ -115,20 +115,11 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
 
         PlName.setText(getIntent().getStringExtra("PlName"));
 
-        Intent i = getIntent();
-
-        if(getIntent().hasExtra("Picture")) {
-            ImageView previewThumbnail = new ImageView(this);
-            Bitmap b = BitmapFactory.decodeByteArray(
-                    getIntent().getByteArrayExtra("Picture"),0,getIntent().getByteArrayExtra("Picture").length);
-            previewThumbnail.setImageBitmap(b);
-        }
-
-        //Bitmap bitmap1 = (Bitmap) i.getParcelableExtra("PlPicture");
-
-        pngView.setImageBitmap(bitmap);
-
-        //Glide.with(ActivityPhotoplantDob.this).load(getIntent().getStringExtra("PlPicture")).into(pngView);
+        //Bundle extras = i.getExtras();
+        byte[] bytes = getIntent().getByteArrayExtra("Bitmap");
+        Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
+        Log.i(TAG, "check"+bytes);
+        pngView.setImageBitmap(bmp);
 
         Log.d(TAG, "onSuccess: Successfully uploaded"+pngView);
 

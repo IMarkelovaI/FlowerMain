@@ -71,6 +71,7 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
     Toolbar toolbar;
     String imageUrl="";
 
+    String key;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,10 +136,11 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
 
         Bundle arguments = getIntent().getExtras();
         String plant_id = arguments.get("plant_idPlU").toString();
+        String idP = arguments.get("idPlU").toString();
 
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Users");
+        ref1.child(firebaseAuth.getUid()).child("User_plant").child(idP)
                 .removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -266,6 +268,7 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
 
         Bundle arguments = getIntent().getExtras();
         String plant_id = arguments.get("plant_idPlU").toString();
+        String id = arguments.get("idPlU").toString();
 
         //SharedPreferences sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         //String user_id = sharedPref.getString("mAppIUD", "unknown");
@@ -286,7 +289,7 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
                             if (uriTask.isSuccessful()){
                                 //setup data to save
                                 HashMap<String,Object> hashMap = new HashMap<>();
-                                hashMap.put("id", ""+timestamp);
+                                hashMap.put("id", ""+id);
                                 hashMap.put("plant_id", ""+plant_id);
                                 //hashMap.put("user_id", ""+user_id);
                                 hashMap.put("name", ""+name);
@@ -298,7 +301,7 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
 
                                 //save to db
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                                ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+                                ref.child(firebaseAuth.getUid()).child("User_plant").child(id)
                                         .updateChildren(hashMap)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -327,7 +330,7 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
         }
         else{
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("id", ""+timestamp);
+            hashMap.put("id", ""+id);
             hashMap.put("plant_id", ""+plant_id);
             //hashMap.put("user_id", ""+user_id);
             hashMap.put("name", ""+name);
@@ -338,7 +341,7 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
             hashMap.put("description", ""+description);
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-            ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+            ref.child(firebaseAuth.getUid()).child("User_plant").child(id)
                     .updateChildren(hashMap)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

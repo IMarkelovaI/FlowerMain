@@ -172,6 +172,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
         String fileName = formatter.format(now);
 
 
+
         Bundle arguments = getIntent().getExtras();
         String plant_id = arguments.get("idPl").toString();
 
@@ -206,7 +207,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
 
                                 //save to db
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                                ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+                                ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
                                         .setValue(hashMap)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -248,7 +249,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
             hashMap.put("description", ""+description);
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-            ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+            ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
                     .setValue(hashMap)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
