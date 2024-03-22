@@ -1,6 +1,7 @@
 package com.example.floweraplication.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.floweraplication.LightingActivity;
 import com.example.floweraplication.adapters.AdapterHomeFragment;
 import com.example.floweraplication.models.ModelUserFlow;
 import com.example.floweraplication.databinding.FragmentHomeBinding;
@@ -53,16 +55,19 @@ public class HomeFragment extends Fragment  {
 
         //init firebase auth
         buttonLight = binding.buttonLight;
-        return binding.getRoot();
 
 
-        /*buttonLight.setOnClickListener(new View.OnClickListener() {
+        //buttonLight.setOnClickListener(new View);
+
+        buttonLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, LightingActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(getContext(), LightingActivity.class);
+                startActivity(intent);
             }
-        });*/
+        });
+
+        return binding.getRoot();
     }
 
     /*public static void checkIsPlant(){
@@ -145,9 +150,6 @@ public class HomeFragment extends Fragment  {
                             }
                             if (map.get("sun")!= null){
                                 sun= map.get("sun").toString();
-                            }
-                            if (map.get("user_id")!= null){
-                                user_id= map.get("user_id").toString();
                             }
                        // }
                     }

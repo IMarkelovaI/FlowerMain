@@ -1,5 +1,6 @@
 package com.example.floweraplication.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.example.floweraplication.LightingActivity;
+import com.example.floweraplication.Photoplant;
 import com.example.floweraplication.adapters.AdapterPngUserDobFlow;
 import com.example.floweraplication.databinding.FragmentDodFllowBinding;
 import com.example.floweraplication.models.ModelPng;
@@ -41,12 +45,21 @@ public class DodFllowFragment extends Fragment {
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
 
-
+    ImageButton deltaBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDodFllowBinding.inflate(getLayoutInflater());
-        return binding.getRoot();
 
+        deltaBtn = binding.deltaBtn;
+
+        deltaBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), Photoplant.class);
+                startActivity(intent);
+            }
+        });
+        return binding.getRoot();
     }
     @Override
     public void onResume() {

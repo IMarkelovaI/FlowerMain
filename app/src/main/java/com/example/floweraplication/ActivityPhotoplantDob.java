@@ -1,5 +1,4 @@
-package com.example.floweraplication.Activity;
-
+package com.example.floweraplication;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -12,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,16 +25,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.floweraplication.R;
+import com.example.floweraplication.Activity.DobUserPlantActivity;
+import com.example.floweraplication.Activity.UserActivity;
 import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
+import com.example.floweraplication.databinding.ActivityPhotoplantDobBinding;
+import com.example.floweraplication.ml.ModelPlant;
+import com.example.floweraplication.models.ModelCategory;
 import com.example.floweraplication.models.ModelPng;
 import com.example.floweraplication.models.ModelUser;
+import com.example.floweraplication.models.ModelUserFlow;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -45,11 +53,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
-public class DobUserPlantActivity extends AppCompatActivity {
-
+public class ActivityPhotoplantDob extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private static final String TAG = "ADD_PLANT_TAG";
@@ -57,7 +65,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
     private ArrayList<ModelPng> pngArrayList;
     public ModelUser model;
     private FirebaseAuth firebaseAuth;
-    private ActivityDobUserPlantBinding binding;
+    private ActivityPhotoplantDobBinding binding;
 
     public SharedPreferences apppref;
     public static final String APP_PREFERENCES = "apppref";
@@ -74,7 +82,8 @@ public class DobUserPlantActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityDobUserPlantBinding.inflate(getLayoutInflater());
+
+        binding = ActivityPhotoplantDobBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         //init firebase auth
@@ -102,19 +111,32 @@ public class DobUserPlantActivity extends AppCompatActivity {
         pngView = binding.pngView;
         PlName = binding.PlName;
 
-        Uri uri = Uri.parse(getIntent().getStringExtra("pngView"));
+        //Uri uri = Uri.parse(getIntent().getStringExtra("PlPicture"));
 
-        PlName.setText(getIntent().getStringExtra("PName"));
-        Glide.with(DobUserPlantActivity.this).load(getIntent().getStringExtra("pngView")).into(pngView);
+        PlName.setText(getIntent().getStringExtra("PlName"));
+
+        Intent i = getIntent();
+
+        if(getIntent().hasExtra("Picture")) {
+            ImageView previewThumbnail = new ImageView(this);
+            Bitmap b = BitmapFactory.decodeByteArray(
+                    getIntent().getByteArrayExtra("Picture"),0,getIntent().getByteArrayExtra("Picture").length);
+            previewThumbnail.setImageBitmap(b);
+        }
+
+        //Bitmap bitmap1 = (Bitmap) i.getParcelableExtra("PlPicture");
+
+        pngView.setImageBitmap(bitmap);
+
+        //Glide.with(ActivityPhotoplantDob.this).load(getIntent().getStringExtra("PlPicture")).into(pngView);
 
         Log.d(TAG, "onSuccess: Successfully uploaded"+pngView);
-
 
         binding.Dob.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
-                    validateData();
+                //validateData();
             }
         });
 
@@ -122,11 +144,13 @@ public class DobUserPlantActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v){
-                pngPickIntent();
+                //pngPickIntent();
             }
         });
 
     }
+
+
     private String description ="";
     private String sun="";
     private String plant_size="";
@@ -173,10 +197,22 @@ public class DobUserPlantActivity extends AppCompatActivity {
 
 
         Bundle arguments = getIntent().getExtras();
-        String plant_id = arguments.get("idPl").toString();
+        String plant_name = arguments.get("PlName").toString();
 
-        //SharedPreferences sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        //String user_id = sharedPref.getString("mAppIUD", "unknown");
+
+        /*DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Plant").child(plant_name);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren()){
+                    String plant_id = ds.child("id").getValue().toString();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
 
         Uri uri = Uri.parse(getIntent().getStringExtra("pngView"));
 
@@ -195,7 +231,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                 //setup data to save
                                 HashMap<String,Object> hashMap = new HashMap<>();
                                 hashMap.put("id", ""+timestamp);
-                                hashMap.put("plant_id", ""+plant_id);
+                                //hashMap.put("plant_id", ""+plant_id);
                                 //hashMap.put("user_id", ""+user_id);
                                 hashMap.put("name", ""+name);
                                 hashMap.put("sun", ""+sun);
@@ -206,7 +242,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
 
                                 //save to db
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                                ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+                                ref.child(firebaseAuth.getUid()).child("User_plant")//.child(plant_id)
                                         .setValue(hashMap)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -214,7 +250,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                                 //db updated
                                                 progressDialog.dismiss();
                                                 Log.d(TAG, "onSuccess: Successfully uploaded"+downloadImageUri);
-                                                startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+                                                startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
@@ -238,7 +274,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
 
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("id", ""+timestamp);
-            hashMap.put("plant_id", ""+plant_id);
+            //hashMap.put("plant_id", ""+plant_id);
             //hashMap.put("user_id", ""+user_id);
             hashMap.put("name", ""+name);
             hashMap.put("picture", ""+uri);
@@ -248,21 +284,21 @@ public class DobUserPlantActivity extends AppCompatActivity {
             hashMap.put("description", ""+description);
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-            ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
+            ref.child(firebaseAuth.getUid()).child("User_plant")//.child(plant_id)
                     .setValue(hashMap)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             progressDialog.dismiss();
-                            Toast.makeText(DobUserPlantActivity.this, "Растение пользователя добавлено", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+                            Toast.makeText(ActivityPhotoplantDob.this, "Растение пользователя добавлено", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(DobUserPlantActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ActivityPhotoplantDob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -301,15 +337,15 @@ public class DobUserPlantActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
-                        Toast.makeText(DobUserPlantActivity.this, "Растение пользователя добавлено", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+                        Toast.makeText(ActivityPhotoplantDob.this, "Растение пользователя добавлено", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(DobUserPlantActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityPhotoplantDob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -345,7 +381,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
             }
             else {
 
-                Uri uri = Uri.parse(getIntent().getStringExtra("pngView"));
+                Uri uri = Uri.parse(getIntent().getStringExtra("PlPicture"));
                 pngUri1 = uri;
             }
         }

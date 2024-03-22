@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.SearchBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="?attr/colorSurface"
+        android:elevation="5dp"
+
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIconTint="?attr/colorOnSurface">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".PlantDetailActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cntsl"
+                android:layout_width="match_parent"
+                android:layout_height="331dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/pngView"
+                    android:layout_width="325dp"
+                    android:layout_height="286dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/book_nav"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/rounded_large" />
+
+                <ImageButton
+                    android:id="@+id/Redact"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:background="?attr/colorSecondaryContainer"
+                    android:src="@drawable/ic__create_white"
+                    app:layout_constraintBottom_toBottomOf="@+id/pngView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.902"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/pngView"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailUserAuthLayout"
+                android:layout_width="260dp"
+                android:layout_height="69dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cntsl"
+                app:layout_constraintVertical_bias="0.046">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/PlName"
+                    android:layout_width="260dp"
+                    android:layout_height="55dp"
+                    android:fontFamily="@font/gsr"
+                    android:hint="Название"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:text=""
+                    android:textIsSelectable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout5"
+                android:layout_width="236dp"
+                android:layout_height="77dp"
+                android:visibility="visible"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailUserAuthLayout"
+                app:layout_constraintVertical_bias="0.060000002">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Sun"
+                    android:layout_width="236dp"
+                    android:layout_height="55dp"
+                    android:fontFamily="@font/gsr"
+                    android:hint="Освещенность, люкс"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:text=""
+                    android:textIsSelectable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout6"
+                android:layout_width="124dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gsr"
+                    android:hint="Высота, см"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:text=""
+                    android:textIsSelectable="true"
+                    tools:layout_editor_absoluteX="26dp"
+                    tools:layout_editor_absoluteY="207dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout7"
+                android:layout_width="130dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.38"
+                app:layout_constraintStart_toEndOf="@+id/textInputLayout6"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Width"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:fontFamily="@font/gsr"
+                    android:hint="Ширина, см"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:text=""
+                    android:textIsSelectable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout8"
+                android:layout_width="342dp"
+                android:layout_height="69dp"
+                android:layout_marginTop="16dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Description"
+                    android:layout_width="342dp"
+                    android:layout_height="55dp"
+                    android:fontFamily="@font/gsr"
+                    android:hint="Описание"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:text=""
+                    android:textIsSelectable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/Dob"
+                android:layout_width="348dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/gsm"
+                android:text="Добавить"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="top"
+                app:constraint_referenced_ids="textInputLayout6" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
