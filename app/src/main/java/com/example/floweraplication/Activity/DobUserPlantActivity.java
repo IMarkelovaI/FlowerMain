@@ -1,6 +1,7 @@
 package com.example.floweraplication.Activity;
 
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,12 +10,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.floweraplication.R;
 import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
 import com.example.floweraplication.models.ModelPng;
 import com.example.floweraplication.models.ModelUser;
@@ -78,6 +82,17 @@ public class DobUserPlantActivity extends AppCompatActivity {
 
 
         //configure progress dialog
+        toolbar = binding.toolbar;
+        toolbar.setTitleTextAppearance(this, R.style.FontForTitle);
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = this.getTheme();
+        theme.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, typedValue, true);
+        @ColorInt int color = typedValue.data;
+        toolbar.setTitleTextColor(color);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Добавление");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressDialog = new ProgressDialog( this);
         progressDialog.setTitle("Подождите");

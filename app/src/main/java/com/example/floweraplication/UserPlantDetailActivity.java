@@ -1,6 +1,7 @@
 package com.example.floweraplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -39,7 +40,8 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         firebaseAuth = FirebaseAuth.getInstance();
-
+        Toolbar mToolbar = binding.toolbar;
+        setSupportActionBar(mToolbar);
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Подождите");
         progressDialog. setCanceledOnTouchOutside(false);

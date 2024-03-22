@@ -21,7 +21,8 @@
             android:parentActivityName=".Activity.MainActivity" />
         <activity
             android:name=".Activity.DobUserPlantActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity"/>
         <activity
             android:name=".Activity.PlantDetailActivity"
             android:exported="false"
