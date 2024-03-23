@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -38,6 +39,7 @@ import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -64,6 +66,7 @@ public class Photoplant extends AppCompatActivity {
     ConstraintLayout seccnt;
 
 
+    Uri pa;
 
     int imageSize = 224;
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +150,7 @@ public class Photoplant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplicationContext(), ActivityPhotoplantDob.class);
+                //Intent intent = new Intent(getApplicationContext(), ActivityPhotoplantDob.class);
 
 
                 //BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -157,6 +160,7 @@ public class Photoplant extends AppCompatActivity {
 
                 Intent i = new Intent(Photoplant.this, ActivityPhotoplantDob.class);
 
+                //i.putExtra("ImageUri",dat);
                 //BitmapDrawable bitmapDrawable = ((BitmapDrawable) imagePredictDisease.getDrawable());
                 //Bitmap b = bitmapDrawable.getBitmap();
                 //Bundle extras = new Bundle();
@@ -164,8 +168,11 @@ public class Photoplant extends AppCompatActivity {
 
                 i.putExtra("Bitmap", bytes);
                 i.putExtra("PlName",TextDisease.getText().toString());
+                i.putExtra("PictureP",imagePredictDisease.toString());
+                Log.i(TAG, "Пиздец aaaaaaaa "+uri.toString());
+                i.putExtra("Pa", uri.toString());
                 startActivity(i);
-                Log.i(TAG, "Пиздец"+bytes);
+                Log.i(TAG, "Пиздец jjjjjjj "+uri.toString());
                 //ByteArra
                 //Log.d(TAG, "Пиздец"+bitmap);
                 //startActivity(intent);
@@ -174,6 +181,19 @@ public class Photoplant extends AppCompatActivity {
             }
         });
     }
+
+    /*public Uri getUri (Bitmap image, Context context){
+        File Images = new File(context.getCodeCacheDir(), "images");
+        Uri uri = null;
+        try {
+            Images.mkdirs();
+            File file = new File(Images,"capha.jpg");
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return uri;
+    }*/
 
     public void classifyImage(Bitmap image){
 
@@ -249,6 +269,10 @@ public class Photoplant extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap = image;
                 bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
+                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"val",null);
+                Uri pa = Uri.parse(path);
+                uri = pa;
+                Log.w(TAG, "Ты не пройдешь "+uri);
                 bytes = stream.toByteArray();
                 int dimension = Math.min(image.getWidth(), image.getHeight());
                 image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
@@ -265,11 +289,12 @@ public class Photoplant extends AppCompatActivity {
 
                 i.putExtra("Picture",uri);
                 i.putExtra("PlName",TextDisease.getText().toString());
-                Log.i(TAG, "Пиздец"+uri);
+                Log.w(TAG, "Жопа осла"+data.getData());
 
             }
             else {
                 Uri dat = data.getData();
+                Log.d(TAG,"dat fffffffffffff"+dat);
                 Bitmap image = null;
                 try {
                     image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), dat);
@@ -283,6 +308,9 @@ public class Photoplant extends AppCompatActivity {
                 bitmap = image;
                 bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
                 bytes = stream.toByteArray();
+                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"val",null);
+                Uri pa = Uri.parse(path);
+                uri = pa;
                 //assert image != null;
                 //bitmap = Bitmap.createScaledBitmap(image, 359,359,false);
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);

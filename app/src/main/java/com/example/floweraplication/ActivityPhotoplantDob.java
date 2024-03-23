@@ -78,6 +78,7 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
     ImageView pngView;
     Button Dob;
     Toolbar toolbar;
+    String plant_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,13 +121,53 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
         Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
         Log.i(TAG, "check"+bytes);
         pngView.setImageBitmap(bmp);
+        Uri uri = Uri.parse(getIntent().getStringExtra("Pa"));
+        Log.i(TAG, "Uriririri"+uri);
 
-        Log.d(TAG, "onSuccess: Successfully uploaded"+pngView);
+        //Uri uri = Uri.parse(getIntent().getStringExtra("ImageUri"));
+        //Log.d(TAG, "onSuccess: Successfully uploaded"+uri);
 
         binding.Dob.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
+                Bundle arguments = getIntent().getExtras();
+                String plant_name = arguments.get("PlName").toString();
+                Log.d(TAG, "Хоть бы не сдохнкть bvz "+plant_name);
+
+                //SharedPreferences.Editor editor1 = apppref1.edit();
+                //editor1.clear();
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                ref.child("Plant")
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                                    if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0)
+                                    {
+                                        if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+                                            String name = String.valueOf(dataSnapshot.child("name").getValue());
+                                            if(name.equals(plant_name)){
+                                                plant_id = String.valueOf(dataSnapshot.child("id").getValue());
+                                                Log.d(TAG, "Хоть бы не сдохнкть "+plant_id);
+
+                                                //apppref1 = getSharedPreferences(APP_PREFERENCES1, Context.MODE_PRIVATE);
+                                                //editor1.putString("mAppIUD", plant_id);
+                                                //editor1.apply();
+                                                Log.d(TAG, "Хоть бы не сдохнкть "+plant_id);
+                                                validateData();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                 //validateData();
             }
         });
@@ -135,7 +176,7 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
         {
             @Override
             public void onClick(View v){
-                //pngPickIntent();
+                pngPickIntent();
             }
         });
 
@@ -186,26 +227,24 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
         Date now = new Date();
         String fileName = formatter.format(now);
 
+        //SharedPreferences sharedPref1 = getSharedPreferences(APP_PREFERENCES1, Context.MODE_PRIVATE);
+        //String s = sharedPref1.getString("mAppIUD1", "unknown");
+        //Log.w(TAG, "Хоть бы не сдохнкть wwwwwww"+s);
 
         Bundle arguments = getIntent().getExtras();
         String plant_name = arguments.get("PlName").toString();
+        Log.i(TAG, "JJJJJJKJJJJJJJ"+plant_id);
+        //Log.d(TAG, "Хоть бы не сдохнкть}"+s);
 
 
-        /*DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Plant").child(plant_name);
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds: snapshot.getChildren()){
-                    String plant_id = ds.child("id").getValue().toString();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });*/
+        //Uri uri = arguments.get("Bitmap");
+        Uri uri = Uri.parse(getIntent().getStringExtra("Pa"));
+        //uri=getIntent().getData();
 
-        Uri uri = Uri.parse(getIntent().getStringExtra("pngView"));
+
+        //Uri uri = Uri.parse(getIntent().getStringExtra("Bitmap"));
+        Log.i(TAG, "Юри не сдохни"+uri);
 
         if(pngUri!=null){
             StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName+".png");
@@ -222,8 +261,7 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
                                 //setup data to save
                                 HashMap<String,Object> hashMap = new HashMap<>();
                                 hashMap.put("id", ""+timestamp);
-                                //hashMap.put("plant_id", ""+plant_id);
-                                //hashMap.put("user_id", ""+user_id);
+                                hashMap.put("plant_id", ""+plant_id);
                                 hashMap.put("name", ""+name);
                                 hashMap.put("sun", ""+sun);
                                 hashMap.put("plant_size", ""+plant_size);
@@ -231,9 +269,10 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
                                 hashMap.put("description", ""+description);
                                 hashMap.put("picture",""+downloadImageUri); //uri of uploaded image
 
+
                                 //save to db
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                                ref.child(firebaseAuth.getUid()).child("User_plant")//.child(plant_id)
+                                ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
                                         .setValue(hashMap)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -263,33 +302,56 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
         }
         else{
 
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("id", ""+timestamp);
-            //hashMap.put("plant_id", ""+plant_id);
-            //hashMap.put("user_id", ""+user_id);
-            hashMap.put("name", ""+name);
-            hashMap.put("picture", ""+uri);
-            hashMap.put("sun", ""+sun);
-            hashMap.put("plant_size", ""+plant_size);
-            hashMap.put("plant_width", ""+plant_width);
-            hashMap.put("description", ""+description);
-
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-            ref.child(firebaseAuth.getUid()).child("User_plant")//.child(plant_id)
-                    .setValue(hashMap)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName+".png");
+            storageReference.putFile(uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onSuccess(Void unused) {
-                            progressDialog.dismiss();
-                            Toast.makeText(ActivityPhotoplantDob.this, "Растение пользователя добавлено", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            //get url of uploaded image
+                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!uriTask.isSuccessful());
+                            Uri downloadImageUri = uriTask.getResult();
+
+                            if (uriTask.isSuccessful()){
+                                //setup data to save
+                                HashMap<String,Object> hashMap = new HashMap<>();
+                                hashMap.put("id", ""+timestamp);
+                                hashMap.put("plant_id", ""+plant_id);
+                                hashMap.put("name", ""+name);
+                                hashMap.put("sun", ""+sun);
+                                hashMap.put("plant_size", ""+plant_size);
+                                hashMap.put("plant_width", ""+plant_width);
+                                hashMap.put("description", ""+description);
+                                hashMap.put("picture",""+downloadImageUri); //uri of uploaded image
+
+
+                                //save to db
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
+                                        .setValue(hashMap)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                //db updated
+                                                progressDialog.dismiss();
+                                                Log.d(TAG, "onSuccess: Successfully uploaded"+downloadImageUri);
+                                                startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                //failed updating db
+                                                //progressDialog.dismiss();
+                                                Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
+                                            }
+                                        });
+                            }
+
                         }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
+                    }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(ActivityPhotoplantDob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
                         }
                     });
         }
@@ -372,8 +434,8 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
             }
             else {
 
-                Uri uri = Uri.parse(getIntent().getStringExtra("PlPicture"));
-                pngUri1 = uri;
+                Uri uri = Uri.parse(getIntent().getStringExtra("Pa"));
+                pngUri = uri;
             }
         }
         else {
