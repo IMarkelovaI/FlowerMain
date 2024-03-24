@@ -8,15 +8,6 @@
     tools:context=".Fragments.HomeFragment">
 
 
-    <ImageButton
-        android:layout_width="163dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.867"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -24,67 +15,183 @@
         android:layout_gravity="center"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/productsans"
         android:text="Сад"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="40dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/moiFlow"
-        android:layout_width="365dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="30dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/buttonLight"
-        android:layout_width="267dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="24dp"
-        android:onClick="activity_light"
-        android:text="Измерить освещение"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moiFlow"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/button_kal"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Календарь"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLight"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="96dp"
-        android:layout_height="56dp"
-        android:text="Выйти"
-        android:textSize="14sp"
-        android:textStyle="bold"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="620dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_kal"
-        app:layout_constraintVertical_bias="0.32"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="365dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="7dp"
+                android:background="@drawable/addcontainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.225"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/productsans"
+                    android:text="Мои растения"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/moiFlow"
+                    android:layout_width="365dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView18"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="366dp"
+                android:layout_height="73dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="31dp"
+                android:background="@drawable/addcontainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                <Button
+                    android:id="@+id/buttonLight"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    android:layout_width="328dp"
+                    android:layout_height="46dp"
+                    android:fontFamily="@font/gsr"
+                    android:includeFontPadding="false"
+                    android:onClick="activity_light"
+                    android:text="  Измерить освещение"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/baseline_sunny_24"
+                    app:iconGravity="textStart"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="366dp"
+                android:layout_height="307dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="28dp"
+                android:background="@drawable/addcontainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                <TextView
+                    android:id="@+id/Disease"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/productsans"
+                    android:text="Диагностика растения"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.13"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="326dp"
+                    android:layout_height="233dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="centerCrop"
+                    app:circularflow_defaultRadius="18dp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Disease"
+                    app:shapeAppearanceOverlay="@style/rounded"
+                    app:srcCompat="@drawable/rust" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/button"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="157dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="158dp"
+                android:layout_marginBottom="1dp"
+                android:text="Выйти"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.485"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switch3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

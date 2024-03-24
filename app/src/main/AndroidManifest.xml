@@ -22,20 +22,20 @@
             android:parentActivityName=".Activity.MainActivity"/>
         <activity
             android:name=".DirectoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TypeNavActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity"/>
         <activity
             android:name=".ActivityPhotoplantDob"
             android:exported="false"
             android:parentActivityName=".Activity.MainActivity" />
         <activity
             android:name=".Photoplant"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity" />
         <activity
             android:name=".UserPlantRedPlActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity" />
         <activity
             android:name=".UserPlantDetailActivity"
             android:exported="false"
@@ -56,7 +56,8 @@
             android:exported="false" />
         <activity
             android:name=".LightingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity"/>
         <activity
             android:name=".Activity.AddPurposeActivity"
             android:exported="false" />
@@ -93,6 +94,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

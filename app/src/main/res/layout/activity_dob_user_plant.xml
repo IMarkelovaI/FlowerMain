@@ -10,12 +10,13 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/FontForTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center_vertical"
         android:background="?attr/colorSurface"
-        android:elevation="5dp"
 
+        android:elevation="5dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,15 +56,16 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/rounded_large" />
 
-                <ImageButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/Redact"
-                    android:layout_width="62dp"
-                    android:layout_height="62dp"
-                    android:background="?attr/colorSecondaryContainer"
-                    android:src="@drawable/ic__create_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_edit_24"
                     app:layout_constraintBottom_toBottomOf="@+id/pngView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.902"
+                    app:layout_constraintHorizontal_bias="0.857"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/pngView"
                     app:layout_constraintVertical_bias="1.0" />
@@ -73,7 +75,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailUserAuthLayout"
                 android:layout_width="260dp"
-                android:layout_height="69dp"
+                android:layout_height="wrap_content"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
@@ -88,7 +90,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/PlName"
                     android:layout_width="260dp"
-                    android:layout_height="55dp"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/gsr"
                     android:hint="Название"
                     android:imeOptions="actionNext"
@@ -187,7 +189,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout8"
                 android:layout_width="342dp"
-                android:layout_height="69dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -201,7 +203,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Description"
                     android:layout_width="342dp"
-                    android:layout_height="55dp"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/gsr"
                     android:hint="Описание"
                     android:imeOptions="actionNext"

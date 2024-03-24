@@ -78,7 +78,9 @@ public class Photoplant extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_predict);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextDisease = findViewById(R.id.TextDisease);
         AddPlant = findViewById(R.id.AddPlant);

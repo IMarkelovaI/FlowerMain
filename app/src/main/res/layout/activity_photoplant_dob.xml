@@ -55,15 +55,16 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/rounded_large" />
 
-                <ImageButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/Redact"
-                    android:layout_width="62dp"
-                    android:layout_height="62dp"
-                    android:background="?attr/colorSecondaryContainer"
-                    android:src="@drawable/ic__create_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_edit_24"
                     app:layout_constraintBottom_toBottomOf="@+id/pngView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.902"
+                    app:layout_constraintHorizontal_bias="0.857"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/pngView"
                     app:layout_constraintVertical_bias="1.0" />

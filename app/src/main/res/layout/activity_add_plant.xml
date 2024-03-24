@@ -7,238 +7,302 @@
     android:orientation="vertical"
     tools:context=".Activity.AddPlantActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Добавить растение"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/TypeName"
-        android:layout_width="324dp"
-        android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Вписать имя"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/TypeDescr"
-        android:layout_width="324dp"
-        android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:hint="Вписать описание"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TypeName"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/TypeHabitat"
-        android:layout_width="324dp"
-        android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:hint="Вписать место обитания в природе"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TypeDescr"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/TypeSize"
-        android:layout_width="324dp"
-        android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:hint="Вписать размер растения"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TypeHabitat"
-        tools:ignore="MissingConstraints" />
-
-
-
-
-    <Button
-        android:id="@+id/buttonDob"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="12dp"
-        android:text="Добавить"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonNas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonNas"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
-        android:text="Назад"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <EditText
-        android:id="@+id/TypeC"
-        android:layout_width="324dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="4dp"
-        android:drawableEnd="@drawable/ic_down_grin"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:hint="Тип растения"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/Pur"
-        android:layout_width="324dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="4dp"
-        android:autofillHints=""
-        android:drawableEnd="@drawable/ic_down_grin"
-        android:ems="10"
-        android:hint="Какое растение?"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TypeC"
-        tools:ignore="MissingConstraints" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="63dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="4dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.873"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TypeSize"
-        tools:ignore="MissingConstraints" />
-
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="63dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="4dp"
-
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.873"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Растение ядовито?"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/TypeC"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox2"
-        app:layout_constraintHorizontal_bias="0.383"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="26dp"
-        android:text="Растение прихотливое?"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox"
-        app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/buttonDobF"
-        android:layout_width="74dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonDob"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_dashboard_black_24dp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="81dp"
-        android:layout_height="67dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonDob"
-        app:layout_constraintEnd_toStartOf="@+id/buttonDobF"
-        app:layout_constraintHorizontal_bias="0.202"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_addflower_grin" />
-
-    <ProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </ProgressBar>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="412dp"
+                android:layout_height="67dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/productsans"
+                android:gravity="center_vertical"
+                android:text="Добавить растение"
+                android:textAlignment="center"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailUserAuthLayout"
+                android:layout_width="342dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="34dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TypeName"
+                    android:layout_width="342dp"
+                    android:layout_height="55dp"
+                    android:fontFamily="@font/gsr"
+                    android:hint="Название"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:text=""
+                    android:textIsSelectable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/DeLayout"
+                android:layout_width="342dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="34dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailUserAuthLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TypeDescr"
+                    android:layout_width="342dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gsr"
+                    android:hint="Описание"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:text=""
+                    android:textIsSelectable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/HabLayout"
+                android:layout_width="342dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="34dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/DeLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TypeHabitat"
+                    android:layout_width="342dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gsr"
+                    android:hint="Место обитания в природе"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:text=""
+                    android:textIsSelectable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/SizeLayout"
+                android:layout_width="342dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="34dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/HabLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TypeSize"
+                    android:layout_width="342dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gsr"
+                    android:hint="Размер растения"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:text=""
+                    android:textIsSelectable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/buttonDob"
+                android:layout_width="358dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="27dp"
+                android:fontFamily="@font/gsr"
+                android:text="Добавить растение"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonDobF" />
+
+            <Button
+                android:id="@+id/buttonNas"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="157dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="160dp"
+                android:fontFamily="@font/gsr"
+                android:text="Назад"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonDob" />
+
+            <EditText
+                android:id="@+id/TypeC"
+                android:layout_width="324dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:drawableEnd="@drawable/ic_down_grin"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="@font/gsr"
+                android:hint="Тип растения"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/Pur"
+                android:layout_width="324dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="43dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="44dp"
+                android:autofillHints=""
+                android:drawableEnd="@drawable/ic_down_grin"
+                android:ems="10"
+                android:fontFamily="@font/gsr"
+                android:hint="Какое растение?"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TypeC"
+                tools:ignore="MissingConstraints" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="63dp"
+                android:layout_height="49dp"
+
+                android:layout_marginStart="41dp"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/SizeLayout"
+                tools:ignore="MissingConstraints" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="63dp"
+                android:layout_height="49dp"
+
+
+                android:layout_marginStart="88dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="34dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/checkBox"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/gsm"
+                android:text="Растение ядовито?"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/gsm"
+                android:text="Растение прихотливое?"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SizeLayout" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buttonDobF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:clickable="true"
+                android:src="@drawable/baseline_edit_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.783"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/Pur" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="244dp"
+                android:layout_height="195dp"
+                android:layout_marginTop="4dp"
+                android:alpha="0.3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Pur"
+                app:srcCompat="@drawable/photoplug" />
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="182dp"
+                tools:layout_editor_absoluteY="422dp">
+
+            </ProgressBar>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,10 +1,14 @@
 package com.example.floweraplication;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.TypedValue;
 
 import com.example.floweraplication.Activity.AdminActivity;
 import com.example.floweraplication.adapters.AdapterCategory;
@@ -35,6 +39,7 @@ public class DirectoryActivity extends AppCompatActivity {
     private AdapterDirectorySoil_type adapterDirectorySoilType;
     private AdapterDirectoryFertilizer adapterDirectoryFertilizer;
 
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +47,24 @@ public class DirectoryActivity extends AppCompatActivity {
         binding = ActivityDirectoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        toolbar = binding.toolbar2;
+
+        toolbar.setTitleTextAppearance(this, R.style.FontForTitle);
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = this.getTheme();
+        theme.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true);
+        @ColorInt int color = typedValue.data;
+        toolbar.setTitleTextColor(color);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Справочник");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         firebaseAuth = FirebaseAuth.getInstance();
         loadTypes();
         loadDesiase();
         loadSoil_type();
         loadfertilizer();
+
     }
 
     private void loadTypes() {

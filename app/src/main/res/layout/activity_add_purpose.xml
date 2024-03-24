@@ -7,6 +7,75 @@
     android:orientation="vertical"
     tools:context=".Activity.AddPurposeActivity">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailUserAuthLayout"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/PurposeText"
+            android:layout_width="342dp"
+            android:layout_height="55dp"
+            android:fontFamily="@font/gsr"
+            android:hint="Разновидность"
+            android:imeOptions="actionNext"
+            android:inputType="none"
+            android:text=""
+            android:textIsSelectable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/TypeText"
+        android:layout_width="342dp"
+        android:layout_height="55dp"
+        android:fontFamily="@font/gsr"
+        android:hint="Тип"
+        android:imeOptions="actionNext"
+        android:inputType="none"
+        android:text=""
+        android:textIsSelectable="true" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/Des"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailUserAuthLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/PurposeDesText"
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/gsr"
+            android:hint="Описание разновидности"
+            android:imeOptions="actionNext"
+            android:inputType="none"
+            android:text=""
+            android:textIsSelectable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -15,7 +84,9 @@
         android:layout_alignParentEnd="true"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="Добавить предназначение"
+        android:fontFamily="@font/productsans"
+        android:text="Добавить разновидность растения"
+        android:textAlignment="center"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,59 +94,29 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:id="@+id/PurposeText"
-        android:layout_width="324dp"
-        android:layout_height="53dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="92dp"
-        android:ems="10"
-        android:hint="Вписать предназначение"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/PurposeDesText"
-        android:layout_width="324dp"
-        android:layout_height="53dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="Вписать опичание"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PurposeText"
-        tools:ignore="MissingConstraints" />
-
     <Button
         android:id="@+id/buttonPurpose"
-        android:layout_width="339dp"
-        android:layout_height="63dp"
+        android:layout_width="358dp"
+        android:layout_height="54dp"
         android:layout_gravity="center"
-        android:text="Добавить предназначение"
-        android:textSize="20sp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/gsr"
+        android:text="Добавить разновидность"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PurposeDesText"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintTop_toBottomOf="@+id/Des" />
 
     <Button
         android:id="@+id/button3"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
+        android:fontFamily="@font/gsr"
         android:text="Назад"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

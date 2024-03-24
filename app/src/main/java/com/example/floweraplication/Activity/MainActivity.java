@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private String name ="", email ="", password = "";
+    private String name ="", email ="", password = "", repeatLoginPass="";
     private void validateData() {
 
         //Before creating account, lets do some data validationx/
@@ -84,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
         name = binding.loginUser.getText().toString().trim();
         email = binding.loginEmail.getText().toString() .trim();
         password = binding.loginPass.getText().toString().trim();
-        String repeatLoginPass = binding.repeatLoginPass.getText().toString().trim();
+        repeatLoginPass = binding.repeatLoginPass.getText().toString().trim();
+
         //validate data
         if (name.isEmpty()) {
             binding.loginUserLayout.setError("Логин не может быть пустым");
@@ -95,11 +97,17 @@ public class MainActivity extends AppCompatActivity {
         if (repeatLoginPass.isEmpty()) {
             binding.repeatLoginPassLayout.setError("Повторите пароль");
         }
+        if (!Objects.equals(repeatLoginPass, password)){
+            binding.repeatLoginPassLayout.setError("Пароли не совпадают!");
+        }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             binding.loginEmailLayout.setError("Неверный шаблон электронной почты или ее не заполнили");
         }
         else{
-            createUserAccount();
+            if(Objects.equals(repeatLoginPass, password))
+            {
+
+            createUserAccount();}
 
         }
     }

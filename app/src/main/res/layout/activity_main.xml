@@ -15,10 +15,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
+        android:fontFamily="@font/gsr"
         android:minHeight="48dp"
         android:onClick="activity_auth"
         android:text="Уже зарегистрированы? Войти"
-        android:textSize="17sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -125,6 +126,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/gsr"
             android:hint="Введите пароль"
+            android:inputType="textPassword"
             tools:layout_editor_absoluteX="47dp"
             tools:layout_editor_absoluteY="379dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -150,7 +152,8 @@
             android:layout_width="317dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gsr"
-            android:hint="Повторите пароль" />
+            android:hint="Повторите пароль"
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

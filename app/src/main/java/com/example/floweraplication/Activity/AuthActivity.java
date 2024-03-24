@@ -39,8 +39,6 @@ public class AuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
         binding = ActivityAuthBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

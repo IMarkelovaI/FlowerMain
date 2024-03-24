@@ -1,5 +1,6 @@
 package com.example.floweraplication;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,12 +9,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -65,9 +68,9 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
     private Uri pngUri = null;
     private Uri pngUri1 = null;
     Bitmap bitmap;
-    TextView PlName,PlSun,PlHeight,PlWidth,PlDescription;
+    TextView PlName,PlSun,PlHeight,PlWidth,PlDescription, DeleteRed;
     ImageView pngView;
-    Button Dob, DeleteRed;
+    Button Dob;
     Toolbar toolbar;
     String imageUrl="";
 
@@ -77,6 +80,19 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityUserPlantRedPlBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        toolbar = binding.toolbar;
+        toolbar.setTitleTextAppearance(this, R.style.FontForTitle);
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = this.getTheme();
+        theme.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, typedValue, true);
+        @ColorInt int color = typedValue.data;
+        toolbar.setTitleTextColor(color);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Редактирование");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         //init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();

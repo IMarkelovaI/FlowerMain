@@ -9,16 +9,17 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/PurposeRv"
-        android:layout_width="410dp"
+        android:layout_width="370dp"
         android:layout_height="474dp"
         android:layout_above="@id/addPurposeBtn"
         android:layout_below="@id/textView"
         android:layout_margin="5dp"
         android:layout_marginTop="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp"
         tools:listitem="@layout/row_purpose" />
 
     <TextView
@@ -28,32 +29,33 @@
         android:layout_alignParentEnd="true"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="Лист предназначений"
+        android:fontFamily="@font/productsans"
+        android:text="Разновидности"
+        android:textAlignment="center"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        />
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/gsr"
         android:text="Назад"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"/>
+        app:layout_constraintTop_toBottomOf="@+id/addPurposeBtn"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/addPurposeBtn"
@@ -63,14 +65,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="36dp"
-        android:text="Добавить предназначение"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:layout_marginTop="92dp"
+        android:fontFamily="@font/gsm"
+        android:text="Добавить разновидность"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/PurposeRv" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

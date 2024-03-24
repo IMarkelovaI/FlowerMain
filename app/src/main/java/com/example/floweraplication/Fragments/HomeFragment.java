@@ -1,5 +1,6 @@
 package com.example.floweraplication.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ import com.example.floweraplication.LightingActivity;
 import com.example.floweraplication.adapters.AdapterHomeFragment;
 import com.example.floweraplication.models.ModelUserFlow;
 import com.example.floweraplication.databinding.FragmentHomeBinding;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +48,11 @@ public class HomeFragment extends Fragment  {
     private static final String TAG = "PNG_LIST_TAG";
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
+    SharedPreferences sharedPreferences;
+    boolean nightMODE;
+    SharedPreferences.Editor editor;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    MaterialSwitch materialSwitch;
 
     public SharedPreferences apppref;
     public static final String APP_PREFERENCES = "apppref";
@@ -55,6 +63,32 @@ public class HomeFragment extends Fragment  {
 
         //init firebase auth
         buttonLight = binding.buttonLight;
+        materialSwitch = binding.switch3;
+
+        sharedPreferences = getActivity().getSharedPreferences("MODE",Context.MODE_PRIVATE);
+        nightMODE = sharedPreferences.getBoolean("night", false);
+        if (nightMODE){
+            materialSwitch.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        materialSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (nightMODE){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("night", false);
+
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("night", true);
+
+                }
+                editor.apply();
+            }
+        });
 
 
         //buttonLight.setOnClickListener(new View);

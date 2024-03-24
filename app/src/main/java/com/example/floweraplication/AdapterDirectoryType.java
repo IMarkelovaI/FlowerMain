@@ -44,6 +44,26 @@ public class AdapterDirectoryType extends RecyclerView.Adapter<AdapterDirectoryT
         String name = model.getName();
         String description = model.getDescription();
         holder.categoryTv.setText(name);
+        String s;
+        switch (name){
+            case ("Вьюнковые"):
+                s="https://cdn.botanichka.ru/wp-content/uploads/2015/11/Convolvulus_sabatius_07.jpg";
+                break;
+            case("Орхидные"):
+                s="https://jenciklopedija-roz.ru/wp-content/uploads/2019/05/orhidei-897x600.jpg";
+                break;
+            case("Амариллисовые"):
+                s="https://flori-da.ru/wp-content/uploads/2013/08/%D0%B3%D0%B8%D0%BF%D0%BF%D0%B5%D0%B0%D1%81%D1%82%D1%80%D1%83%D0%BC-12.jpg";
+                break;
+            case("Шиповник"):
+                s="https://chelseagarden.ru/wp-content/uploads/2020/03/foto-roza-rygoza-chelsea-garden-foto.jpg";
+                break;
+            case("Бромелиевые"):
+                s="https://images.floristics.info/images/stati_photo3/bromelia/bromelia3a_guzmania.jpg";
+                break;
+            default:
+                s="https://dacha.avgust.com/upload/iblock/51d/51d46aa0661159801b6a097e2ee91de8.jpg";
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +72,7 @@ public class AdapterDirectoryType extends RecyclerView.Adapter<AdapterDirectoryT
                 intent.putExtra("id", id);
                 intent.putExtra("name", name);
                 intent.putExtra("description",description);
-                String picture = "https://firebasestorage.googleapis.com/v0/b/floweraplication.appspot.com/o/images%2F2024_03_24_04_03_25.png?alt=media&token=572e21d3-66f5-4ed4-96ab-5b4ecc619e6a";
+                String picture = s;
                 intent.putExtra("picture", picture);
                 context.startActivity(intent);
             }
