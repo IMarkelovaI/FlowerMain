@@ -1,6 +1,7 @@
 package com.example.floweraplication.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
+import com.example.floweraplication.DirectoryActivity;
+import com.example.floweraplication.LightingActivity;
 import com.example.floweraplication.R;
 import com.example.floweraplication.adapters.AdapterPngAdmin;
 import com.example.floweraplication.adapters.AdapterPngUser;
@@ -51,6 +56,7 @@ public class FlowFragment extends Fragment {
 
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
+    ImageButton but;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +64,15 @@ public class FlowFragment extends Fragment {
 
         binding = FragmentFlowBinding.inflate(getLayoutInflater());
 
+        but = binding.imageButton;
+
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), DirectoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         /*View myview=inflater.inflate(R.layout.fragment_flow,container,false);
         recyclerView = binding.plantRv;

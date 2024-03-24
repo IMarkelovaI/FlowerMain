@@ -57,6 +57,7 @@ public class AdapterPngUser extends RecyclerView.Adapter<AdapterPngUser.HolderPn
             public void onClick(View v) {
                 Intent intent = new Intent(context, PlantDetailActivity.class);
 
+                intent.putExtra("PlId", model.getId());
                 intent.putExtra("PlName", model.getName());
                 intent.putExtra("PlText", model.getDescription());
                 intent.putExtra("PlType", model.getType_id());
