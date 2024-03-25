@@ -12,18 +12,34 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlowerAplication"
         tools:targetApi="31">
         <activity
+            android:name=".ProfileUser"
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity"
+            />
+        <activity
+            android:name=".photopredictor"
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity"
+            />
+        <activity
+            android:name=".DizActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity.MainActivity"
+            />
+        <activity
             android:name=".DetailDirectoryActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.MainActivity"/>
+            android:parentActivityName=".Activity.MainActivity" />
         <activity
             android:name=".DirectoryActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.MainActivity"/>
+            android:parentActivityName=".Activity.MainActivity" />
         <activity
             android:name=".ActivityPhotoplantDob"
             android:exported="false"
@@ -57,7 +73,7 @@
         <activity
             android:name=".LightingActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.MainActivity"/>
+            android:parentActivityName=".Activity.MainActivity" />
         <activity
             android:name=".Activity.AddPurposeActivity"
             android:exported="false" />
@@ -94,7 +110,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

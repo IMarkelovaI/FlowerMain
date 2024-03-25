@@ -17,11 +17,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.floweraplication.LightingActivity;
+import com.example.floweraplication.ProfileUser;
 import com.example.floweraplication.adapters.AdapterHomeFragment;
 import com.example.floweraplication.models.ModelUserFlow;
 import com.example.floweraplication.databinding.FragmentHomeBinding;
+import com.example.floweraplication.photopredictor;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +42,7 @@ public class HomeFragment extends Fragment  {
     private FragmentHomeBinding binding;
     private FirebaseAuth firebaseAuth;
     Button buttonLight;
+    ImageButton Profile;
 
     Context context;
 
@@ -52,7 +56,7 @@ public class HomeFragment extends Fragment  {
     boolean nightMODE;
     SharedPreferences.Editor editor;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    MaterialSwitch materialSwitch;
+   // MaterialSwitch materialSwitch;
 
     public SharedPreferences apppref;
     public static final String APP_PREFERENCES = "apppref";
@@ -63,9 +67,10 @@ public class HomeFragment extends Fragment  {
 
         //init firebase auth
         buttonLight = binding.buttonLight;
-        materialSwitch = binding.switch3;
+        //materialSwitch = binding.switch3;
+        Profile = binding.ProfileButton;
 
-        sharedPreferences = getActivity().getSharedPreferences("MODE",Context.MODE_PRIVATE);
+       /* sharedPreferences = getActivity().getSharedPreferences("MODE",Context.MODE_PRIVATE);
         nightMODE = sharedPreferences.getBoolean("night", false);
         if (nightMODE){
             materialSwitch.setChecked(true);
@@ -88,7 +93,7 @@ public class HomeFragment extends Fragment  {
                 }
                 editor.apply();
             }
-        });
+        });*/
 
 
         //buttonLight.setOnClickListener(new View);
@@ -100,8 +105,24 @@ public class HomeFragment extends Fragment  {
                 startActivity(intent);
             }
         });
+        binding.imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), photopredictor.class);
+                startActivity(intent);
+            }
+        });
 
+
+        Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ProfileUser.class);
+                startActivity(intent);
+            }
+        });
         return binding.getRoot();
+
     }
 
     /*public static void checkIsPlant(){

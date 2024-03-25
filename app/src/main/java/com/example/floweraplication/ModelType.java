@@ -1,5 +1,9 @@
 package com.example.floweraplication;
 
+import com.example.floweraplication.models.ModelPng;
+
+import java.util.Comparator;
+
 public class ModelType {
     String id, name, description;
     public ModelType(){
@@ -10,6 +14,12 @@ public class ModelType {
         this.name = name;
         this.description = description;
     }
+    public static final Comparator<ModelType> BY_NAME_ALPHABETICAL = new Comparator<ModelType>() {
+        @Override
+        public int compare(ModelType modelPng1, ModelType modelPng2) {
+            return modelPng1.name.compareTo(modelPng2.name);
+        }
+    };
 
     public String getId() {
         return id;

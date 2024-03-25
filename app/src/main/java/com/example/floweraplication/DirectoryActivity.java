@@ -4,6 +4,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -15,6 +16,7 @@ import com.example.floweraplication.adapters.AdapterCategory;
 import com.example.floweraplication.databinding.ActivityAdminBinding;
 import com.example.floweraplication.databinding.ActivityDirectoryBinding;
 import com.example.floweraplication.models.ModelCategory;
+import com.example.floweraplication.models.ModelPng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DirectoryActivity extends AppCompatActivity {
 
@@ -81,6 +84,7 @@ public class DirectoryActivity extends AppCompatActivity {
                     categoryArrayList.add(model);
                 }
                 adapterDirectoryType = new AdapterDirectoryType(DirectoryActivity.this, categoryArrayList);
+                Collections.sort(categoryArrayList, ModelType.BY_NAME_ALPHABETICAL);
                 binding.recyclerViewType.setAdapter(adapterDirectoryType);
             }
 
