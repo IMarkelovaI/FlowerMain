@@ -41,7 +41,7 @@
             android:exported="false"
             android:parentActivityName=".Activity.MainActivity" />
         <activity
-            android:name=".ActivityPhotoplantDob"
+            android:name=".Activity.ActivityPhotoplantDob"
             android:exported="false"
             android:parentActivityName=".Activity.MainActivity" />
         <activity
@@ -53,7 +53,7 @@
             android:exported="false"
             android:parentActivityName=".Activity.MainActivity" />
         <activity
-            android:name=".UserPlantDetailActivity"
+            android:name=".Activity.UserPlantDetailActivity"
             android:exported="false"
             android:parentActivityName=".Activity.MainActivity" />
         <activity

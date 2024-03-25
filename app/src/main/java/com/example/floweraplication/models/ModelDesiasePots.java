@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.models;
 
 public class ModelDesiasePots {
     String id,Pot_type,height,volume,width;

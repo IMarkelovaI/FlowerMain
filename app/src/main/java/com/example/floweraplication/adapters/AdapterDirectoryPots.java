@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.floweraplication.databinding.RowTypeDirBinding;
+import com.example.floweraplication.models.ModelDesiasePots;
 
 import java.util.ArrayList;
 

@@ -32,40 +32,4 @@ public class MyAplication extends Application {
         return date;
     }
 
-    public static void addToUserPlant(Context context){}
-    /*public static void addToFlUser(Context context, String plantid){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser()==null){
-            Toast.makeText(context, "Вы не авторизованы",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("id",""+id);
-            hashMap.put("timestamp",""+timestamp);
-
-        }
-    }*/
-
-
-    /*public static void checkIsPlant(Context context, String plant_id, boolean isMyPlant){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() ==null){
-
-        }
-        else {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-            reference.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            isMyPlant = snapshot.exists();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-        }
-    }*/
 }

@@ -4,19 +4,20 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.TypedValue;
 
-import com.example.floweraplication.Activity.AdminActivity;
-import com.example.floweraplication.adapters.AdapterCategory;
-import com.example.floweraplication.databinding.ActivityAdminBinding;
+import com.example.floweraplication.adapters.AdapterDirectoryDesiase;
+import com.example.floweraplication.adapters.AdapterDirectoryFertilizer;
+import com.example.floweraplication.adapters.AdapterDirectorySoil_type;
+import com.example.floweraplication.adapters.AdapterDirectoryType;
 import com.example.floweraplication.databinding.ActivityDirectoryBinding;
-import com.example.floweraplication.models.ModelCategory;
-import com.example.floweraplication.models.ModelPng;
+import com.example.floweraplication.models.ModelDesiase;
+import com.example.floweraplication.models.ModelFertilizer;
+import com.example.floweraplication.models.ModelSoil_type;
+import com.example.floweraplication.models.ModelType;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

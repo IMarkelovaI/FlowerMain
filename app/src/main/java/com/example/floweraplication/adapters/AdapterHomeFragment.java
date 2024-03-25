@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.floweraplication.UserPlantDetailActivity;
+import com.example.floweraplication.Activity.UserPlantDetailActivity;
 import com.example.floweraplication.models.ModelUserFlow;
 import com.example.floweraplication.databinding.RowUserBinding;
 

@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.Activity;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -24,16 +24,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.floweraplication.Activity.DobUserPlantActivity;
-import com.example.floweraplication.Activity.UserActivity;
-import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
+import com.example.floweraplication.R;
 import com.example.floweraplication.databinding.ActivityPhotoplantDobBinding;
-import com.example.floweraplication.ml.ModelPlant;
-import com.example.floweraplication.models.ModelCategory;
 import com.example.floweraplication.models.ModelPng;
 import com.example.floweraplication.models.ModelUser;
-import com.example.floweraplication.models.ModelUserFlow;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -53,7 +47,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.annotation.Nullable;
 

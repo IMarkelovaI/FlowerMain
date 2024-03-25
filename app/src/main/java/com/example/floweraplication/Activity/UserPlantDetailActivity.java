@@ -1,36 +1,47 @@
-package com.example.floweraplication;
+package com.example.floweraplication.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.floweraplication.Activity.AdminActivity;
-import com.example.floweraplication.Activity.AdminButonsActivity;
-import com.example.floweraplication.Activity.PlantDetailActivity;
+import com.example.floweraplication.MyAplication;
+import com.example.floweraplication.UserPlantRedPlActivity;
 import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
-import com.example.floweraplication.databinding.ActivityPlantDetailBinding;
 import com.example.floweraplication.databinding.ActivityUserPlantDetailBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class UserPlantDetailActivity extends AppCompatActivity {
 
     private ActivityUserPlantDetailBinding binding;
     private FirebaseAuth firebaseAuth;
 
-    TextView PlName,Sun,Height,Width,Description;
+    TextView PlName,Sun,Height,Width,Description,Watering,Loosening,Transfer;
     ImageView PlImage;
     ImageButton Redact;
+
+    String Water,Loos,Transf;
 
     private static final String TAG = "ADD_PLANT_TAG";
     @Override
@@ -73,6 +84,35 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         String width = arguments.get("plant_widthPlU").toString();
         String description = arguments.get("descriptionPlU").toString();
 
+        Watering = binding.Watering;
+        Loosening = binding.Loosening;
+        Transfer = binding.Transfer;
+
+        Log.i(TAG, "AAAAAAAAAAAAAAAAAAAAA"+plant_id);
+
+        DatabaseReference ref1=FirebaseDatabase.getInstance().getReference().child("Plant").child(plant_id);
+        ref1.child("Optimal_condition").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Water = snapshot.child("watering_time").getValue().toString();
+                    Loos = snapshot.child("loosening_time").getValue().toString();
+                    Transf = snapshot.child("transfer_time").getValue().toString();
+
+                    Log.i(TAG, "Uriririri"+Water.toString());
+                    Log.i(TAG, "Uririririddddddddddd"+Loos.toString());
+                    Log.i(TAG, "Uririririaaaaaaaaaa"+Transf.toString());
+
+                    loadW();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         binding.Redact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,5 +133,33 @@ public class UserPlantDetailActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void loadW() {
+        int w = Integer.parseInt(Water);
+        int l = Integer.parseInt(Loos);
+        int t = Integer.parseInt(Transf);
+
+        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh "+t);
+
+        long timestamp = System.currentTimeMillis();
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(timestamp);
+        cal.add(Calendar.DAY_OF_YEAR, w);
+        String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
+        Watering.setText(dateW);
+
+        Calendar cal1 = Calendar.getInstance(Locale.ENGLISH);
+        cal1.setTimeInMillis(timestamp);
+        cal1.add(Calendar.DAY_OF_YEAR, l);
+        String dateL = DateFormat.format("dd/MM/yyyy", cal1).toString();
+        Loosening.setText(dateL);
+
+        Calendar cal2 = Calendar.getInstance(Locale.ENGLISH);
+        cal2.setTimeInMillis(timestamp);
+        cal2.add(Calendar.DAY_OF_YEAR, t);
+        String dateT = DateFormat.format("dd/MM/yyyy", cal2).toString();
+        Transfer.setText(dateT);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.models;
 
 public class ModelSoil_type {
     String id, name, description;

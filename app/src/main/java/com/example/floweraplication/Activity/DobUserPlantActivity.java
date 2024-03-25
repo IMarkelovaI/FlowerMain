@@ -70,6 +70,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
     ImageView pngView;
     Button Dob;
     Toolbar toolbar;
+    String watering_time, transfer_time, loosening_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +144,8 @@ public class DobUserPlantActivity extends AppCompatActivity {
         description  = binding.Description.getText().toString().trim();
 
 
+
+
         //validate if not empty
         if (TextUtils.isEmpty(sun)){
             Toast.makeText(this,  "Введите солнце", Toast.LENGTH_SHORT).show();
@@ -157,6 +160,8 @@ public class DobUserPlantActivity extends AppCompatActivity {
             Toast.makeText(this,  "Введите описание", Toast.LENGTH_SHORT).show();
         }
         else {
+
+
             createPlant();
         }
     }
@@ -170,8 +175,6 @@ public class DobUserPlantActivity extends AppCompatActivity {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
         Date now = new Date();
         String fileName = formatter.format(now);
-
-
 
         Bundle arguments = getIntent().getExtras();
         String plant_id = arguments.get("idPl").toString();

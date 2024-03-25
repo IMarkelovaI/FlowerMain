@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".UserPlantDetailActivity">
+    tools:context=".Activity.UserPlantDetailActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -66,6 +66,7 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout5"
                 android:layout_width="341dp"
                 android:layout_height="173dp"
                 android:layout_marginTop="24dp"
@@ -171,6 +172,37 @@
                     app:layout_constraintStart_toEndOf="@+id/textView1"
                     app:layout_constraintTop_toBottomOf="@+id/Height" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Следующая дата полива"
+                android:id="@+id/Watering"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Следующая дата рыхления"
+                android:id="@+id/Loosening"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Watering"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Следующая дата пересадки"
+                android:id="@+id/Transfer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Loosening"
+                />
+
 
             <TextView
                 android:id="@+id/Description"

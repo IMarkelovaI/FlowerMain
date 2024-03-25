@@ -33,7 +33,7 @@ public class ProfileUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityProfileuserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setContentView(R.layout.activity_profileuser);
+
         toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -70,6 +70,4 @@ public class ProfileUser extends AppCompatActivity {
             }
         });
     }
-
-
 }

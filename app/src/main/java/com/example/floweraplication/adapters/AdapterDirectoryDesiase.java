@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.example.floweraplication.DetailDirectoryActivity;
 import com.example.floweraplication.databinding.RowTypeDirBinding;
-import com.example.floweraplication.models.ModelCategory;
+import com.example.floweraplication.models.ModelDesiase;
 
 import java.util.ArrayList;
 

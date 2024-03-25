@@ -122,7 +122,6 @@ public class HomeFragment extends Fragment  {
             }
         });
         return binding.getRoot();
-
     }
 
     /*public static void checkIsPlant(){

@@ -1,4 +1,4 @@
-package com.example.floweraplication;
+package com.example.floweraplication.models;
 
 public class ModelFertilizer {
     String id, name, description;

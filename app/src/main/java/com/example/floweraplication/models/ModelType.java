@@ -1,6 +1,4 @@
-package com.example.floweraplication;
-
-import com.example.floweraplication.models.ModelPng;
+package com.example.floweraplication.models;
 
 import java.util.Comparator;
 
