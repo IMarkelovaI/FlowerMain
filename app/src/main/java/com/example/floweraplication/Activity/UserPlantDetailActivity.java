@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.icu.util.LocaleData;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -22,7 +23,6 @@ import com.bumptech.glide.Glide;
 import com.example.floweraplication.Fragments.HomeFragment;
 import com.example.floweraplication.MyAplication;
 import com.example.floweraplication.UserPlantRedPlActivity;
-import com.example.floweraplication.adapters.AdapterHomeFragment;
 import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
 import com.example.floweraplication.databinding.ActivityUserPlantDetailBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,10 +37,21 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class UserPlantDetailActivity extends AppCompatActivity {
 
@@ -146,11 +157,27 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int i, int i1, int i2) {
-                        binding.WaterP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
-                        watka = binding.WaterP.getText().toString();
+                        if(i2 < 10){
+                            if (i1 < 10){
+                                i1=i1+1;
+                                binding.WaterP.setText("0"+i2 + "/" + "0"+i1 + "/" + i);
+                            }
+                            else {
+                                i1=i1+1;
+                                binding.WaterP.setText("0"+i2 + "/" + i1 + "/" + i);
+                            }
+                        }
+                        else if(i1+1 < 10){
+                            i1=i1+1;
+                            binding.WaterP.setText(i2 + "/" + "0"+i1 + "/" + i);
+                        }
+                        else {
+                            i1=i1+1;
+                            binding.WaterP.setText(i2 + "/" + i1 + "/" + i);
+                        }
 
                     }
-                }, year,month,day);
+                }, year,month-2,day);
                 dialog.show();
             }
         });
@@ -166,12 +193,27 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int i, int i1, int i2) {
-                        binding.LoosP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
-                        loser = binding.LoosP.getText().toString();
-                        Log.i(TAG, "FAFAFAFAFFAFAFAFAAF"+binding.TransportP.getText().toString());
+                        if(i2 < 10){
+                            if (i1 < 10){
+                                i1=i1+1;
+                                binding.LoosP.setText("0"+i2 + "/" + "0"+i1 + "/" + i);
+                            }
+                            else {
+                                i1=i1+1;
+                                binding.LoosP.setText("0"+i2 + "/" + i1 + "/" + i);
+                            }
+                        }
+                        else if(i1+1 < 10){
+                            i1=i1+1;
+                            binding.LoosP.setText(i2 + "/" + "0"+i1 + "/" + i);
+                        }
+                        else {
+                            i1=i1+1;
+                            binding.LoosP.setText(i2 + "/" + i1 + "/" + i);
+                        }
 
                     }
-                }, year,month,day);
+                }, year,month-2,day);
                 dialog.show();
             }
         });
@@ -184,15 +226,34 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_YEAR);
 
+                Log.i(TAG, "vaaaaayyyyyy"+binding.TransportP.getText().toString());
+
                 DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int i, int i1, int i2) {
-                        binding.TransportP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
-                        trans=binding.TransportP.getText().toString();
-                        Log.i(TAG, "WWWWWWWWWWWWWWWWWWWWWWWWW"+binding.TransportP.getText().toString());
+
+                        if(i2 < 10){
+                            if (i1 < 10){
+                                i1=i1+1;
+                                binding.TransportP.setText("0"+i2 + "/" + "0"+i1 + "/" + i);
+                            }
+                            else {
+                                i1=i1+1;
+                                binding.TransportP.setText("0"+i2 + "/" + i1 + "/" + i);
+                            }
+                        }
+                        else if(i1+1 < 10){
+                            i1=i1+1;
+                            binding.TransportP.setText(i2 + "/" + "0"+i1 + "/" + i);
+                        }
+                        else {
+                            i1=i1+1;
+                            binding.TransportP.setText(i2 + "/" + i1 + "/" + i);
+                        }
+                        //binding.TransportP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
 
                     }
-                }, year,month,day);
+                }, year,month-2,day);
                 dialog.show();
             }
         });
@@ -255,9 +316,8 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
         String id = arguments.get("idPlU").toString();
         loser = binding.LoosP.getText().toString();
-        trans=binding.TransportP.getText().toString();
+        trans = binding.TransportP.getText().toString();
         watka = binding.WaterP.getText().toString();
-
 
 
         //setup data to save
@@ -276,9 +336,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(UserPlantDetailActivity.this, "Последняя дата ухода изменена", Toast.LENGTH_SHORT).show();
-
-
-
+                        loadW();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -298,23 +356,90 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         traText.setText(Transf+" дней");
         Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh "+t);
 
+        String loser = binding.LoosP.getText().toString();
+        String trans = binding.TransportP.getText().toString();
+        String watka = binding.WaterP.getText().toString();
+        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh "+watka);
+
+
+        DateTimeFormatter df = new DateTimeFormatterBuilder()
+                // case insensitive to parse JAN and FEB
+                .parseCaseInsensitive()
+                // add pattern
+                .appendPattern("dd/MM/yyyy")
+                // create formatter (use English Locale to parse month names)
+                .toFormatter(Locale.ENGLISH);
+        LocalDate d = LocalDate.parse(loser,df);
+        Log.i(TAG, "vjvjvjvkcvlx;s" +d);
+
+        long millisecondsSinceEpoch = LocalDate.parse(loser, df)
+                .atStartOfDay(ZoneOffset.UTC)
+                .toInstant()
+                .toEpochMilli();
+
+        //Log.i(TAG, "vjvjvjvkcvlx;s" +millisecondsSinceEpoch);
+
+        DateTimeFormatter df1 = new DateTimeFormatterBuilder()
+                // case insensitive to parse JAN and FEB
+                .parseCaseInsensitive()
+                // add pattern
+                .appendPattern("dd/MM/yyyy")
+                // create formatter (use English Locale to parse month names)
+                .toFormatter(Locale.ENGLISH);
+        LocalDate d1 = LocalDate.parse(watka,df1);
+        Log.i(TAG, "vjvjvjvkcvlx;s" +d1);
+
+        long millisecondsSinceEpoch1 = LocalDate.parse(watka, df1)
+                .atStartOfDay(ZoneOffset.UTC)
+                .toInstant()
+                .toEpochMilli();
+
+        DateTimeFormatter df2 = new DateTimeFormatterBuilder()
+                // case insensitive to parse JAN and FEB
+                .parseCaseInsensitive()
+                // add pattern
+                .appendPattern("dd/MM/yyyy")
+                // create formatter (use English Locale to parse month names)
+                .toFormatter(Locale.ENGLISH);
+        LocalDate d2 = LocalDate.parse(trans,df2);
+        Log.i(TAG, "vjvjvjvkcvlx;s" +d2);
+
+        long millisecondsSinceEpoch2 = LocalDate.parse(trans, df2)
+                .atStartOfDay(ZoneOffset.UTC)
+                .toInstant()
+                .toEpochMilli();
+
+
+        //Date r = Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        /*String date = "04/11/1972";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+        LocalDate d = LocalDate.parse(loser,formatter);
+        Log.i(TAG, "vjvjvjvkcvlx;s" +d);
+        //System.out.println(formatter.format(formatter.toString(d));
+
+        Date r = Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant());*/
+
+
+
         long timestamp = System.currentTimeMillis();
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(timestamp);
+        cal.setTimeInMillis(millisecondsSinceEpoch1);
         cal.add(Calendar.DAY_OF_YEAR, w);
         String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
         Watering.setText(dateW);
 
         Calendar cal1 = Calendar.getInstance(Locale.ENGLISH);
-        cal1.setTimeInMillis(timestamp);
+        cal1.setTimeInMillis(millisecondsSinceEpoch);
         cal1.add(Calendar.DAY_OF_YEAR, l);
         String dateL = DateFormat.format("dd/MM/yyyy", cal1).toString();
         Loosening.setText(dateL);
 
         Calendar cal2 = Calendar.getInstance(Locale.ENGLISH);
-        cal2.setTimeInMillis(timestamp);
+        cal2.setTimeInMillis(millisecondsSinceEpoch2);
         cal2.add(Calendar.DAY_OF_YEAR, t);
         String dateT = DateFormat.format("dd/MM/yyyy", cal2).toString();
         Transfer.setText(dateT);
+
     }
 }

@@ -55,7 +55,7 @@
         <activity
             android:name=".Activity.UserPlantDetailActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.MainActivity" />
+            android:parentActivityName=".Activity.UserActivity" />
         <activity
             android:name=".Activity.DobUserPlantActivity"
             android:exported="false"
