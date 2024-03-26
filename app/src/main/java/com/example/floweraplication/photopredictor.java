@@ -200,9 +200,9 @@ public class photopredictor extends AppCompatActivity {
                 @ColorInt int color = typedValue.data;
                 TextDisease.setTextColor(color);
                 Drawable drawable = ContextCompat.getDrawable(this,R.drawable.exclamation_mark);
-                drawable.setBounds(0, 0, (int) (drawable.getIntrinsicWidth() * 0.6),
+               drawable.setBounds(0, 0, (int) (drawable.getIntrinsicWidth() * 0.6),
                         (int) (drawable.getIntrinsicHeight() * 0.6));
-                ScaleDrawable sd = new ScaleDrawable(drawable, 0, 40, 40);
+               ScaleDrawable sd = new ScaleDrawable(drawable, 0, 40, 40);
 
 
                 TextDisease.setCompoundDrawables(null, null, sd.getDrawable(), null);
@@ -211,7 +211,7 @@ public class photopredictor extends AppCompatActivity {
 
             }
             else{
-                seccnt.setBackgroundResource(R.drawable.green_container);
+               seccnt.setBackgroundResource(R.drawable.secondary_container);
                 arrowPredict.setVisibility(View.GONE);
                 TypedValue typedValue = new TypedValue();
                 Resources.Theme theme = this.getTheme();

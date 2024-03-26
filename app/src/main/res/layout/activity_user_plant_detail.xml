@@ -66,6 +66,183 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cnstcard2"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/variantsurv"
+
+                app:layout_constraintStart_toEndOf="@+id/cnstcard1"
+                app:layout_constraintTop_toBottomOf="@+id/Description">
+
+                <TextView
+                    android:id="@+id/textView24t"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawableStart="@drawable/baseline_grass_24"
+                    android:drawablePadding="2dp"
+                    android:drawableTint="?attr/colorOnTertiaryContainer"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+
+                    android:fontFamily="@font/gsm"
+                    android:gravity="center"
+                    android:text="Пересадка"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView26t"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/gsr"
+                    android:text="Каждые"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+
+                    android:textAlignment="textStart"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView24t" />
+
+                <TextView
+                    android:id="@+id/traText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/gsr"
+                    android:text="TextView"
+                    android:textSize="10sp"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView26t"
+                    app:layout_constraintTop_toBottomOf="@+id/textView24t" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cnstcard"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/variantsurv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Description">
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawableStart="@drawable/baseline_water_drop_24"
+                    android:drawablePadding="2dp"
+                    android:fontFamily="@font/gsm"
+                    android:gravity="center"
+                    android:text="Полив"
+                    android:drawableTint="?attr/colorOnTertiaryContainer"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/gsr"
+                    android:text="Каждые"
+                    android:textAlignment="textStart"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                <TextView
+                    android:id="@+id/watText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/gsr"
+                    android:text="TextView"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView26"
+                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cnstcard1"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/variantsurv"
+                app:layout_constraintStart_toEndOf="@+id/cnstcard"
+                app:layout_constraintTop_toBottomOf="@+id/Description">
+
+                <TextView
+                    android:id="@+id/textView24s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawableStart="@drawable/baseline_auto_graph_24"
+                    android:drawablePadding="2dp"
+                    android:fontFamily="@font/gsm"
+                    android:gravity="center"
+                    android:text="Рыхление"
+                    android:drawableTint="?attr/colorOnTertiaryContainer"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView26s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/gsr"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+
+                    android:text="Каждые"
+                    android:textAlignment="textStart"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView24s" />
+
+                <TextView
+                    android:id="@+id/losText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/gsr"
+                    android:text="TextView"
+                    android:textSize="10sp"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView26s"
+                    app:layout_constraintTop_toBottomOf="@+id/textView24s" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout5"
                 android:layout_width="341dp"
                 android:layout_height="173dp"
@@ -75,7 +252,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Description">
+                app:layout_constraintTop_toBottomOf="@+id/cnstcard"
+                app:layout_constraintVertical_bias="0.0">
 
                 <TextView
                     android:id="@+id/Height"
@@ -256,7 +434,6 @@
         app:pressedTranslationZ="12dp"
         app:layout_constraintTop_toTopOf="@+id/pngView"
         app:layout_constraintVertical_bias="1.0" />
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -46,14 +46,26 @@ public class AdapterDirectoryDesiase extends RecyclerView.Adapter<AdapterDirecto
         holder.categoryTv.setText(name);
         String s;
         switch (name){
-            case ("Парса"):
+            case ("Парша"):
                 s="https://markik.ru/800/600/http/tk-ast.ru/wp-content/uploads/6a9b1788195c63130ee3a1d25310d9ce.jpg";
                 break;
-            case("Просса"):
+            case("Ржавчина"):
                 s="https://static.tildacdn.com/tild3935-6363-4330-a234-626336663366/1-6-700x599.jpg";
                 break;
-            default:
+            case("Мучнистая роса"):
                 s="https://dacha.avgust.com/upload/iblock/51d/51d46aa0661159801b6a097e2ee91de8.jpg";
+                break;
+            case("Грибковое заболевание"):
+                s="https://www.ivd.ru/images/cache/2021/11/2/widen_960_crop_1000_667_0_0_q90_2010372_bad59e3a3da57bf0709c8e2b9.jpeg";
+                break;
+            case("Фитофтороз"):
+                 s="https://shans-group.com/upload/vrediteli/vrednye-obekty-bolezni-fitoftoroz-001.jpg";
+               break;
+            case("Бактериальное заболевание"):
+                s="https://www.skmvl.ru/static/images/content/123.jpg";
+                break;
+            default:
+                s="https://naturae.ru/foto/mozaika-ogurca.jpg";
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

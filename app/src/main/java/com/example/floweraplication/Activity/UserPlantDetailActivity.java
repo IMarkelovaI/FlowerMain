@@ -37,7 +37,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
     private ActivityUserPlantDetailBinding binding;
     private FirebaseAuth firebaseAuth;
 
-    TextView PlName,Sun,Height,Width,Description,Watering,Loosening,Transfer;
+    TextView PlName,Sun,Height,Width,Description,Watering,Loosening,Transfer, watText, losText, traText;
     ImageView PlImage;
     ImageButton Redact;
 
@@ -65,6 +65,9 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Width=binding.Width;
         Description=binding.Description;
         PlImage= binding.PlImage;
+        watText = binding.watText;
+        losText=binding.losText;
+        traText=binding.traText;
 
         Glide.with(UserPlantDetailActivity.this).load(getIntent().getStringExtra("picturePl")).into(PlImage);
 
@@ -140,7 +143,9 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         int w = Integer.parseInt(Water);
         int l = Integer.parseInt(Loos);
         int t = Integer.parseInt(Transf);
-
+        watText.setText(Water+" дней");
+        losText.setText(Loos+" дней");
+        traText.setText(Transf+" дней");
         Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh "+t);
 
         long timestamp = System.currentTimeMillis();
