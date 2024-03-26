@@ -263,6 +263,7 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
                                 hashMap.put("plant_width", ""+plant_width);
                                 hashMap.put("description", ""+description);
                                 hashMap.put("picture",""+downloadImageUri); //uri of uploaded image
+                                //hashMap.put("pots_id", "");
 
 
                                 //save to db
@@ -341,6 +342,7 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
                                 hashMap.put("plant_width", ""+plant_width);
                                 hashMap.put("description", ""+description);
                                 hashMap.put("picture",""+downloadImageUri); //uri of uploaded image
+                                //hashMap.put("pots_id", "");
 
 
                                 //save to db

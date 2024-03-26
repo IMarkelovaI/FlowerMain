@@ -68,7 +68,9 @@ public class UserPlantDetailActivity extends AppCompatActivity {
     TextView WaterPlant,LoosPlant,TransfPlant;
 
     String last_day_of_watering, last_day_of_transport,last_day_of_loosening;
-    String loser="", watka="",trans="";
+    String loser, watka,trans;
+
+    String abundance_of_watering="", air_hamidity_id = "",fertilizer_id="", optimal_temperature="",soil_type_id="";
 
     private static final String TAG = "ADD_PLANT_TAG";
     @Override
@@ -97,6 +99,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         losText=binding.losText;
         traText=binding.traText;
 
+
         Glide.with(UserPlantDetailActivity.this).load(getIntent().getStringExtra("picturePl")).into(PlImage);
 
         PlName.setText(getIntent().getStringExtra("namePlU"));
@@ -118,6 +121,35 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Watering = binding.Watering;
         Loosening = binding.Loosening;
         Transfer = binding.Transfer;
+
+        Log.i(TAG,"KKKKKKKKKKKKKKKKKK"+id);
+        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Users");
+        ref2.child(firebaseAuth.getUid()).child("User_plant").child(id).child("Last_care")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                            if(dataSnapshot.exists())
+                            {
+                                last_day_of_loosening = String.valueOf(dataSnapshot.child("last_day_of_loosening").getValue());
+                                Log.i(TAG,"AAAAAAAAFFFFFFF"+last_day_of_loosening);
+                                last_day_of_transport = String.valueOf(dataSnapshot.child("last_day_of_transport").getValue());
+                                last_day_of_watering = String.valueOf(dataSnapshot.child("last_day_of_watering").getValue());
+
+                                binding.WaterP.setText(last_day_of_watering.toString());
+                                Log.i(TAG,"AAAAAAAAFFFFFFF"+binding.WaterP);
+                                binding.LoosP.setText(last_day_of_loosening.toString());
+                                binding.TransportP.setText(last_day_of_transport.toString());
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         binding.Redact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,19 +193,23 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                             if (i1 < 10){
                                 i1=i1+1;
                                 binding.WaterP.setText("0"+i2 + "/" + "0"+i1 + "/" + i);
+                                watka=binding.WaterP.getText().toString();
                             }
                             else {
                                 i1=i1+1;
                                 binding.WaterP.setText("0"+i2 + "/" + i1 + "/" + i);
+                                watka=binding.WaterP.getText().toString();
                             }
                         }
                         else if(i1+1 < 10){
                             i1=i1+1;
                             binding.WaterP.setText(i2 + "/" + "0"+i1 + "/" + i);
+                            watka=binding.WaterP.getText().toString();
                         }
                         else {
                             i1=i1+1;
                             binding.WaterP.setText(i2 + "/" + i1 + "/" + i);
+                            watka=binding.WaterP.getText().toString();
                         }
 
                     }
@@ -273,6 +309,16 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                     Log.i(TAG, "Uririririddddddddddd"+Loos.toString());
                     Log.i(TAG, "Uririririaaaaaaaaaa"+Transf.toString());
 
+                    abundance_of_watering=snapshot.child("abundance_of_watering").getValue().toString();
+                    air_hamidity_id = snapshot.child("air_hamidity_id").getValue().toString();
+                    fertilizer_id=snapshot.child("fertilizer_id").getValue().toString();
+                    optimal_temperature=snapshot.child("optimal_temperature").getValue().toString();
+                    soil_type_id=snapshot.child("soil_type_id").getValue().toString();
+                    binding.abundanceOfWatering.setText(abundance_of_watering);
+                    binding.airHumidityId.setText(air_hamidity_id);
+                    binding.fertilizerId.setText(fertilizer_id);
+                    binding.optimalTemperature.setText(optimal_temperature);
+                    binding.soilTypeId.setText(soil_type_id);
                     loadW();
                 }
             }
@@ -282,34 +328,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
             }
         });
-        Log.i(TAG,"KKKKKKKKKKKKKKKKKK"+id);
-        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Users");
-        ref2.child(firebaseAuth.getUid()).child("User_plant").child(id).child("Last_care")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                            if(dataSnapshot.exists())
-                            {
-                                last_day_of_loosening = String.valueOf(dataSnapshot.child("last_day_of_loosening").getValue());
-                                Log.i(TAG,"AAAAAAAAFFFFFFF"+last_day_of_loosening);
-                                last_day_of_transport = String.valueOf(dataSnapshot.child("last_day_of_transport").getValue());
-                                last_day_of_watering = String.valueOf(dataSnapshot.child("last_day_of_watering").getValue());
-
-                                binding.WaterP.setText(last_day_of_watering.toString());
-                                Log.i(TAG,"AAAAAAAAFFFFFFF"+binding.WaterP);
-                                binding.LoosP.setText(last_day_of_loosening.toString());
-                                binding.TransportP.setText(last_day_of_transport.toString());
-
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
     }
 
     private void updateLast_care() {
@@ -318,6 +336,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         loser = binding.LoosP.getText().toString();
         trans = binding.TransportP.getText().toString();
         watka = binding.WaterP.getText().toString();
+        Log.i(TAG, "wotkaaaaaaaaa "+watka);
 
 
         //setup data to save
@@ -354,12 +373,15 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         watText.setText(Water+" дней");
         losText.setText(Loos+" дней");
         traText.setText(Transf+" дней");
-        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh "+t);
+        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh tttt "+t);
 
         String loser = binding.LoosP.getText().toString();
         String trans = binding.TransportP.getText().toString();
         String watka = binding.WaterP.getText().toString();
-        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh "+watka);
+        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh watka fffff "+binding.WaterP.getText().toString());
+        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh watka "+watka);
+        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh trans "+trans);
+        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh loser "+loser);
 
 
         DateTimeFormatter df = new DateTimeFormatterBuilder()

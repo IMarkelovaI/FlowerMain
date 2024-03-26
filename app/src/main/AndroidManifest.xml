@@ -94,14 +94,10 @@
             android:exported="false" />
         <activity
             android:name=".Activity.UserActivity"
-            android:exported="false"
-            android:label="@string/title_activity_user" />
-        <activity
-            android:name=".Activity.MainActivity"
-            android:exported="false" /> <!-- android:parentActivityName=".Activity.UserActivity" -->
-        <activity
-            android:name=".Activity.AuthActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/title_activity_user"
+            android:alwaysRetainTaskState="true"
+            android:parentActivityName=".Activity.MainActivity">
 
             <!-- AuthActivity -->
             <intent-filter>
@@ -109,6 +105,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.MainActivity"
+            android:exported="false" /> <!-- android:parentActivityName=".Activity.UserActivity" -->
+        <activity
+            android:name=".Activity.AuthActivity"
+            android:exported="true">
+
         </activity>
     </application>
 

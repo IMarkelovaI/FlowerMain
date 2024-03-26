@@ -472,11 +472,12 @@
 
             <Button
                 android:id="@+id/WLT"
-                android:text="Обновить"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
-                tools:layout_editor_absoluteX="161dp" />
+                android:text="Обновить"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -540,6 +541,60 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Recipe Name" />
+
+            <TextView
+                android:id="@+id/fertilizer_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Разновидность удобрения"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/WLT"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/abundance_of_watering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="40dp"
+                android:text="Периодичность полива"
+                app:layout_constraintEnd_toStartOf="@+id/fertilizer_id"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/WLT"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/soil_type_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Тип почвы"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fertilizer_id"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/air_humidity_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="54dp"
+                android:text="Обильность опрыскивания"
+                app:layout_constraintEnd_toStartOf="@+id/soil_type_id"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/abundance_of_watering"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/optimal_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Оптимальная температура"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/air_humidity_id" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

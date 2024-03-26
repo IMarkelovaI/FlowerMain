@@ -210,6 +210,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                 hashMap.put("plant_width", ""+plant_width);
                                 hashMap.put("description", ""+description);
                                 hashMap.put("picture",""+downloadImageUri);
+                                //hashMap.put("pots_id", "");
 
                                 //save to db
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
@@ -282,6 +283,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
             hashMap.put("plant_size", ""+plant_size);
             hashMap.put("plant_width", ""+plant_width);
             hashMap.put("description", ""+description);
+            //hashMap.put("pots_id", "");
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
             ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
