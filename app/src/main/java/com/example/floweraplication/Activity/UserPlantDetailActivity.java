@@ -4,21 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.floweraplication.Fragments.HomeFragment;
 import com.example.floweraplication.MyAplication;
 import com.example.floweraplication.UserPlantRedPlActivity;
+import com.example.floweraplication.adapters.AdapterHomeFragment;
 import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
 import com.example.floweraplication.databinding.ActivityUserPlantDetailBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,9 +35,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class UserPlantDetailActivity extends AppCompatActivity {
@@ -42,6 +52,12 @@ public class UserPlantDetailActivity extends AppCompatActivity {
     ImageButton Redact;
 
     String Water,Loos,Transf;
+    Button last;
+
+    TextView WaterPlant,LoosPlant,TransfPlant;
+
+    String last_day_of_watering, last_day_of_transport,last_day_of_loosening;
+    String loser="", watka="",trans="";
 
     private static final String TAG = "ADD_PLANT_TAG";
     @Override
@@ -58,6 +74,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         progressDialog. setCanceledOnTouchOutside(false);
 
         Redact = binding.Redact;
+        last = binding.WLT;
 
         PlName=binding.PlName;
         Sun=binding.Sun;
@@ -91,6 +108,95 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Loosening = binding.Loosening;
         Transfer = binding.Transfer;
 
+        binding.Redact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), UserPlantRedPlActivity.class);
+
+                intent.putExtra("idPlU",id);
+                intent.putExtra("descriptionPlU",description);
+                intent.putExtra("namePlU",name);
+                intent.putExtra("picturePl",image);
+                intent.putExtra("plant_idPlU",plant_id);
+                intent.putExtra("plant_sizePlU",hight);
+                intent.putExtra("plant_widthPlU",width);
+                intent.putExtra("sunPlU",sun);
+                Log.d(TAG, "Пиздец"+name);
+
+                startActivity(intent);
+            }
+        });
+
+        binding.WLT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateLast_care();
+            }
+        });
+        binding.imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_YEAR);
+
+                DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int i, int i1, int i2) {
+                        binding.WaterP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
+                        watka = binding.WaterP.getText().toString();
+
+                    }
+                }, year,month,day);
+                dialog.show();
+            }
+        });
+        binding.imageButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_YEAR);
+
+                DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int i, int i1, int i2) {
+                        binding.LoosP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
+                        loser = binding.LoosP.getText().toString();
+                        Log.i(TAG, "FAFAFAFAFFAFAFAFAAF"+binding.TransportP.getText().toString());
+
+                    }
+                }, year,month,day);
+                dialog.show();
+            }
+        });
+        binding.imageButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_YEAR);
+
+                DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int i, int i1, int i2) {
+                        binding.TransportP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
+                        trans=binding.TransportP.getText().toString();
+                        Log.i(TAG, "WWWWWWWWWWWWWWWWWWWWWWWWW"+binding.TransportP.getText().toString());
+
+                    }
+                }, year,month,day);
+                dialog.show();
+            }
+        });
+
         Log.i(TAG, "AAAAAAAAAAAAAAAAAAAAA"+plant_id);
 
         DatabaseReference ref1=FirebaseDatabase.getInstance().getReference().child("Plant").child(plant_id);
@@ -115,31 +221,75 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
             }
         });
+        Log.i(TAG,"KKKKKKKKKKKKKKKKKK"+id);
+        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Users");
+        ref2.child(firebaseAuth.getUid()).child("User_plant").child(id).child("Last_care")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                            if(dataSnapshot.exists())
+                            {
+                                last_day_of_loosening = String.valueOf(dataSnapshot.child("last_day_of_loosening").getValue());
+                                Log.i(TAG,"AAAAAAAAFFFFFFF"+last_day_of_loosening);
+                                last_day_of_transport = String.valueOf(dataSnapshot.child("last_day_of_transport").getValue());
+                                last_day_of_watering = String.valueOf(dataSnapshot.child("last_day_of_watering").getValue());
 
-        binding.Redact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                                binding.WaterP.setText(last_day_of_watering.toString());
+                                Log.i(TAG,"AAAAAAAAFFFFFFF"+binding.WaterP);
+                                binding.LoosP.setText(last_day_of_loosening.toString());
+                                binding.TransportP.setText(last_day_of_transport.toString());
 
-                Intent intent = new Intent(getApplicationContext(), UserPlantRedPlActivity.class);
+                            }
+                        }
+                    }
 
-                intent.putExtra("idPlU",id);
-                intent.putExtra("descriptionPlU",description);
-                intent.putExtra("namePlU",name);
-                intent.putExtra("picturePl",image);
-                intent.putExtra("plant_idPlU",plant_id);
-                intent.putExtra("plant_sizePlU",hight);
-                intent.putExtra("plant_widthPlU",width);
-                intent.putExtra("sunPlU",sun);
-                Log.d(TAG, "Пиздец"+name);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                startActivity(intent);
-            }
-        });
-
-
+                    }
+                });
     }
 
+    private void updateLast_care() {
+        Bundle arguments = getIntent().getExtras();
+        String id = arguments.get("idPlU").toString();
+        loser = binding.LoosP.getText().toString();
+        trans=binding.TransportP.getText().toString();
+        watka = binding.WaterP.getText().toString();
+
+
+
+        //setup data to save
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("id", ""+id);
+        hashMap.put("last_day_of_loosening", ""+loser);
+        hashMap.put("last_day_of_transport", ""+trans);
+        hashMap.put("last_day_of_watering", ""+watka);
+
+
+        //save to db
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("User_plant").child(id).child("Last_care").child(id)
+                .updateChildren(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(UserPlantDetailActivity.this, "Последняя дата ухода изменена", Toast.LENGTH_SHORT).show();
+
+
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+
+    }
     private void loadW() {
+
         int w = Integer.parseInt(Water);
         int l = Integer.parseInt(Loos);
         int t = Integer.parseInt(Transf);

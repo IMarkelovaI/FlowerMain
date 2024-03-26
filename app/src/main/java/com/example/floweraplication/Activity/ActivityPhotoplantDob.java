@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -44,6 +45,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -270,10 +272,33 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-                                                //db updated
-                                                progressDialog.dismiss();
-                                                Log.d(TAG, "onSuccess: Successfully uploaded"+downloadImageUri);
-                                                startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
+                                                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                                                cal.setTimeInMillis(timestamp);
+                                                String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
+
+                                                HashMap<String,Object> hashMap = new HashMap<>();
+                                                hashMap.put("id", ""+timestamp);
+                                                hashMap.put("last_day_of_watering", ""+dateW);
+                                                hashMap.put("last_day_of_loosening", ""+dateW);
+                                                hashMap.put("last_day_of_transport", ""+dateW);
+
+                                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                                ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
+                                                        .updateChildren(hashMap)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                progressDialog.dismiss();
+
+                                                                startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                progressDialog.dismiss();
+                                                            }
+                                                        });
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
@@ -325,10 +350,33 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-                                                //db updated
-                                                progressDialog.dismiss();
-                                                Log.d(TAG, "onSuccess: Successfully uploaded"+downloadImageUri);
-                                                startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
+                                                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                                                cal.setTimeInMillis(timestamp);
+                                                String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
+
+                                                HashMap<String,Object> hashMap = new HashMap<>();
+                                                hashMap.put("id", ""+timestamp);
+                                                hashMap.put("last_day_of_watering", ""+dateW);
+                                                hashMap.put("last_day_of_loosening", ""+dateW);
+                                                hashMap.put("last_day_of_transport", ""+dateW);
+
+                                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                                ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
+                                                        .updateChildren(hashMap)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                progressDialog.dismiss();
+
+                                                                startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                progressDialog.dismiss();
+                                                            }
+                                                        });
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override

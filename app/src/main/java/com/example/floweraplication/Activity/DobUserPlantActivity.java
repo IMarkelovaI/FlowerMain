@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.floweraplication.R;
+import com.example.floweraplication.UserPlantRedPlActivity;
 import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
 import com.example.floweraplication.models.ModelPng;
 import com.example.floweraplication.models.ModelUser;
@@ -42,6 +44,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -206,7 +209,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                 hashMap.put("plant_size", ""+plant_size);
                                 hashMap.put("plant_width", ""+plant_width);
                                 hashMap.put("description", ""+description);
-                                hashMap.put("picture",""+downloadImageUri); //uri of uploaded image
+                                hashMap.put("picture",""+downloadImageUri);
 
                                 //save to db
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
@@ -216,9 +219,38 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void unused) {
                                                 //db updated
+
+                                                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                                                cal.setTimeInMillis(timestamp);
+                                                String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
+
                                                 progressDialog.dismiss();
                                                 Log.d(TAG, "onSuccess: Successfully uploaded"+downloadImageUri);
-                                                startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+
+                                                HashMap<String,Object> hashMap = new HashMap<>();
+                                                hashMap.put("id", ""+timestamp);
+                                                hashMap.put("last_day_of_watering", ""+dateW);
+                                                hashMap.put("last_day_of_loosening", ""+dateW);
+                                                hashMap.put("last_day_of_transport", ""+dateW);
+
+                                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                                ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
+                                                        .updateChildren(hashMap)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                progressDialog.dismiss();
+
+                                                                startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                progressDialog.dismiss();
+                                                            }
+                                                        });
+                                                //startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
@@ -257,9 +289,34 @@ public class DobUserPlantActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            progressDialog.dismiss();
-                            Toast.makeText(DobUserPlantActivity.this, "Растение пользователя добавлено", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                            cal.setTimeInMillis(timestamp);
+                            String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
+
+                            HashMap<String,Object> hashMap = new HashMap<>();
+                            hashMap.put("id", ""+timestamp);
+                            hashMap.put("last_day_of_watering", ""+dateW);
+                            hashMap.put("last_day_of_loosening", ""+dateW);
+                            hashMap.put("last_day_of_transport", ""+dateW);
+
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                            ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
+                                    .updateChildren(hashMap)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            progressDialog.dismiss();
+
+                                            startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressDialog.dismiss();
+                                        }
+                                    });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

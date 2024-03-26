@@ -62,9 +62,9 @@ public class HomeFragment extends Fragment  {
     public static final String APP_PREFERENCES = "apppref";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
 
+        //getFragmentManager().beginTransaction().detach(HomeFragment.this).attach(HomeFragment.this).commit();
         //init firebase auth
         buttonLight = binding.buttonLight;
         //materialSwitch = binding.switch3;
