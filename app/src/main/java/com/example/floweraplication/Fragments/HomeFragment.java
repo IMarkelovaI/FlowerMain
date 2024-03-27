@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment  {
     boolean nightMODE;
     SharedPreferences.Editor editor;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-   // MaterialSwitch materialSwitch;
+    MaterialSwitch materialSwitch;
 
     public SharedPreferences apppref;
     public static final String APP_PREFERENCES = "apppref";
@@ -67,10 +67,10 @@ public class HomeFragment extends Fragment  {
         //getFragmentManager().beginTransaction().detach(HomeFragment.this).attach(HomeFragment.this).commit();
         //init firebase auth
         buttonLight = binding.buttonLight;
-        //materialSwitch = binding.switch3;
+        materialSwitch = binding.switch33;
         Profile = binding.ProfileButton;
 
-       /* sharedPreferences = getActivity().getSharedPreferences("MODE",Context.MODE_PRIVATE);
+       sharedPreferences = getActivity().getSharedPreferences("MODE",Context.MODE_PRIVATE);
         nightMODE = sharedPreferences.getBoolean("night", false);
         if (nightMODE){
             materialSwitch.setChecked(true);
@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment  {
                 }
                 editor.apply();
             }
-        });*/
+        });
 
 
         //buttonLight.setOnClickListener(new View);

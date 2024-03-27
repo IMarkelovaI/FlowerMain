@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FlowerAplication</string>
+    <string name="app_name">Flowerly</string>
     <string name="title_activity_user">UserActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

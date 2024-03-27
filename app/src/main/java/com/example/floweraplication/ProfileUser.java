@@ -41,15 +41,15 @@ public class ProfileUser extends AppCompatActivity {
         binding = ActivityProfileuserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        toolbar = binding.toolbar;
+       toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        materialSwitch = binding.switch3;
 
 
-       sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+
+       /*sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         nightMODE = sharedPreferences.getBoolean("night", false);
         if (nightMODE){
             materialSwitch.setChecked(true);
@@ -75,7 +75,7 @@ public class ProfileUser extends AppCompatActivity {
                 }
                 editor.apply();
             }
-        });
+        });*/
         auth = FirebaseAuth.getInstance();
         logOut = binding.Logout;
         logOut.setOnClickListener(new View.OnClickListener() {
