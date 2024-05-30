@@ -9,6 +9,11 @@
         <item name="cornerSize">95dp</item>
     </style>
 
+    <style name="rounded_circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">78dp</item>
+    </style>
+
     <style name="drawable_icon">
         <item name="android:textSize">20sp</item>
         <item name="android:scaleX">0.8</item>

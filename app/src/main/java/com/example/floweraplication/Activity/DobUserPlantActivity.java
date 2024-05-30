@@ -114,6 +114,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
         PlName = binding.PlName;
 
         Uri uri = Uri.parse(getIntent().getStringExtra("pngView"));
+        Log.i(TAG,"KKKKKKKKKKKKKKKKKK"+uri);
 
         PlName.setText(getIntent().getStringExtra("PName"));
         Glide.with(DobUserPlantActivity.this).load(getIntent().getStringExtra("pngView")).into(pngView);
@@ -387,7 +388,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
 
         Log.d(TAG, "pngPickIntent: starting png pick intent");
         Intent intent = new Intent();
-        intent. setType("image/*");
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser (intent, "Select PNG"), PNG_PICK_CODE);
 
