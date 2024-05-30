@@ -44,6 +44,14 @@ public class DirectoryActivity extends AppCompatActivity {
     private AdapterDirectoryFertilizer adapterDirectoryFertilizer;
 
     Toolbar toolbar;
+
+    @Override
+    public boolean onSupportNavigateUp()
+    {
+        onBackPressed();
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

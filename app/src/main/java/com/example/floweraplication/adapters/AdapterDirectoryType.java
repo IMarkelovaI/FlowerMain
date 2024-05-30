@@ -58,6 +58,42 @@ public class AdapterDirectoryType extends RecyclerView.Adapter<AdapterDirectoryT
             case("Бромелиевые"):
                 s="https://images.floristics.info/images/stati_photo3/bromelia/bromelia3a_guzmania.jpg";
                 break;
+            case("Ароидные"):
+                s="https://cvetomagia.ru/wp-content/uploads/2021/02/aroidn-3.jpg";
+                break;
+            case("Астроцветные"):
+                s="https://upload.wikimedia.org/wikipedia/commons/0/07/Aster_Gawedka.jpg";
+                break;
+            case("Верескоцветные"):
+                s="https://img-fotki.yandex.ru/get/61164/87288678.cf/0_b8343_a45d4a53_L.jpg";
+                break;
+            case("Горечавкоцветные"):
+                s="https://t3.ftcdn.net/jpg/00/83/11/16/360_F_83111696_P1D7CmDnjqOU0eSOUF7cCyQUbpFa2iYI.jpg";
+                break;
+            case("Кактусовые"):
+                s="https://my-plants.com/uploads/articles/2020/09/9edb606a6c036a03bf93353a27767dbf.jpg";
+                break;
+            case("Мальпигиецветные"):
+                s="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Passiflora_c.jpg/1200px-Passiflora_c.jpg";
+                break;
+            case("Папоротник"):
+                s="https://img.7dach.ru/image/600/03/69/46/2016/11/17/5d3e65.jpg";
+                break;
+            case("Паслёноцветные"):
+                s="https://abekker.ru/uploads/files/27.01/ru_viushchiesia_01.jpg";
+                break;
+            case("Сосудистые"):
+                s="https://ibss-ras.ru/about-ibss/structure-ibss/unique-scientific-facilities/usf-karadag-nature-reserve/Plants_17.jpg";
+                break;
+            case("Суккулент"):
+                s="https://my-plants.com/uploads/articles/2021/05/b2bf9a25bc013e580d1b4cf4ae961efb.jpg";
+                break;
+            case("Тутовые"):
+                s="https://flori-da.ru/wp-content/uploads/2016/12/%D0%A4%D0%B8%D0%BA%D1%83%D1%812.jpg";
+                break;
+            case("Лютикоцветные"):
+                s="https://shans-group.com/upload/iblock/05d/%D0%9B%D1%8E%D1%82%D0%B8%D0%BA%20%D0%BF%D0%BE%D0%BB%D0%B7%D1%83%D1%87%D0%B8%D0%B8%CC%86.jpg";
+                break;
             default:
                 s="https://dacha.avgust.com/upload/iblock/51d/51d46aa0661159801b6a097e2ee91de8.jpg";
         }

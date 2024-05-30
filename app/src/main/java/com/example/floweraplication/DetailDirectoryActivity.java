@@ -31,6 +31,12 @@ public class DetailDirectoryActivity extends AppCompatActivity {
     Toolbar toolbar;
     private static final String TAG = "ADD_PLANT_TAG";
 
+    @Override
+    public boolean onSupportNavigateUp()
+    {
+     onBackPressed();
+     return true;
+    }
 
 
 

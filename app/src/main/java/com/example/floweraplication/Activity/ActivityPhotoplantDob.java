@@ -76,6 +76,13 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
     String plant_id;
 
     @Override
+    public boolean onSupportNavigateUp()
+    {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

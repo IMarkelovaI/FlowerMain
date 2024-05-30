@@ -38,6 +38,15 @@ public class DizActivity extends AppCompatActivity {
     ImageView pngView;
     MaterialToolbar toolbar;
     ImageView PlImage;
+
+
+    @Override
+    public boolean onSupportNavigateUp()
+    {
+        onBackPressed();
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

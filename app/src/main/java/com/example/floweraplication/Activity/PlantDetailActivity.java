@@ -29,6 +29,13 @@ public class PlantDetailActivity extends AppCompatActivity {
     private static final String TAG = "ADD_PLANT_TAG";
 
     @Override
+    public boolean onSupportNavigateUp()
+    {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPlantDetailBinding.inflate(getLayoutInflater());

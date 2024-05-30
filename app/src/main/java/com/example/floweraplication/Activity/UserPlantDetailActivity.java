@@ -73,6 +73,15 @@ public class UserPlantDetailActivity extends AppCompatActivity {
     String abundance_of_watering="", air_hamidity_id = "",fertilizer_id="", optimal_temperature="",soil_type_id="";
 
     private static final String TAG = "ADD_PLANT_TAG";
+
+    @Override
+    public boolean onSupportNavigateUp()
+    {
+        Intent intent = new Intent(UserPlantDetailActivity.this, UserActivity.class);
+        startActivity(intent);
+        finish();
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

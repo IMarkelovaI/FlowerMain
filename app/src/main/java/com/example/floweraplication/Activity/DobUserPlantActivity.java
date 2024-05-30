@@ -76,6 +76,13 @@ public class DobUserPlantActivity extends AppCompatActivity {
     String watering_time, transfer_time, loosening_time;
 
     @Override
+    public boolean onSupportNavigateUp()
+    {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDobUserPlantBinding.inflate(getLayoutInflater());

@@ -52,7 +52,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewType"
-                android:layout_width="381dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:scrollbars="vertical"
@@ -87,11 +87,12 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewFertilizer"
-                android:layout_width="369dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -101,11 +102,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/gsm"
-                android:text="Почва"
+                android:text="Грунты и земельные смеси"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.099"
+                app:layout_constraintHorizontal_bias="0.36"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider7" />
 
@@ -123,11 +124,12 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSoilType"
-                android:layout_width="374dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.404"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
@@ -159,7 +161,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewDesiase"
-                android:layout_width="374dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
