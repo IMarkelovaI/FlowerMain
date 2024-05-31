@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         hashMap.put("email", email);
         hashMap.put("name", name);
         hashMap.put("profileImage", profileImage);//add empty, will do later
-        hashMap.put("userType", "user");
+        hashMap.put("userType", "user");;
 
         SharedPreferences.Editor editor = apppref.edit();
         editor.clear();

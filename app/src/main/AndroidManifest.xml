@@ -93,7 +93,8 @@
             android:exported="false" />
         <activity
             android:name=".Activity.PasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ProfileUser" />
         <activity
             android:name=".Activity.TypeActivity"
             android:exported="false" />

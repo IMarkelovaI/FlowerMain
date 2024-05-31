@@ -104,7 +104,7 @@ public class ProfileUser extends AppCompatActivity {
         binding = ActivityProfileuserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-       toolbar = binding.toolbar;
+        toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
