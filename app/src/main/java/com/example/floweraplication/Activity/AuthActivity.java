@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.floweraplication.databinding.ActivityAuthBinding;
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 public class AuthActivity extends AppCompatActivity {
 
     private ActivityAuthBinding binding;
+    TextView textView;
 
     private FirebaseAuth firebaseAuth;
     public SharedPreferences apppref;
@@ -47,6 +49,7 @@ public class AuthActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Подождите немного");
         progressDialog.setCanceledOnTouchOutside(false);
+        textView = binding.textView5;
 
         apppref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -63,7 +66,15 @@ public class AuthActivity extends AppCompatActivity {
                validateDate();
            }
        });
+       binding.textView5.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(AuthActivity.this, UserApply.class));
+           }
+       });
     }
+
+
 
     private String email ="", password = "";
 
