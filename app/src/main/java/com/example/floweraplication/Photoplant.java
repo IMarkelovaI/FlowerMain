@@ -261,7 +261,7 @@ public class Photoplant extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap = image;
                 bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
-                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"val",null);
+                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"IMG_" + System.currentTimeMillis(),null);
                 Uri pa = Uri.parse(path);
                 uri = pa;
                 Log.w(TAG, "Ты не пройдешь "+uri);
@@ -300,7 +300,7 @@ public class Photoplant extends AppCompatActivity {
                 bitmap = image;
                 bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
                 bytes = stream.toByteArray();
-                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"val",null);
+                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"IMG_" + System.currentTimeMillis(),null);
                 Uri pa = Uri.parse(path);
                 uri = pa;
                 //assert image != null;

@@ -235,14 +235,7 @@ public class photopredictor extends AppCompatActivity {
             if (requestCode == 3) {
                 //uri = data.getData();
                 Bitmap image = (Bitmap) data.getExtras().get("data");
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap = image;
-                bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
-                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"val",null);
-                Uri pa = Uri.parse(path);
-                uri = pa;
-                Log.w(TAG, "Ты не пройдешь "+uri);
-                bytes = stream.toByteArray();
+
                 int dimension = Math.min(image.getWidth(), image.getHeight());
                 image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
                 imagePredictDisease.setImageBitmap(image);
@@ -251,6 +244,14 @@ public class photopredictor extends AppCompatActivity {
                 //bitmap = Bitmap.createScaledBitmap(image, 359,359,false);
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap = image;
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
+                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), image,"IMG_" + System.currentTimeMillis(),null);
+                Uri pa = Uri.parse(path);
+                uri = pa;
+                Log.w(TAG, "Ты не пройдешь "+uri);
+                bytes = stream.toByteArray();
                 imagePredictDisease.setAlpha(1f);
                 imagePredictDisease.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 String picture = imagePredictDisease.toString();
@@ -270,9 +271,9 @@ public class photopredictor extends AppCompatActivity {
                 imagePredictDisease.setImageBitmap(image);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap = image;
-                bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream);
+                bitmap.compress(Bitmap.CompressFormat.PNG,100, stream);
                 bytes = stream.toByteArray();
-                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"val",null);
+                String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"IMG_" + System.currentTimeMillis(),null);
                 Uri pa = Uri.parse(path);
                 uri = pa;
                 //assert image != null;

@@ -65,6 +65,11 @@
             android:exported="false"
             android:parentActivityName=".Activity.MainActivity" />
         <activity
+            android:name=".Activity.UserApply"
+            android:exported="false"
+            android:parentActivityName=".Activity.AuthActivity" />
+
+        <activity
             android:name=".PngEditActivity"
             android:exported="false" />
         <activity
