@@ -58,7 +58,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
     private ActivityUserPlantDetailBinding binding;
     private FirebaseAuth firebaseAuth;
 
-    TextView PlName,Sun,Height,Width,Description,Watering,Loosening,Transfer, watText, losText, traText;
+    TextView PlName,Sun,Height,Width,Description,Watering,Loosening,Transfer, watText, losText, traText, SunT;
     ImageView PlImage;
     ImageButton Redact;
 
@@ -67,7 +67,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
     TextView WaterPlant,LoosPlant,TransfPlant;
 
-    String last_day_of_watering, last_day_of_transport,last_day_of_loosening;
+    String last_day_of_watering, last_day_of_transport,last_day_of_loosening, LightU;
     String loser, watka,trans;
 
     String abundance_of_watering="", air_hamidity_id = "",fertilizer_id="", optimal_temperature="",soil_type_id="";
@@ -107,6 +107,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         watText = binding.watText;
         losText=binding.losText;
         traText=binding.traText;
+        SunT=binding.SunText;
 
 
         Glide.with(UserPlantDetailActivity.this).load(getIntent().getStringExtra("picturePl")).into(PlImage);
@@ -314,6 +315,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                     Loos = snapshot.child("loosening_time").getValue().toString();
                     Transf = snapshot.child("transfer_time").getValue().toString();
 
+                    LightU = snapshot.child("Light").getValue().toString();
                     Log.i(TAG, "Uriririri"+Water.toString());
                     Log.i(TAG, "Uririririddddddddddd"+Loos.toString());
                     Log.i(TAG, "Uririririaaaaaaaaaa"+Transf.toString());
@@ -328,6 +330,50 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                     binding.fertilizerId.setText(fertilizer_id);
                     binding.optimalTemperature.setText(optimal_temperature);
                     binding.soilTypeId.setText(soil_type_id);
+                    binding.lightId.setText(LightU);
+
+
+
+                    try
+                    {
+                        // именно здесь String преобразуется в int
+                        int PlantT = Integer.parseInt(LightU.trim());
+                        int PlantU = Integer.parseInt(sun.trim());
+
+                        // выведем на экран значение после конвертации
+                        System.out.println("int PlantT = " + PlantT);
+                        System.out.println("int PlantU = " + PlantU);
+
+                        if (PlantT>=1500 && PlantU>=1500){
+                            binding.SunText.setText("достаточно");
+                        }
+                        else if (PlantT>=1500 && PlantU<1500){
+                            binding.SunText.setText("недостаточно");
+                        }
+                        else if ((PlantT<1500 && PlantT>=500 ) && PlantU>=1500){
+                            binding.SunText.setText("переизбыток");
+                        }
+                        else if ((PlantT<1500 && PlantT>=500 ) && PlantU<500){
+                            binding.SunText.setText("недостаточно");
+                        }
+                        else if ((PlantT<1500 && PlantT>=500 ) && (PlantU<1500 && PlantU>=500)){
+                            binding.SunText.setText("достаточно");
+                        }
+                        else if ((PlantT<500 && PlantT>=150 ) && PlantU>=500){
+                            binding.SunText.setText("переизбыток");
+                        }
+                        else if ((PlantT<500 && PlantT>=150 ) && (PlantU<500 && PlantU>=150)){
+                            binding.SunText.setText("достаточно");
+                        }
+                        else {
+                            binding.SunText.setText("недостаточно");
+                        }
+                    }
+                    catch (NumberFormatException nfe)
+                    {
+                        System.out.println("NumberFormatException: " + nfe.getMessage());
+                    }
+
                     loadW();
                 }
             }

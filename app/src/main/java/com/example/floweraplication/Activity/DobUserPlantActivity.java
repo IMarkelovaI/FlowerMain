@@ -219,6 +219,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                 hashMap.put("description", ""+description);
                                 hashMap.put("picture",""+downloadImageUri);
                                 //hashMap.put("pots_id", "");
+                                Log.e(TAG, "ЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕНННННННННННННННЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ ");
 
                                 //save to db
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
@@ -241,6 +242,8 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                                 hashMap.put("last_day_of_watering", ""+dateW);
                                                 hashMap.put("last_day_of_loosening", ""+dateW);
                                                 hashMap.put("last_day_of_transport", ""+dateW);
+
+                                                Log.e(TAG, "ВВВВВВВВВВВВ "+dateW);
 
                                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
                                                 ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
@@ -292,7 +295,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
             hashMap.put("plant_width", ""+plant_width);
             hashMap.put("description", ""+description);
             //hashMap.put("pots_id", "");
-
+            Log.e(TAG, "ЕВВВВВВВВВВВВВВВВВВВВВВВВВааааа ");
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
             ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
                     .setValue(hashMap)
@@ -310,6 +313,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                             hashMap.put("last_day_of_loosening", ""+dateW);
                             hashMap.put("last_day_of_transport", ""+dateW);
 
+                            Log.e(TAG, "ЕВВВВВВВВммвмвмвмвмвмвмвмвм ");
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
                             ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
                                     .updateChildren(hashMap)
@@ -388,7 +392,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
 
         Log.d(TAG, "pngPickIntent: starting png pick intent");
         Intent intent = new Intent();
-        intent.setType("image/*");
+        intent. setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser (intent, "Select PNG"), PNG_PICK_CODE);
 

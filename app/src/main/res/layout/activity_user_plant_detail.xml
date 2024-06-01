@@ -199,6 +199,32 @@
                     tools:ignore="MissingConstraints" />
 
                 <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/productsans"
+                    android:text="Оптимальное освещение"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fertilizer_id" />
+
+                <TextView
+                    android:id="@+id/light_id"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/gsr"
+                    android:text="Оптимальное освещение"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView33"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
                     android:id="@+id/optimal_temperature"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -533,6 +559,19 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.3"
                     app:layout_constraintStart_toEndOf="@+id/textView15"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+                <TextView
+                    android:id="@+id/SunText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/gsb"
+                    android:text="TextView"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.567"
+                    app:layout_constraintStart_toEndOf="@+id/Sun"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
                 <TextView

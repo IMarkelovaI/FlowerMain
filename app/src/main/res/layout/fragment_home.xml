@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/ProfileButton"
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -76,8 +76,6 @@ public class HomeFragment extends Fragment  {
         materialSwitch = binding.switch33;
         Profile = binding.ProfileButton;
 
-        loadUserInfo();
-
        sharedPreferences = getActivity().getSharedPreferences("MODE",Context.MODE_PRIVATE);
         nightMODE = sharedPreferences.getBoolean("night", false);
         if (nightMODE){
@@ -128,6 +126,7 @@ public class HomeFragment extends Fragment  {
                 startActivity(intent);
             }
         });
+        //loadUserInfo();
         return binding.getRoot();
     }
 
@@ -217,6 +216,7 @@ public class HomeFragment extends Fragment  {
                     Recycler.add(new ModelUserFlow(description,id,name,picture,plant_id,plant_size,plant_width,sun));
                 }
                 adapterHomeFragment.notifyDataSetChanged();
+                //loadUserInfo();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
