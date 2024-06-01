@@ -330,9 +330,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                     binding.fertilizerId.setText(fertilizer_id);
                     binding.optimalTemperature.setText(optimal_temperature);
                     binding.soilTypeId.setText(soil_type_id);
-                    binding.lightId.setText(LightU);
-
-
 
                     try
                     {
@@ -345,28 +342,28 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         System.out.println("int PlantU = " + PlantU);
 
                         if (PlantT>=1500 && PlantU>=1500){
-                            binding.SunText.setText("достаточно");
+                            binding.SunText.setText("Ваше растение получает достаточно освещения");
                         }
                         else if (PlantT>=1500 && PlantU<1500){
-                            binding.SunText.setText("недостаточно");
+                            binding.SunText.setText("Ваше растение не получает достаточного освещения");
                         }
                         else if ((PlantT<1500 && PlantT>=500 ) && PlantU>=1500){
-                            binding.SunText.setText("переизбыток");
+                            binding.SunText.setText("Ваше растение получает освещения в избытке");
                         }
                         else if ((PlantT<1500 && PlantT>=500 ) && PlantU<500){
-                            binding.SunText.setText("недостаточно");
+                            binding.SunText.setText("Ваше растение не получает достаточного освещения");
                         }
                         else if ((PlantT<1500 && PlantT>=500 ) && (PlantU<1500 && PlantU>=500)){
-                            binding.SunText.setText("достаточно");
+                            binding.SunText.setText("Ваше растение получает достаточно освещения");
                         }
                         else if ((PlantT<500 && PlantT>=150 ) && PlantU>=500){
-                            binding.SunText.setText("переизбыток");
+                            binding.SunText.setText("Ваше растение получает освещения в избытке");
                         }
                         else if ((PlantT<500 && PlantT>=150 ) && (PlantU<500 && PlantU>=150)){
-                            binding.SunText.setText("достаточно");
+                            binding.SunText.setText("Ваше растение получает достаточно освещения");
                         }
                         else {
-                            binding.SunText.setText("недостаточно");
+                            binding.SunText.setText("Ваше растение не получает достаточного освещения");
                         }
                     }
                     catch (NumberFormatException nfe)
