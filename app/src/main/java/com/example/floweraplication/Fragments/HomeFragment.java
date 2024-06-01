@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -46,7 +47,7 @@ public class HomeFragment extends Fragment  {
     private FragmentHomeBinding binding;
     private FirebaseAuth firebaseAuth;
     Button buttonLight;
-    ImageButton Profile;
+    ImageView Profile;
 
     Context context;
 

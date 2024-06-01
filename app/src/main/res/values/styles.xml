@@ -16,7 +16,7 @@
 
     <style name="rounded_circle_small" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">5dp</item>
+        <item name="cornerSize">22dp</item>
     </style>
 
     <style name="drawable_icon">
