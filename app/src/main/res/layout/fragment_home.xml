@@ -29,14 +29,14 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
-        android:background="#00FFFFFF"
-        android:scaleType="fitXY"
-        android:tint="?attr/colorTertiaryContainer"
+        android:background="@drawable/circle"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_account_circle_24" />
+        app:srcCompat="@drawable/baseline_account_circle_24"
+        app:shapeAppearanceOverlay="@style/rounded_circle_small"/>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView3"

@@ -87,6 +87,9 @@
             android:name=".Activity.AddPlantActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.PasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.TypeActivity"
             android:exported="false" />
         <activity

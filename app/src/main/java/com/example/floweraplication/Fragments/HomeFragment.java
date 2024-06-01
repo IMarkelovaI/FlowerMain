@@ -13,12 +13,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.floweraplication.LightingActivity;
 import com.example.floweraplication.ProfileUser;
 import com.example.floweraplication.adapters.AdapterHomeFragment;
@@ -60,6 +64,7 @@ public class HomeFragment extends Fragment  {
 
     public SharedPreferences apppref;
     public static final String APP_PREFERENCES = "apppref";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
@@ -69,6 +74,8 @@ public class HomeFragment extends Fragment  {
         buttonLight = binding.buttonLight;
         materialSwitch = binding.switch33;
         Profile = binding.ProfileButton;
+
+        loadUserInfo();
 
        sharedPreferences = getActivity().getSharedPreferences("MODE",Context.MODE_PRIVATE);
         nightMODE = sharedPreferences.getBoolean("night", false);
@@ -94,7 +101,6 @@ public class HomeFragment extends Fragment  {
                 editor.apply();
             }
         });
-
 
         //buttonLight.setOnClickListener(new View);
 
@@ -211,6 +217,39 @@ public class HomeFragment extends Fragment  {
                 }
                 adapterHomeFragment.notifyDataSetChanged();
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void loadUserInfo(){
+        FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+        String userid =user.getUid();
+        Log.i(TAG,"dfdfdfdf"+userid);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(userid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String profileImage =""+snapshot.child("profileImage").getValue();
+
+                if (profileImage != "")
+                {
+                    //Uri uri = Uri.parse("profileImage");
+                    Log.i(TAG,"ебучий криптонит!!!!"+profileImage);
+
+                    RequestOptions options = new RequestOptions()
+                            .fitCenter()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL);
+
+                    Glide.with(getContext())
+                            .load((profileImage).toString())
+                            .apply(options)
+                            .into(binding.ProfileButton);
+                }
+            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
