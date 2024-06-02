@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -211,7 +212,8 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_YEAR);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
 
                 DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -240,7 +242,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         }
 
                     }
-                }, year,month-2,day);
+                }, year,month,day);
                 dialog.show();
             }
         });
@@ -251,7 +253,8 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_YEAR);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
 
                 DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -276,7 +279,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         }
 
                     }
-                }, year,month-2,day);
+                }, year,month,day);
                 dialog.show();
             }
         });
@@ -287,7 +290,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_YEAR);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                 Log.i(TAG, "vaaaaayyyyyy"+binding.TransportP.getText().toString());
 
@@ -316,7 +319,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         //binding.TransportP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
 
                     }
-                }, year,month-2,day);
+                }, year,month,day);
                 dialog.show();
             }
         });
@@ -362,21 +365,21 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         if ((PlantU<=PlantT+PlantT*0.2 && PlantU>=PlantT-PlantT*0.2)){
                             binding.SunText.setText("Ваше растение получает достаточно освещения");
                             binding.SunText.setTextColor(colorGreen);
-                            Drawable c = getResources().getDrawable(R.drawable.tertitory);
-                            cl.setBackgroundDrawable(c);
+                            @SuppressLint("UseCompatLoadingForDrawables") Drawable c = getResources().getDrawable(R.drawable.tertitory);
+                            cl.setBackground(c);
 
                         }
                         else if (PlantU<PlantT+PlantT*0.2){
                             binding.SunText.setText("Ваше растение не получает достаточного освещения");
                             binding.SunText.setTextColor(colorRed);
-                            Drawable d = getResources().getDrawable(R.drawable.tertitoryred);
-                            cl.setBackgroundDrawable(d);
+                            @SuppressLint("UseCompatLoadingForDrawables") Drawable d = getResources().getDrawable(R.drawable.tertitoryred);
+                            cl.setBackground(d);
                         }
                         else if (PlantU>PlantT+PlantT*0.2){
                             binding.SunText.setText("Ваше растение получает освещения в избытке");
                             binding.SunText.setTextColor(colorRed);
-                            Drawable d = getResources().getDrawable(R.drawable.tertitoryred);
-                            cl.setBackgroundDrawable(d);
+                            @SuppressLint("UseCompatLoadingForDrawables") Drawable y = getResources().getDrawable(R.drawable.tertitoryred);
+                            cl.setBackground(y);
                         }
                     }
                     catch (NumberFormatException nfe)
