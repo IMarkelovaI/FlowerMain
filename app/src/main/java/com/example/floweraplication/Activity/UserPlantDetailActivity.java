@@ -1,16 +1,21 @@
 package com.example.floweraplication.Activity;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.icu.util.LocaleData;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -22,6 +27,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.floweraplication.Fragments.HomeFragment;
 import com.example.floweraplication.MyAplication;
+import com.example.floweraplication.R;
 import com.example.floweraplication.UserPlantRedPlActivity;
 import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
 import com.example.floweraplication.databinding.ActivityUserPlantDetailBinding;
@@ -64,6 +70,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
     String Water,Loos,Transf;
     Button last;
+    ConstraintLayout cl;
 
     TextView WaterPlant,LoosPlant,TransfPlant;
 
@@ -108,6 +115,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         losText=binding.losText;
         traText=binding.traText;
         SunT=binding.SunText;
+        cl = binding.constraintLayout8;
 
 
         Glide.with(UserPlantDetailActivity.this).load(getIntent().getStringExtra("picturePl")).into(PlImage);
@@ -131,6 +139,15 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Watering = binding.Watering;
         Loosening = binding.Loosening;
         Transfer = binding.Transfer;
+
+        TypedValue typedValue1 = new TypedValue();
+        Resources.Theme theme = this.getTheme();
+        theme.resolveAttribute(com.google.android.material.R.attr.colorError, typedValue1, true);
+        @ColorInt int colorRed = typedValue1.data;
+
+        TypedValue typedValue2 = new TypedValue();
+        theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue2, true);
+        @ColorInt int colorGreen = typedValue1.data;
 
         Log.i(TAG,"KKKKKKKKKKKKKKKKKK"+id);
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Users");
@@ -341,29 +358,25 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         System.out.println("int PlantT = " + PlantT);
                         System.out.println("int PlantU = " + PlantU);
 
-                        if (PlantT>=1500 && PlantU>=1500){
+
+                        if ((PlantU<=PlantT+PlantT*0.2 && PlantU>=PlantT-PlantT*0.2)){
                             binding.SunText.setText("Ваше растение получает достаточно освещения");
+                            binding.SunText.setTextColor(colorGreen);
+                            Drawable c = getResources().getDrawable(R.drawable.tertitory);
+                            cl.setBackgroundDrawable(c);
+
                         }
-                        else if (PlantT>=1500 && PlantU<1500){
+                        else if (PlantU<PlantT+PlantT*0.2){
                             binding.SunText.setText("Ваше растение не получает достаточного освещения");
+                            binding.SunText.setTextColor(colorRed);
+                            Drawable d = getResources().getDrawable(R.drawable.tertitoryred);
+                            cl.setBackgroundDrawable(d);
                         }
-                        else if ((PlantT<1500 && PlantT>=500 ) && PlantU>=1500){
+                        else if (PlantU>PlantT+PlantT*0.2){
                             binding.SunText.setText("Ваше растение получает освещения в избытке");
-                        }
-                        else if ((PlantT<1500 && PlantT>=500 ) && PlantU<500){
-                            binding.SunText.setText("Ваше растение не получает достаточного освещения");
-                        }
-                        else if ((PlantT<1500 && PlantT>=500 ) && (PlantU<1500 && PlantU>=500)){
-                            binding.SunText.setText("Ваше растение получает достаточно освещения");
-                        }
-                        else if ((PlantT<500 && PlantT>=150 ) && PlantU>=500){
-                            binding.SunText.setText("Ваше растение получает освещения в избытке");
-                        }
-                        else if ((PlantT<500 && PlantT>=150 ) && (PlantU<500 && PlantU>=150)){
-                            binding.SunText.setText("Ваше растение получает достаточно освещения");
-                        }
-                        else {
-                            binding.SunText.setText("Ваше растение не получает достаточного освещения");
+                            binding.SunText.setTextColor(colorRed);
+                            Drawable d = getResources().getDrawable(R.drawable.tertitoryred);
+                            cl.setBackgroundDrawable(d);
                         }
                     }
                     catch (NumberFormatException nfe)
