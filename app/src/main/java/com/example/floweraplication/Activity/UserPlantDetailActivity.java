@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -148,7 +150,10 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
         TypedValue typedValue2 = new TypedValue();
         theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue2, true);
-        @ColorInt int colorGreen = typedValue1.data;
+        @ColorInt int colorGreen = typedValue2.data;
+
+        Drawable d = ContextCompat.getDrawable(this,R.drawable.tertitoryred);
+        Drawable g = ContextCompat.getDrawable(this,R.drawable.tertitory);
 
         Log.i(TAG,"KKKKKKKKKKKKKKKKKK"+id);
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Users");
@@ -365,21 +370,20 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         if ((PlantU<=PlantT+PlantT*0.2 && PlantU>=PlantT-PlantT*0.2)){
                             binding.SunText.setText("Ваше растение получает достаточно освещения");
                             binding.SunText.setTextColor(colorGreen);
-                            @SuppressLint("UseCompatLoadingForDrawables") Drawable c = getResources().getDrawable(R.drawable.tertitory);
-                            cl.setBackground(c);
+                            cl.setBackground(g);
 
                         }
                         else if (PlantU<PlantT+PlantT*0.2){
                             binding.SunText.setText("Ваше растение не получает достаточного освещения");
                             binding.SunText.setTextColor(colorRed);
-                            @SuppressLint("UseCompatLoadingForDrawables") Drawable d = getResources().getDrawable(R.drawable.tertitoryred);
+
                             cl.setBackground(d);
                         }
                         else if (PlantU>PlantT+PlantT*0.2){
                             binding.SunText.setText("Ваше растение получает освещения в избытке");
                             binding.SunText.setTextColor(colorRed);
-                            @SuppressLint("UseCompatLoadingForDrawables") Drawable y = getResources().getDrawable(R.drawable.tertitoryred);
-                            cl.setBackground(y);
+                            cl.setBackground(d);
+
                         }
                     }
                     catch (NumberFormatException nfe)
