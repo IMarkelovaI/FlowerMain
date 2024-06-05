@@ -4,6 +4,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -23,6 +24,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -357,9 +359,9 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                             i1=i1+1;
                             binding.TransportP.setText(i2 + "/" + i1 + "/" + i);
                         }
+                    }
                         //binding.TransportP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
 
-                    }
                 }, year,month,day);
                 dialog.show();
             }
@@ -492,6 +494,9 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
     }
     private void loadW() {
+        Drawable ch = ContextCompat.getDrawable(this,R.drawable.datecheck);
+        Drawable chok = ContextCompat.getDrawable(this,R.drawable.variantsurv);
+
 
         int w = Integer.parseInt(Water);
         int l = Integer.parseInt(Loos);
@@ -624,18 +629,136 @@ public class UserPlantDetailActivity extends AppCompatActivity {
             Log.e(TAG, "Вы проебали дату рыхления АХАХАХА.Ты попался на кликбейт, олух, олух!!! ");
             //Нынешнее время минус сутки (так надо, иначе не работает корректно) - (System.currentTimeMillis() - (60000*24*60))
             //millisecondsSinceEpoch3 - запланированная дата рыхления
+            binding.cnstcard1.setBackground(ch);
+            long LELE = (System.currentTimeMillis() - (60000*24*60));
+            long Lulu = LELE - millisecondsSinceEpoch3;
+            Log.e(TAG, "что это такое LELE "+ LELE);
+            Log.e(TAG, "что это такое Lulu "+ Lulu);
+            long FFF = Lulu/(60000*24*60);
+            FFF= FFF+1;
+            String wff = Long.toString(FFF);
+            String cool = "";
+            String prop = "";
+            int lastCharacter = (int) FFF % 10;
+
+            if (lastCharacter ==1 && (int)FFF !=11){
+                cool = "день";
+                prop = "ропущен";
+            }
+            else if (lastCharacter ==2 || lastCharacter ==3 || lastCharacter ==4){
+                cool = "дня";
+                prop = "ропущены";
+            }
+            else {
+                cool = "дней";
+                prop = "ропущено";
+            }
+
+            Log.e(TAG, " FFFFFFFFFFF "+ FFF);
+            // layout = binding.cnstcard;
+            //ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) layout.getLayoutParams();
+            //params.height = 130;
+            //params.width = 115;
+            //binding.cnstcard.setLayoutParams(params);
+            binding.cnstcardshape1.setVisibility(View.VISIBLE);
+            binding.prf.setText("П" +prop+" " + wff + " "+ cool +"");
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.constraintLayout7.getLayoutParams();
+            params.topMargin = 48;
+            binding.constraintLayout7.setLayoutParams(params);
 
         }
+        else {binding.cnstcard1.setBackground(chok);binding.cnstcardshape1.setVisibility(View.INVISIBLE); ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.constraintLayout7.getLayoutParams();
+            params.topMargin = 0;
+            binding.constraintLayout7.setLayoutParams(params);}
         if ((System.currentTimeMillis() - (60000*24*60)) > millisecondsSinceEpoch5) {
             Log.e(TAG, "Вы проебали дату пересадки АХАХАХА. Ты попался на кликбейт, олух, олух!!! ");
+            binding.cnstcard2.setBackground(ch);
+            long LELE = (System.currentTimeMillis() - (60000*24*60));
+            long Lulu = LELE - millisecondsSinceEpoch5;
+            Log.e(TAG, "что это такое LELE "+ LELE);
+            Log.e(TAG, "что это такое Lulu "+ Lulu);
+            long FFF = Lulu/(60000*24*60);
+            FFF= FFF+1;
+            String wff = Long.toString(FFF);
+            String cool = "";
+            String prop = "";
+            int lastCharacter = (int) FFF % 10;
+
+            if (lastCharacter ==1 && (int)FFF !=11){
+                cool = "день";
+                prop = "ропущен";
+            }
+            else if (lastCharacter ==2 || lastCharacter ==3 || lastCharacter ==4){
+                cool = "дня";
+                prop = "ропущены";
+            }
+            else {
+                cool = "дней";
+                prop = "ропущено";
+            }
+
+            Log.e(TAG, " FFFFFFFFFFF "+ FFF);
+            // layout = binding.cnstcard;
+            //ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) layout.getLayoutParams();
+            //params.height = 130;
+            //params.width = 115;
+            //binding.cnstcard.setLayoutParams(params);
+            binding.cnstcardshape2.setVisibility(View.VISIBLE);
+            binding.prf.setText("П" +prop+" " + wff + " "+ cool +"");
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.constraintLayout7.getLayoutParams();
+            params.topMargin = 48;
+            binding.constraintLayout7.setLayoutParams(params);
         }
+        else {binding.cnstcard2.setBackground(chok);binding.cnstcardshape2.setVisibility(View.INVISIBLE); ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.constraintLayout7.getLayoutParams();
+            params.topMargin = 0;
+            binding.constraintLayout7.setLayoutParams(params);}
         if ( (System.currentTimeMillis()- (60000*24*60)) > millisecondsSinceEpoch4){
             Log.e(TAG, "Вы проебали дату полива АХАХАХА. Ты попался на кликбейт, олух, олух!!! ");
+
+            binding.cnstcard.setBackground(ch);
 
             Log.i(TAG, "System.currentTimeMillis()"+ (System.currentTimeMillis() - (27000*24*60*60)));
             Log.i(TAG, "System.currentTimeMillis() cimba"+ System.currentTimeMillis());
             Log.i(TAG, "System.currentTimeMillis() fffffff "+ millisecondsSinceEpoch4);
             //- (60000*24*60)
+            long LELE = (System.currentTimeMillis() - (60000*24*60));
+            long Lulu = LELE - millisecondsSinceEpoch4;
+            Log.e(TAG, "что это такое LELE "+ LELE);
+            Log.e(TAG, "что это такое Lulu "+ Lulu);
+            long FFF = Lulu/(60000*24*60);
+            FFF= FFF+1;
+            String wff = Long.toString(FFF);
+            String cool = "";
+            String prop = "";
+            int lastCharacter = (int) FFF % 10;
+
+            if (lastCharacter ==1 && (int)FFF !=11){
+                cool = "день";
+                prop = "ропущен";
+            }
+            else if (lastCharacter ==2 || lastCharacter ==3 || lastCharacter ==4){
+                cool = "дня";
+                prop = "ропущены";
+            }
+            else {
+                cool = "дней";
+                prop = "ропущено";
+            }
+
+            Log.e(TAG, " FFFFFFFFFFF "+ FFF);
+            // layout = binding.cnstcard;
+            //ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) layout.getLayoutParams();
+            //params.height = 130;
+            //params.width = 115;
+            //binding.cnstcard.setLayoutParams(params);
+            binding.cnstcardshape.setVisibility(View.VISIBLE);
+            binding.prw.setText("П" +prop+" " + wff + " "+ cool +"");
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.constraintLayout7.getLayoutParams();
+            params.topMargin = 48;
+            binding.constraintLayout7.setLayoutParams(params);
+
+
+
 
 
             //с его помощью я понимала диапазон времени, это можешь удалить
@@ -657,6 +780,9 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 notificationManager.notify(42, notification);
                 Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");*/
             }
+        else {binding.cnstcard.setBackground(chok); binding.cnstcardshape.setVisibility(View.INVISIBLE); ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.constraintLayout7.getLayoutParams();
+            params.topMargin = 0;
+            binding.constraintLayout7.setLayoutParams(params);}
 
     }
 }

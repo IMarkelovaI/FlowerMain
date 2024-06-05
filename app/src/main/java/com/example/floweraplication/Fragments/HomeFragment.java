@@ -250,6 +250,7 @@ public class HomeFragment extends Fragment  {
                             .apply(options)
                             .transform(new CenterCrop(), new RoundedCorners(100))
                             .into(binding.ProfileButton);
+                    binding.ProfileButton.setAlpha(1f);
                 }
             }
             @Override

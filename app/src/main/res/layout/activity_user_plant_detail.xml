@@ -66,6 +66,68 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cnstcardshape2"
+                android:layout_width="115dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/datecheck"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/cnstcardshape1"
+                app:layout_constraintTop_toBottomOf="@+id/Description">
+
+                <TextView
+                    android:id="@+id/prt"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="110dp"
+                    android:fontFamily="@font/gsr"
+                    android:text="Полив"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cnstcardshape1"
+                android:layout_width="115dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/datecheck"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/cnstcardshape"
+                app:layout_constraintTop_toBottomOf="@+id/Description">
+
+                <TextView
+                    android:id="@+id/prf"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="110dp"
+                    android:fontFamily="@font/gsr"
+                    android:text="Полив"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cnsttst"
                 android:layout_width="347dp"
                 android:layout_height="wrap_content"
@@ -287,6 +349,36 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView24t" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cnstcardshape"
+                android:layout_width="115dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/datecheck"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Description">
+
+                <TextView
+                    android:id="@+id/prw"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="110dp"
+                    android:fontFamily="@font/gsr"
+                    android:text="Полив"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -834,12 +926,12 @@
                 android:id="@+id/constraintLayout7"
                 android:layout_width="337dp"
                 android:layout_height="57dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/tertitory"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.474"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cnstcard2">
+                app:layout_constraintTop_toBottomOf="@+id/cnstcardshape">
 
                 <TextView
                     android:id="@+id/textView27"

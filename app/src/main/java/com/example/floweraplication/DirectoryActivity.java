@@ -64,7 +64,7 @@ public class DirectoryActivity extends AppCompatActivity {
         toolbar.setTitleTextAppearance(this, R.style.FontForTitle);
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = this.getTheme();
-        theme.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true);
+        theme.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, typedValue, true);
         @ColorInt int color = typedValue.data;
         toolbar.setTitleTextColor(color);
         setSupportActionBar(toolbar);
