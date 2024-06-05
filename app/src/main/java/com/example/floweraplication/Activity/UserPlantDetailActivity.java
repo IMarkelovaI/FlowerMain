@@ -629,16 +629,17 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         if ((System.currentTimeMillis() - (60000*24*60)) > millisecondsSinceEpoch5) {
             Log.e(TAG, "Вы проебали дату пересадки АХАХАХА. Ты попался на кликбейт, олух, олух!!! ");
         }
-        if ( (System.currentTimeMillis() - (60000*24*60)) > millisecondsSinceEpoch4){
+        if ( (System.currentTimeMillis()- (60000*24*60)) > millisecondsSinceEpoch4){
             Log.e(TAG, "Вы проебали дату полива АХАХАХА. Ты попался на кликбейт, олух, олух!!! ");
 
-            Log.e(TAG, "System.currentTimeMillis()"+ (System.currentTimeMillis() - (27000*24*60*60)));
-            Log.e(TAG, "System.currentTimeMillis() cimba"+ System.currentTimeMillis());
-            Log.e(TAG, "System.currentTimeMillis() fffffff "+ millisecondsSinceEpoch4);
+            Log.i(TAG, "System.currentTimeMillis()"+ (System.currentTimeMillis() - (27000*24*60*60)));
+            Log.i(TAG, "System.currentTimeMillis() cimba"+ System.currentTimeMillis());
+            Log.i(TAG, "System.currentTimeMillis() fffffff "+ millisecondsSinceEpoch4);
+            //- (60000*24*60)
 
 
             //с его помощью я понимала диапазон времени, это можешь удалить
-            NotificationChannel channel = null;
+            /*NotificationChannel channel = null;
             if (android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
                 channel = new NotificationChannel(
                         "Test",
@@ -654,9 +655,8 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         .build();
                 Log.e(TAG, "Ты кто такой? АААААААААААААААААААААААА");
                 notificationManager.notify(42, notification);
-                Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");
+                Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");*/
             }
-        }
 
     }
 }
