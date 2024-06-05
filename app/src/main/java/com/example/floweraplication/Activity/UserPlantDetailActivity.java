@@ -4,17 +4,20 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
-import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.icu.util.LocaleData;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -28,15 +31,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.floweraplication.Fragments.HomeFragment;
-import com.example.floweraplication.MyAplication;
 import com.example.floweraplication.R;
 import com.example.floweraplication.UserPlantRedPlActivity;
-import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
 import com.example.floweraplication.databinding.ActivityUserPlantDetailBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,22 +43,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class UserPlantDetailActivity extends AppCompatActivity {
@@ -73,7 +63,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
     String Water,Loos,Transf;
     Button last;
-    ConstraintLayout cl;
 
     TextView WaterPlant,LoosPlant,TransfPlant;
 
@@ -83,6 +72,10 @@ public class UserPlantDetailActivity extends AppCompatActivity {
     String abundance_of_watering="", air_hamidity_id = "",fertilizer_id="", optimal_temperature="",soil_type_id="";
 
     private static final String TAG = "ADD_PLANT_TAG";
+
+    AlarmManager alarmManager;
+
+    private PendingIntent alarmIntent;
 
     @Override
     public boolean onSupportNavigateUp()
@@ -118,7 +111,18 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         losText=binding.losText;
         traText=binding.traText;
         SunT=binding.SunText;
-        cl = binding.constraintLayout8;
+
+        TypedValue typedValue1 = new TypedValue();
+        Resources.Theme theme = this.getTheme();
+        theme.resolveAttribute(com.google.android.material.R.attr.colorError, typedValue1, true);
+        @ColorInt int colorRed = typedValue1.data;
+
+        TypedValue typedValue2 = new TypedValue();
+        theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue2, true);
+        @ColorInt int colorGreen = typedValue2.data;
+
+        Drawable d = ContextCompat.getDrawable(this,R.drawable.tertitoryred);
+        Drawable g = ContextCompat.getDrawable(this,R.drawable.tertitory);
 
 
         Glide.with(UserPlantDetailActivity.this).load(getIntent().getStringExtra("picturePl")).into(PlImage);
@@ -139,21 +143,53 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         String width = arguments.get("plant_widthPlU").toString();
         String description = arguments.get("descriptionPlU").toString();
 
+        //следующее действие
         Watering = binding.Watering;
         Loosening = binding.Loosening;
         Transfer = binding.Transfer;
+        Log.e(TAG, "Watering начало on create тупо биндинг "+Watering);
+        Log.e(TAG, "Loosening начало on create тупо биндинг "+Loosening);
+        Log.e(TAG, "Transfer начало on create тупо биндинг "+Transfer);
 
-        TypedValue typedValue1 = new TypedValue();
-        Resources.Theme theme = this.getTheme();
-        theme.resolveAttribute(com.google.android.material.R.attr.colorError, typedValue1, true);
-        @ColorInt int colorRed = typedValue1.data;
+        /*if (android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(UserPlantDetailActivity.this, AlarmReceiver.class);
+            alarmIntent = PendingIntent.getBroadcast(UserPlantDetailActivity.this, 0, intent, PendingIntent.FLAG_MUTABLE);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 12);
+            long timeToStart = calendar.getTimeInMillis();
+            if (System.currentTimeMillis() == timeToStart) {
+                Log.e(TAG, "Ты кто такой? АААААААААААААААААААААААА Симба");
+            }
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeToStart, AlarmManager.INTERVAL_DAY, alarmIntent);
+            Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");
+        }*/
 
-        TypedValue typedValue2 = new TypedValue();
-        theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue2, true);
-        @ColorInt int colorGreen = typedValue2.data;
+        /*NotificationChannel channel = null;
+        if (android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+            channel = new NotificationChannel(
+                    "Test",
+                    "Test descr",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
 
-        Drawable d = ContextCompat.getDrawable(this,R.drawable.tertitoryred);
-        Drawable g = ContextCompat.getDrawable(this,R.drawable.tertitory);
+            Notification notification = new NotificationCompat.Builder(UserPlantDetailActivity.this, "Test")
+                    .setContentTitle("Необходим уход за "+name)
+                    .setContentText("Настало время ухода за вашим растением")
+                    .setSmallIcon(R.drawable.baseline_notifications_24)
+                    .build();
+            long temeatamp = System.currentTimeMillis();
+            if (System.currentTimeMillis() == temeatamp) {
+                Log.e(TAG, "Ты кто такой? АААААААААААААААААААААААА");
+                notificationManager.notify(42, notification);
+            }
+            Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");
+        }*/
+
+
+
 
         Log.i(TAG,"KKKKKKKKKKKKKKKKKK"+id);
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Users");
@@ -165,9 +201,11 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                             if(dataSnapshot.exists())
                             {
                                 last_day_of_loosening = String.valueOf(dataSnapshot.child("last_day_of_loosening").getValue());
-                                Log.i(TAG,"AAAAAAAAFFFFFFF"+last_day_of_loosening);
+                                Log.e(TAG,"last_day_of_loosening загрузка из бд "+last_day_of_loosening);
                                 last_day_of_transport = String.valueOf(dataSnapshot.child("last_day_of_transport").getValue());
+                                Log.e(TAG,"last_day_of_transport загрузка из бд "+last_day_of_transport);
                                 last_day_of_watering = String.valueOf(dataSnapshot.child("last_day_of_watering").getValue());
+                                Log.e(TAG,"last_day_of_watering загрузка из бд "+last_day_of_watering);
 
                                 binding.WaterP.setText(last_day_of_watering.toString());
                                 Log.i(TAG,"AAAAAAAAFFFFFFF"+binding.WaterP);
@@ -219,7 +257,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-
                 DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int i, int i1, int i2) {
@@ -259,7 +296,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
-
 
                 DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -370,21 +406,39 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         if ((PlantU<=PlantT+PlantT*0.2 && PlantU>=PlantT-PlantT*0.2)){
                             binding.SunText.setText("Ваше растение получает достаточно освещения");
                             binding.SunText.setTextColor(colorGreen);
-                            cl.setBackground(g);
+                            binding.cl.setBackground(g);
 
                         }
                         else if (PlantU<PlantT+PlantT*0.2){
                             binding.SunText.setText("Ваше растение не получает достаточного освещения");
                             binding.SunText.setTextColor(colorRed);
 
-                            cl.setBackground(d);
+                            binding.cl.setBackground(d);
                         }
                         else if (PlantU>PlantT+PlantT*0.2){
                             binding.SunText.setText("Ваше растение получает освещения в избытке");
                             binding.SunText.setTextColor(colorRed);
-                            cl.setBackground(d);
+                            binding.cl.setBackground(d);
 
                         }
+
+                    }
+                    catch (NumberFormatException nfe)
+                    {
+                        System.out.println("NumberFormatException: " + nfe.getMessage());
+                    }
+
+                    try {
+                        int Widht = Integer.parseInt(width.trim());
+                        int Height = Integer.parseInt(hight.trim());
+                        int sizehpots = Height * 1/3;
+                        double d = Widht * 2.5;
+                        int diametr = (int)d ;
+                        double rad = d/2;
+                        double rd2 = (Math.pow(rad,2));
+                        double grunt = (Math.PI*rd2*sizehpots)/1000;
+                        double gr = Math.round(grunt * 100.0) / 100.0;
+                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальный диаметр контейнера должен быть " + diametr +". Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
                     }
                     catch (NumberFormatException nfe)
                     {
@@ -442,18 +496,22 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         int w = Integer.parseInt(Water);
         int l = Integer.parseInt(Loos);
         int t = Integer.parseInt(Transf);
+
+        Log.e(TAG, "w дни "+w);
+        Log.e(TAG, "l дни "+l);
+        Log.e(TAG, "t дни "+t);
+
         watText.setText(Water+" дней");
         losText.setText(Loos+" дней");
         traText.setText(Transf+" дней");
-        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh tttt "+t);
 
         String loser = binding.LoosP.getText().toString();
         String trans = binding.TransportP.getText().toString();
         String watka = binding.WaterP.getText().toString();
-        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh watka fffff "+binding.WaterP.getText().toString());
-        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh watka "+watka);
-        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh trans "+trans);
-        Log.i(TAG, "hhhhhhhhhhhhhhhhhhhhhh loser "+loser);
+        Log.e(TAG, "Дата прошлого полива  "+binding.WaterP.getText().toString());
+        Log.e(TAG, "Дата прошлого полива  "+watka);
+        Log.e(TAG, "Дата прошлой пересадки "+trans);
+        Log.e(TAG, "Дата прошлого рыхления "+loser);
 
 
         DateTimeFormatter df = new DateTimeFormatterBuilder()
@@ -464,14 +522,13 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 // create formatter (use English Locale to parse month names)
                 .toFormatter(Locale.ENGLISH);
         LocalDate d = LocalDate.parse(loser,df);
-        Log.i(TAG, "vjvjvjvkcvlx;s" +d);
+        Log.e(TAG, "loser " +d);
 
         long millisecondsSinceEpoch = LocalDate.parse(loser, df)
                 .atStartOfDay(ZoneOffset.UTC)
                 .toInstant()
                 .toEpochMilli();
-
-        //Log.i(TAG, "vjvjvjvkcvlx;s" +millisecondsSinceEpoch);
+        Log.e(TAG, "millisecondsSinceEpoch loser " +millisecondsSinceEpoch);
 
         DateTimeFormatter df1 = new DateTimeFormatterBuilder()
                 // case insensitive to parse JAN and FEB
@@ -481,12 +538,13 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 // create formatter (use English Locale to parse month names)
                 .toFormatter(Locale.ENGLISH);
         LocalDate d1 = LocalDate.parse(watka,df1);
-        Log.i(TAG, "vjvjvjvkcvlx;s" +d1);
+        Log.e(TAG, "watka " +d1);
 
         long millisecondsSinceEpoch1 = LocalDate.parse(watka, df1)
                 .atStartOfDay(ZoneOffset.UTC)
                 .toInstant()
                 .toEpochMilli();
+        Log.e(TAG, "millisecondsSinceEpoch1 watka" +millisecondsSinceEpoch1);
 
         DateTimeFormatter df2 = new DateTimeFormatterBuilder()
                 // case insensitive to parse JAN and FEB
@@ -496,13 +554,13 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 // create formatter (use English Locale to parse month names)
                 .toFormatter(Locale.ENGLISH);
         LocalDate d2 = LocalDate.parse(trans,df2);
-        Log.i(TAG, "vjvjvjvkcvlx;s" +d2);
+        Log.e(TAG, "trans " +d2);
 
         long millisecondsSinceEpoch2 = LocalDate.parse(trans, df2)
                 .atStartOfDay(ZoneOffset.UTC)
                 .toInstant()
                 .toEpochMilli();
-
+        Log.e(TAG, "millisecondsSinceEpoch2 trans " +millisecondsSinceEpoch2);
 
         //Date r = Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
@@ -514,26 +572,91 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
         Date r = Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant());*/
 
-
-
         long timestamp = System.currentTimeMillis();
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(millisecondsSinceEpoch1);
         cal.add(Calendar.DAY_OF_YEAR, w);
+        Log.e(TAG, "cal.add(Calendar.DAY_OF_YEAR, w) " +cal);
         String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
         Watering.setText(dateW);
+        Log.e(TAG, "Watering следующее " +dateW);
 
         Calendar cal1 = Calendar.getInstance(Locale.ENGLISH);
         cal1.setTimeInMillis(millisecondsSinceEpoch);
         cal1.add(Calendar.DAY_OF_YEAR, l);
+        Log.e(TAG, "cal.add(Calendar.DAY_OF_YEAR, l) " +cal1);
         String dateL = DateFormat.format("dd/MM/yyyy", cal1).toString();
         Loosening.setText(dateL);
+        Log.e(TAG, "Loosening следующее " +dateL);
 
         Calendar cal2 = Calendar.getInstance(Locale.ENGLISH);
         cal2.setTimeInMillis(millisecondsSinceEpoch2);
         cal2.add(Calendar.DAY_OF_YEAR, t);
+        Log.e(TAG, "cal.add(Calendar.DAY_OF_YEAR, t) " +cal2);
         String dateT = DateFormat.format("dd/MM/yyyy", cal2).toString();
         Transfer.setText(dateT);
+        Log.e(TAG, "Transfer следующее " +dateT);
+
+
+
+
+        long millisecondsSinceEpoch3 = LocalDate.parse(dateL, df)
+                .atStartOfDay(ZoneOffset.UTC)
+                .toInstant()
+                .toEpochMilli();
+        Log.e(TAG, "millisecondsSinceEpoch3 dateL " +millisecondsSinceEpoch3);
+
+        long millisecondsSinceEpoch4 = LocalDate.parse(dateW, df)
+                .atStartOfDay(ZoneOffset.UTC)
+                .toInstant()
+                .toEpochMilli();
+        Log.e(TAG, "millisecondsSinceEpoch4 dateW " +millisecondsSinceEpoch4);
+
+        long millisecondsSinceEpoch5 = LocalDate.parse(dateT, df)
+                .atStartOfDay(ZoneOffset.UTC)
+                .toInstant()
+                .toEpochMilli();
+        Log.e(TAG, "millisecondsSinceEpoch5 dateT " +millisecondsSinceEpoch5);
+
+
+
+        if ((System.currentTimeMillis() - (60000*24*60)) > millisecondsSinceEpoch3) {
+            Log.e(TAG, "Вы проебали дату рыхления АХАХАХА.Ты попался на кликбейт, олух, олух!!! ");
+            //Нынешнее время минус сутки (так надо, иначе не работает корректно) - (System.currentTimeMillis() - (60000*24*60))
+            //millisecondsSinceEpoch3 - запланированная дата рыхления
+
+        }
+        if ((System.currentTimeMillis() - (60000*24*60)) > millisecondsSinceEpoch5) {
+            Log.e(TAG, "Вы проебали дату пересадки АХАХАХА. Ты попался на кликбейт, олух, олух!!! ");
+        }
+        if ( (System.currentTimeMillis() - (60000*24*60)) > millisecondsSinceEpoch4){
+            Log.e(TAG, "Вы проебали дату полива АХАХАХА. Ты попался на кликбейт, олух, олух!!! ");
+
+            Log.e(TAG, "System.currentTimeMillis()"+ (System.currentTimeMillis() - (27000*24*60*60)));
+            Log.e(TAG, "System.currentTimeMillis() cimba"+ System.currentTimeMillis());
+            Log.e(TAG, "System.currentTimeMillis() fffffff "+ millisecondsSinceEpoch4);
+
+
+            //с его помощью я понимала диапазон времени, это можешь удалить
+            NotificationChannel channel = null;
+            if (android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+                channel = new NotificationChannel(
+                        "Test",
+                        "Test descr",
+                        NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(channel);
+
+                Notification notification = new NotificationCompat.Builder(UserPlantDetailActivity.this, "Test")
+                        .setContentTitle("Вы проебали дату полива АХАХАХА ")
+                        .setContentText("Ты попался на кликбейт, олух, олух!!!")
+                        .setSmallIcon(R.drawable.baseline_notifications_24)
+                        .build();
+                Log.e(TAG, "Ты кто такой? АААААААААААААААААААААААА");
+                notificationManager.notify(42, notification);
+                Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");
+            }
+        }
 
     }
 }

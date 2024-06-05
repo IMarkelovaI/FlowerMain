@@ -23,6 +23,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.floweraplication.LightingActivity;
 import com.example.floweraplication.ProfileUser;
@@ -127,6 +129,7 @@ public class HomeFragment extends Fragment  {
             }
         });
         //loadUserInfo();
+
         return binding.getRoot();
     }
 
@@ -151,11 +154,9 @@ public class HomeFragment extends Fragment  {
                     });
         }
     }*/
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         recyclerView = binding.moiFlow;
 
@@ -215,8 +216,9 @@ public class HomeFragment extends Fragment  {
                     }
                     Recycler.add(new ModelUserFlow(description,id,name,picture,plant_id,plant_size,plant_width,sun));
                 }
+                loadUserInfo();
                 adapterHomeFragment.notifyDataSetChanged();
-                //loadUserInfo();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -224,7 +226,6 @@ public class HomeFragment extends Fragment  {
             }
         });
     }
-
     private void loadUserInfo(){
         FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
         String userid =user.getUid();
@@ -234,23 +235,23 @@ public class HomeFragment extends Fragment  {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String profileImage =""+snapshot.child("profileImage").getValue();
-
+                if (getActivity() == null) {
+                    return;
+                }
                 if (profileImage != "")
                 {
                     //Uri uri = Uri.parse("profileImage");
-                    Log.i(TAG,"ебучий криптонит!!!!"+profileImage);
-
                     RequestOptions options = new RequestOptions()
                             .fitCenter()
+                            .bitmapTransform(new RoundedCorners(14))
                             .diskCacheStrategy(DiskCacheStrategy.ALL);
-
                     Glide.with(getContext())
                             .load((profileImage).toString())
                             .apply(options)
+                            .transform(new CenterCrop(), new RoundedCorners(100))
                             .into(binding.ProfileButton);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

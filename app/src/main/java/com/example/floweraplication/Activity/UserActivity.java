@@ -1,9 +1,17 @@
 package com.example.floweraplication.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.ContentValues.TAG;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.floweraplication.Fragments.DodFllowFragment;
@@ -36,6 +44,34 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        /*NotificationChannel channel = null;
+        if (android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+            channel = new NotificationChannel(
+                    "Test",
+                    "Test descr",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+            Notification notification = new NotificationCompat.Builder(UserActivity.this, "Test")
+                    .setContentTitle("Необходим уход за "+"11")
+                    .setContentText("Настало время ухода за вашим растением")
+                    .setSmallIcon(R.drawable.baseline_notifications_24)
+                    .build();
+
+
+            long temeatamp = System.currentTimeMillis();
+            if (System.currentTimeMillis() == temeatamp) {
+                Log.e(TAG, "Ты кто такой? АААААААААААААААААААААААА");
+                notificationManager.notify(42, notification);
+              //  notificationManager.notify(44, notification2);
+            }
+            Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");
+        }*/
+
+
         binding = ActivityUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebaseAuth = FirebaseAuth.getInstance();

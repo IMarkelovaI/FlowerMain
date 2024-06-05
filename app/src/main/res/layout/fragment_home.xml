@@ -38,6 +38,7 @@
         app:srcCompat="@drawable/baseline_account_circle_24"
         app:shapeAppearanceOverlay="@style/rounded_circle_small"/>
 
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView3"
         android:layout_width="wrap_content"

@@ -438,7 +438,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout8"
+                android:id="@+id/cl"
                 android:layout_width="337dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="16dp"
@@ -467,6 +467,41 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout9"
+                android:layout_width="337dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/tertitoryforpots"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.472"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl">
+
+                <TextView
+                    android:id="@+id/PotText"
+                    android:layout_width="270dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="9dp"
+                    android:layout_marginBottom="8dp"
+                    android:drawableLeft="@drawable/measuring"
+                    android:drawablePadding="5dp"
+                    android:drawableTint="?attr/colorTertiary"
+                    android:fontFamily="@font/pss"
+                    android:text="Заполните данные о последнем уходе ниже для дальнейшего трекинга процедур"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorTertiary"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.491"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout5"
                 android:layout_width="341dp"
@@ -477,7 +512,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"
                 app:layout_constraintVertical_bias="0.0">
 
                 <TextView
@@ -489,7 +524,6 @@
                     android:text="TextView"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.39"
                     app:layout_constraintStart_toEndOf="@+id/textView17"
                     app:layout_constraintTop_toBottomOf="@+id/Sun" />
 
@@ -497,12 +531,13 @@
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/gsb"
-                    android:text="Ширина, см"
+                    android:text="Диаметр к.зоны, см"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.127"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -529,13 +564,16 @@
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="66dp"
+                    android:layout_marginStart="32dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="236dp"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/gsb"
-                    android:text="Освещенность"
+                    android:text="Освещенность, люкс"
                     android:textColor="?attr/colorOnSecondaryContainer"
+                    app:layout_constraintBottom_toTopOf="@+id/textView17"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -547,9 +585,10 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="264dp"
                     android:fontFamily="@font/gsb"
-                    android:text="Высота, см"
+                    android:text="Высота растения, см"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -817,8 +856,10 @@
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.4" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
