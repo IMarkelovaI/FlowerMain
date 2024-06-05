@@ -30,6 +30,11 @@
             android:parentActivityName=".Activity.MainActivity"
             />
         <activity
+            android:name=".Activity.PotsCalculateActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity.UserPlantDetailActivity"
+            />
+        <activity
             android:name=".DizActivity"
             android:exported="false"
             android:parentActivityName=".Activity.MainActivity"
@@ -124,10 +129,15 @@
             android:exported="true">
 
         </activity>
-        <receiver android:name=".AlarmReceiver"
-            android:enabled="true"
-            android:exported="true"
-            />
+
+        <service
+            android:name=".services.MyFirebaseInstanceService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

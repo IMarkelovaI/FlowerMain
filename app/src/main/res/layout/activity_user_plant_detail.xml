@@ -96,6 +96,19 @@
                     app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <Button
+                android:id="@+id/PotsCalc"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="345dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:text="Рассчитать параметры горшка"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"
+                app:strokeColor="?attr/colorPrimary" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cnstcardshape1"
                 android:layout_width="115dp"
@@ -604,7 +617,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"
+                app:layout_constraintTop_toBottomOf="@+id/PotsCalc"
                 app:layout_constraintVertical_bias="0.0">
 
                 <TextView
@@ -782,6 +795,7 @@
                     app:layout_constraintStart_toEndOf="@+id/textView18"
                     app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
+
                 <TextView
                     android:id="@+id/LoosP"
                     android:layout_width="wrap_content"
@@ -794,10 +808,9 @@
                     android:textColor="?attr/colorPrimary"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.882"
+                    app:layout_constraintHorizontal_bias="0.416"
                     app:layout_constraintStart_toEndOf="@+id/textView19"
                     app:layout_constraintTop_toBottomOf="@+id/WaterP" />
-
 
                 <TextView
                     android:id="@+id/TransportP"
