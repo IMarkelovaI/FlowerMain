@@ -29,11 +29,14 @@
             android:exported="false"
             android:parentActivityName=".Activity.MainActivity"
             />
+
+
         <activity
             android:name=".Activity.PotsCalculateActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.UserPlantDetailActivity"
-            />
+            android:parentActivityName=".Activity.UserPlantDetailActivity" />
+
+
         <activity
             android:name=".DizActivity"
             android:exported="false"
