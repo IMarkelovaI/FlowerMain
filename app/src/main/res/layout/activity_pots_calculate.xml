@@ -42,7 +42,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout8"
                 android:layout_width="405dp"
-                android:layout_height="1050dp"
+                android:layout_height="1120dp"
                 tools:layout_editor_absoluteX="1dp"
                 tools:layout_editor_absoluteY="1dp">
 
@@ -94,7 +94,7 @@
                         android:layout_width="260dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gsr"
-                        android:hint="Ширина цилиндра (B)"
+                        android:hint="Ширина горшка (B)"
                         android:imeOptions="actionNext"
                         android:inputType="none"
                         android:text=""
@@ -121,7 +121,7 @@
                         android:layout_width="260dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gsr"
-                        android:hint="Малая ширина (l)"
+                        android:hint="Малая ширина (b)"
                         android:imeOptions="actionNext"
                         android:inputType="none"
                         android:text=""
@@ -214,13 +214,13 @@
                     android:layout_width="336dp"
                     android:layout_height="152dp"
                     android:layout_marginStart="34dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="34dp"
-                    android:layout_marginBottom="80dp"
                     android:background="@drawable/tertitoryforpots"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/calculate">
 
                     <TextView
                         android:id="@+id/PotText"
@@ -369,12 +369,12 @@
                     android:id="@+id/calculate"
                     android:layout_width="155dp"
                     android:layout_height="46dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/gsm"
                     android:text="Рассчитать"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/UserPlantLengthSmall" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

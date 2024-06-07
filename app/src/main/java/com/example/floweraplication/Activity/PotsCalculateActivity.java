@@ -2,12 +2,16 @@ package com.example.floweraplication.Activity;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,17 +23,28 @@ import com.example.floweraplication.databinding.ActivityUserPlantDetailBinding;
 public class PotsCalculateActivity extends AppCompatActivity {
     private ActivityPotsCalculateBinding binding;
     Toolbar toolbar;
+
+    String hP = "", Lp = "", lp = "", Dp ="",dp ="", Bp= "", bp = "";
+
+    @Override
+    public boolean onSupportNavigateUp()
+    {
+        Intent intent = new Intent(PotsCalculateActivity.this, UserActivity.class);
+        startActivity(intent);
+        finish();
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPotsCalculateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        /*toolbar = binding.toolbar;
+        toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         binding.Height.setVisibility(View.GONE);
         binding.UserPlantHeight.setVisibility(View.GONE);
         binding.Diameter.setVisibility(View.GONE);
@@ -46,6 +61,8 @@ public class PotsCalculateActivity extends AppCompatActivity {
         binding.UserPlantLength.setVisibility(View.GONE);
         binding.LengthSmall.setVisibility(View.GONE);
         binding.UserPlantLengthSmall.setVisibility(View.GONE);
+        binding.calculate.setVisibility(View.GONE);
+
 
         binding.cylinder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -69,10 +86,18 @@ public class PotsCalculateActivity extends AppCompatActivity {
 
                     binding.constraintLayout9.setVisibility(View.VISIBLE);
                     binding.PotText.setVisibility(View.VISIBLE);
+                    binding.calculate.setVisibility(View.VISIBLE);
                     binding.Height.setVisibility(View.VISIBLE);
+                    binding.UserPlantHeight.setVisibility(View.VISIBLE);
                     binding.Diameter.setVisibility(View.VISIBLE);
                     binding.UserPlantDiameter.setVisibility(View.VISIBLE);
-                    binding.UserPlantHeight.setVisibility(View.VISIBLE);
+
+                    if (binding.UserPlantDiameter.getVisibility() == View.VISIBLE ) {
+                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
+                        params.topMargin = 356;
+                        binding.calculate.setLayoutParams(params);
+                    }
+
                     try {
                         Bundle arguments = getIntent().getExtras();
                         String WidhtP = arguments.get("WidhtP").toString();
@@ -126,10 +151,17 @@ public class PotsCalculateActivity extends AppCompatActivity {
 
                     binding.constraintLayout9.setVisibility(View.VISIBLE);
                     binding.PotText.setVisibility(View.VISIBLE);
+                    binding.calculate.setVisibility(View.VISIBLE);
                     binding.Height.setVisibility(View.VISIBLE);
                     binding.UserPlantHeight.setVisibility(View.VISIBLE);
                     binding.Width.setVisibility(View.VISIBLE);
                     binding.UserPlantWidth.setVisibility(View.VISIBLE);
+
+                    if (binding.UserPlantWidth.getVisibility() == View.VISIBLE ) {
+                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
+                        params.topMargin = 48;
+                        binding.calculate.setLayoutParams(params);
+                    }
 
                     try {
                         Bundle arguments = getIntent().getExtras();
@@ -147,8 +179,13 @@ public class PotsCalculateActivity extends AppCompatActivity {
 
                         String di = String.valueOf(diametr);
                         binding.Width.setText(di);
-
-                        double gr = diametr*diametr*sizehpots;
+                        Log.e(TAG, "diametr " +diametr);
+                        Log.e(TAG, "sizehpots " +sizehpots);
+                        double grunt = (diametr*diametr*sizehpots);
+                        grunt = grunt/1000;
+                        Log.e(TAG, "grunt" +grunt);
+                        double gr = Math.round(grunt *100.0) / 100.0;
+                        Log.e(TAG, "gr" +gr);
                         binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальная ширина контейнера должена быть " + diametr +". Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
 
                     }
@@ -178,8 +215,9 @@ public class PotsCalculateActivity extends AppCompatActivity {
                     binding.LengthSmall.setVisibility(View.GONE);
                     binding.UserPlantLengthSmall.setVisibility(View.GONE);
 
-                    binding.constraintLayout9.setVisibility(View.VISIBLE);
-                    binding.PotText.setVisibility(View.VISIBLE);
+                    binding.constraintLayout9.setVisibility(View.GONE);
+                    binding.PotText.setVisibility(View.GONE);
+                    binding.calculate.setVisibility(View.VISIBLE);
                     binding.Diameter.setVisibility(View.VISIBLE);
                     binding.UserPlantDiameter.setVisibility(View.VISIBLE);
                     binding.Height.setVisibility(View.VISIBLE);
@@ -187,9 +225,12 @@ public class PotsCalculateActivity extends AppCompatActivity {
                     binding.DiameterSmall.setVisibility(View.VISIBLE);
                     binding.UserPlantDiameterSmall.setVisibility(View.VISIBLE);
 
+                    if (binding.UserPlantDiameterSmall.getVisibility() == View.VISIBLE ) {
+                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
+                        params.topMargin = 670;
+                        binding.calculate.setLayoutParams(params);
+                    }
 
-                    //binding.cylinder.setSelected(false);
-                    binding.cylinder.setChecked(false);
                     try {
                         Bundle arguments = getIntent().getExtras();
                         String WidhtP = arguments.get("WidhtP").toString();
@@ -198,20 +239,12 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         int Widht = Integer.parseInt(WidhtP.trim());
                         int Height = Integer.parseInt(HeightP.trim());
                         int sizehpots = Height * 1/3;
-
                         String si = String.valueOf(sizehpots);
                         binding.Height.setText(si);
                         double d = Widht * 2.5;
-                        double ds = d*2/3;
                         int diametr = (int)d;
-                        int diametrSm = (int)ds;
                         String di = String.valueOf(diametr);
-                        String dis = String.valueOf(diametrSm);
                         binding.Diameter.setText(di);
-                        binding.DiameterSmall.setText(dis);
-
-                        double gr = Math.PI/3*(Math.pow(diametr,2) + Math.pow(diametrSm,2) + (Math.sqrt(Math.pow(diametr,2) * Math.pow(diametrSm,2))))*sizehpots;
-                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальный диаметр верхнего основания контейнера должена быть " + diametr +".Минимальный диаметр нижнего основания контейнера должена быть " + diametrSm +". Приблизительный объем грунта на конусообразный горшок составляет " + gr + " л. ");
                     }
                     catch (NumberFormatException nfe)
                     {
@@ -234,8 +267,9 @@ public class PotsCalculateActivity extends AppCompatActivity {
                     binding.DiameterSmall.setVisibility(View.GONE);
                     binding.UserPlantDiameterSmall.setVisibility(View.GONE);
 
-                    binding.constraintLayout9.setVisibility(View.VISIBLE);
-                    binding.PotText.setVisibility(View.VISIBLE);
+                    binding.constraintLayout9.setVisibility(View.GONE);
+                    binding.PotText.setVisibility(View.GONE);
+                    binding.calculate.setVisibility(View.VISIBLE);
                     binding.Height.setVisibility(View.VISIBLE);
                     binding.UserPlantHeight.setVisibility(View.VISIBLE);
                     binding.Width.setVisibility(View.VISIBLE);
@@ -247,8 +281,12 @@ public class PotsCalculateActivity extends AppCompatActivity {
                     binding.LengthSmall.setVisibility(View.VISIBLE);
                     binding.UserPlantLengthSmall.setVisibility(View.VISIBLE);
 
-                    //binding.cylinder.setSelected(false);
-                    binding.cylinder.setChecked(false);
+                    if (binding.UserPlantLengthSmall.getVisibility() == View.VISIBLE ) {
+                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
+                        params.topMargin = 48;
+                        binding.calculate.setLayoutParams(params);
+                    }
+
                     try {
                         Bundle arguments = getIntent().getExtras();
                         String WidhtP = arguments.get("WidhtP").toString();
@@ -261,25 +299,9 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         String si = String.valueOf(sizehpots);
                         binding.Height.setText(si);
                         double d = Widht * 2.5;
-                        double ds = d*2/3;
                         int diametr = (int)d;
-                        int diametrSm = (int)ds;
                         String di = String.valueOf(diametr);
-                        String dis = String.valueOf(diametrSm);
                         binding.Width.setText(di);
-                        binding.WidthSmall.setText(dis);
-                        double l = diametr + diametr/4;
-                        double ls = diametrSm + diametrSm/4;
-                        int length = (int)l;
-                        int lengthSm = (int)ls;
-                        String li = String.valueOf(length);
-                        String lis = String.valueOf(lengthSm);
-                        binding.Length.setText(li);
-                        binding.LengthSmall.setText(lis);
-                        Double S1 = d*l;
-                        Double S2 = ds*ls;
-                        double gr = sizehpots/6*(S1 + S2 + (Math.sqrt(S1 * S2)));
-                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальная ширина верхнего основания контейнера должена быть " + diametr +".Минимальная ширина нижнего основания контейнера должена быть " + diametrSm +".Максимальная длина верхнего основания контейнера должена быть " + length +".Минимальная длина нижнего основания контейнера должена быть " + lengthSm +". Приблизительный объем грунта на четырехугольный горшок составляет " + gr + " л. ");
 
                     }
                     catch (NumberFormatException nfe)
@@ -297,133 +319,331 @@ public class PotsCalculateActivity extends AppCompatActivity {
         binding.calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.cylinder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                        if(isChecked){
+                        if(binding.cylinder.isChecked()){
                             //цилиндр
-                            binding.rectangle.setChecked(false);
-                            binding.quadrilateral.setChecked(false);
-                            binding.cone.setChecked(false);
                             Log.d(TAG, "Цилиндр ");
-                            try {
-                                String Height = binding.Height.getText().toString();
-                                int sizehpots = Integer.parseInt (Height);
-                                String Dia = binding.Diameter.getText().toString();
-                                int diametr = Integer.parseInt (Dia);
+                            binding.rectangle.setChecked(false);
+                            binding.quadrilateral.setChecked(false);
+                            binding.cone.setChecked(false);
+                            binding.Width.setVisibility(View.GONE);
+                            binding.UserPlantWidth.setVisibility(View.GONE);
+                            binding.DiameterSmall.setVisibility(View.GONE);
+                            binding.UserPlantDiameterSmall.setVisibility(View.GONE);
+                            binding.WidthSmall.setVisibility(View.GONE);
+                            binding.UserPlantWidthSmall.setVisibility(View.GONE);
+                            binding.Length.setVisibility(View.GONE);
+                            binding.UserPlantLength.setVisibility(View.GONE);
+                            binding.LengthSmall.setVisibility(View.GONE);
+                            binding.UserPlantLengthSmall.setVisibility(View.GONE);
 
-                                double rad = diametr/2;
-                                double rd2 = (Math.pow(rad,2));
-                                double grunt = (Math.PI*rd2*sizehpots)/1000;
-                                double gr = Math.round(grunt * 100.0) / 100.0;
-                                binding.PotText.setText("Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
+                            binding.constraintLayout9.setVisibility(View.VISIBLE);
+                            binding.PotText.setVisibility(View.VISIBLE);
+                            binding.calculate.setVisibility(View.VISIBLE);
+                            binding.Height.setVisibility(View.VISIBLE);
+                            binding.UserPlantHeight.setVisibility(View.VISIBLE);
+                            binding.Diameter.setVisibility(View.VISIBLE);
+                            binding.UserPlantDiameter.setVisibility(View.VISIBLE);
+
+                             hP = binding.Height.getText().toString().trim();
+                             Dp = binding.Diameter.getText().toString().trim();
+
+
+                            if (TextUtils.isEmpty(hP)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите высоту горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
                             }
-                            catch (NumberFormatException nfe)
-                            {
-                                System.out.println("NumberFormatException: " + nfe.getMessage());
+                            else if (TextUtils.isEmpty(Dp)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите диаметр горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
+                            }
+                            else {
+                                try {
+                                    String Height = binding.Height.getText().toString();
+                                    int sizehpots = Integer.parseInt (Height);
+                                    Log.d(TAG, "sizehpots " + sizehpots);
+                                    String Dia = binding.Diameter.getText().toString();
+                                    int diametr = Integer.parseInt (Dia);
+                                    Log.d(TAG, "diametr " + diametr);
+                                    double rad = diametr/2;
+                                    double rd2 = (Math.pow(rad,2));
+                                    double grunt = (Math.PI*rd2*sizehpots)/1000;
+                                    Log.e(TAG, "grunt " + grunt);
+                                    double gr = Math.round(grunt * 100.0) / 100.0;
+                                    Log.e(TAG, "gr " + gr);
+                                    binding.constraintLayout9.setVisibility(View.VISIBLE);
+                                    binding.PotText.setVisibility(View.VISIBLE);
+                                    binding.PotText.setText("Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
+                                }
+                                catch (NumberFormatException nfe)
+                                {
+                                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                                }
                             }
                         }
-                    }
-                });
-
-                binding.rectangle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                        if(isChecked){
+                        if(binding.rectangle.isChecked()){
                             //Прямоугольник
+                            Log.d(TAG, "Прямоугольник ");
                             binding.cylinder.setChecked(false);
                             binding.quadrilateral.setChecked(false);
                             binding.cone.setChecked(false);
-                            Log.d(TAG, "Прямоугольник ");
-                            try {
-                                String Height = binding.Height.getText().toString();
-                                int sizehpots = Integer.parseInt (Height);
-                                String Dia = binding.Width.getText().toString();
-                                int diametr = Integer.parseInt (Dia);
+                            binding.Diameter.setVisibility(View.GONE);
+                            binding.UserPlantDiameter.setVisibility(View.GONE);
+                            binding.DiameterSmall.setVisibility(View.GONE);
+                            binding.UserPlantDiameterSmall.setVisibility(View.GONE);
+                            binding.WidthSmall.setVisibility(View.GONE);
+                            binding.UserPlantWidthSmall.setVisibility(View.GONE);
+                            binding.Length.setVisibility(View.GONE);
+                            binding.UserPlantLength.setVisibility(View.GONE);
+                            binding.LengthSmall.setVisibility(View.GONE);
+                            binding.UserPlantLengthSmall.setVisibility(View.GONE);
 
-                                double gr = diametr*diametr*sizehpots;
-                                binding.PotText.setText("Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
+                            binding.constraintLayout9.setVisibility(View.VISIBLE);
+                            binding.PotText.setVisibility(View.VISIBLE);
+                            binding.calculate.setVisibility(View.VISIBLE);
+                            binding.Height.setVisibility(View.VISIBLE);
+                            binding.UserPlantHeight.setVisibility(View.VISIBLE);
+                            binding.Width.setVisibility(View.VISIBLE);
+                            binding.UserPlantWidth.setVisibility(View.VISIBLE);
 
+                            hP = binding.Height.getText().toString().trim();
+                            Bp = binding.Width.getText().toString().trim();
+
+
+                            if (TextUtils.isEmpty(hP)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите высоту горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
                             }
-                            catch (NumberFormatException nfe)
-                            {
-                                System.out.println("NumberFormatException: " + nfe.getMessage());
+                            else if (TextUtils.isEmpty(Bp)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите ширину горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
+                            }
+                            else {
+                                try {
+                                    String Height = binding.Height.getText().toString();
+                                    int sizehpots = Integer.parseInt (Height);
+                                    Log.e(TAG, "sizehpots " + sizehpots);
+                                    String Dia = binding.Width.getText().toString();
+                                    int diametr = Integer.parseInt (Dia);
+                                    Log.e(TAG, "diametr " + diametr);
+
+                                    double grunt = (diametr*diametr*sizehpots);
+                                    grunt = grunt/1000;
+                                    double gr = Math.round(grunt *100.0) / 100.0;
+                                    Log.e(TAG, "gr " + gr);
+                                    binding.constraintLayout9.setVisibility(View.VISIBLE);
+                                    binding.PotText.setVisibility(View.VISIBLE);
+                                    binding.PotText.setText("Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
+
+                                }
+                                catch (NumberFormatException nfe)
+                                {
+                                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                                }
                             }
                         }
-                    }
-                });
-
-                binding.cone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                        if(isChecked){
+                        if(binding.cone.isChecked()){
                             //Конус
-                            binding.cylinder.setChecked(false);
-                            binding.rectangle.setChecked(false);
-                            binding.quadrilateral.setChecked(false);
                             Log.d(TAG, "Конус ");
                             binding.cylinder.setChecked(false);
-                            try {
-                                String Height = binding.Height.getText().toString();
-                                int sizehpots = Integer.parseInt (Height);
+                            binding.rectangle.setChecked(false);
+                            binding.quadrilateral.setChecked(false);
+                            binding.Width.setVisibility(View.GONE);
+                            binding.UserPlantWidth.setVisibility(View.GONE);
+                            binding.WidthSmall.setVisibility(View.GONE);
+                            binding.UserPlantWidthSmall.setVisibility(View.GONE);
+                            binding.Length.setVisibility(View.GONE);
+                            binding.UserPlantLength.setVisibility(View.GONE);
+                            binding.LengthSmall.setVisibility(View.GONE);
+                            binding.UserPlantLengthSmall.setVisibility(View.GONE);
 
-                                String Dia = binding.Diameter.getText().toString();
-                                int diametr = Integer.parseInt (Dia);
+                            binding.constraintLayout9.setVisibility(View.VISIBLE);
+                            binding.PotText.setVisibility(View.VISIBLE);
+                            binding.calculate.setVisibility(View.VISIBLE);
+                            binding.Diameter.setVisibility(View.VISIBLE);
+                            binding.UserPlantDiameter.setVisibility(View.VISIBLE);
+                            binding.Height.setVisibility(View.VISIBLE);
+                            binding.UserPlantHeight.setVisibility(View.VISIBLE);
+                            binding.DiameterSmall.setVisibility(View.VISIBLE);
+                            binding.UserPlantDiameterSmall.setVisibility(View.VISIBLE);
 
-                                String DiamS = binding.DiameterSmall.getText().toString();
-                                int diametrSm = Integer.parseInt (DiamS);
+                            hP = binding.Height.getText().toString().trim();
+                            Dp = binding.Diameter.getText().toString().trim();
+                            dp = binding.DiameterSmall.getText().toString().trim();
 
-                                double gr = Math.PI/3*(Math.pow(diametr,2) + Math.pow(diametrSm,2) + (Math.sqrt(Math.pow(diametr,2) * Math.pow(diametrSm,2))))*sizehpots;
-                                binding.PotText.setText("Приблизительный объем грунта на конусообразный горшок составляет " + gr + " л. ");
+
+                            if (TextUtils.isEmpty(hP)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите высоту горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
                             }
-                            catch (NumberFormatException nfe)
-                            {
-                                System.out.println("NumberFormatException: " + nfe.getMessage());
+                            else if (TextUtils.isEmpty(Dp)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите верхний диаметр горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
+                            }
+                            else if (TextUtils.isEmpty(dp)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите нижний диаметр горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
+                            }
+                            else {
+                                try {
+                                    String Height = binding.Height.getText().toString();
+                                    int sizehpots = Integer.parseInt (Height);
+                                    Log.e(TAG, "sizehpots "+ sizehpots);
+
+                                    String Dia = binding.Diameter.getText().toString();
+                                    int diametr = Integer.parseInt (Dia);
+                                    double diametr2 = (Math.pow(diametr,2));
+
+                                    String DiamS = binding.DiameterSmall.getText().toString();
+                                    int diametrSm = Integer.parseInt (DiamS);
+                                    double diametrSm2 = (Math.pow(diametrSm,2));
+
+                                    double rad1 = diametr/2;
+                                    double rad2 = (Math.pow(rad1,2));
+                                    Log.e(TAG, "rd2 "+ rad2);
+                                    double radSm1 = diametrSm/2;
+                                    double radSm2 = (Math.pow(radSm1,2));
+                                    Log.e(TAG, "rdSm2 "+ radSm2);
+
+                                    double grunt = (Math.PI*sizehpots*(rad2 + rad1 * radSm1 + radSm2))/3000;
+                                    Log.e(TAG, "grunt " + grunt);
+                                    double gr = Math.round(grunt *100.0) / 100.0;
+                                    Log.e(TAG, "gr "+ gr);
+                                    binding.constraintLayout9.setVisibility(View.VISIBLE);
+                                    binding.PotText.setVisibility(View.VISIBLE);
+                                    binding.PotText.setText("Приблизительный объем грунта на конусообразный горшок составляет " + gr + " л. ");
+                                /*double V1 = (Math.PI*rad2*sizehpots)/3000;
+                                Log.e(TAG, "V1 "+ V1);
+                                double V2 = (Math.PI*radSm2*sizehpots)/3000;
+                                Log.e(TAG, "V2 "+ V2);
+                                double gr1 = Math.round(V1) / 100.0;
+                                Log.e(TAG, "gr1 "+ gr1);
+                                double gr2 = Math.round(V2) / 100.0;
+                                Log.e(TAG, "gr2 "+ gr2);
+                                double gr = gr1-gr2;
+                                Log.e(TAG, "gr "+ gr);*/
+                                    //5,22
+                                    //double gr = Math.PI/3000*(rad2 + radSm2 + (Math.sqrt(rad2 * radSm2)))*sizehpots;
+                                    //Log.e(TAG, "gr "+ gr);
+                                    //1,98
+
+                                    //double gr = ((Math.PI*rad2 + Math.PI*radSm2 + (Math.sqrt(Math.PI*rad2 * Math.PI*radSm2)))*sizehpots)/3000;
+                                    //Log.e(TAG, "gr "+ gr);
+                                    //1,98
+
+                                    //double gr = (Math.PI*sizehpots/3*((diametr +diametr2 * diametrSm + diametrSm2)/2));
+                                    //Log.e(TAG, "gr "+ gr);
+                                    //32...
+                                    //double gr = (Math.PI*sizehpots*(rad2 + radSm2))/3000;
+                                    //Log.e(TAG, "gr "+ gr);
+                                    //1,3
+                                }
+                                catch (NumberFormatException nfe)
+                                {
+                                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                                }
                             }
                         }
-                    }
-                });
-                binding.quadrilateral.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                        if(isChecked){
+                        if(binding.quadrilateral.isChecked()){
                             //Четырёхугольник
                             Log.d(TAG, "Четырёхугольник ");
                             binding.cylinder.setChecked(false);
                             binding.rectangle.setChecked(false);
                             binding.cone.setChecked(false);
-                            binding.cylinder.setChecked(false);
-                            try {
-                                String Height = binding.Height.getText().toString();
-                                int sizehpots = Integer.parseInt (Height);
+                            binding.Diameter.setVisibility(View.GONE);
+                            binding.UserPlantDiameter.setVisibility(View.GONE);
+                            binding.DiameterSmall.setVisibility(View.GONE);
+                            binding.UserPlantDiameterSmall.setVisibility(View.GONE);
 
-                                String Dia = binding.Width.getText().toString();
-                                int Widht = Integer.parseInt (Dia);
-                                double d = Widht * 2.5;
-                                int diametr = (int)d;
+                            binding.constraintLayout9.setVisibility(View.VISIBLE);
+                            binding.PotText.setVisibility(View.VISIBLE);
+                            binding.calculate.setVisibility(View.VISIBLE);
+                            binding.Height.setVisibility(View.VISIBLE);
+                            binding.UserPlantHeight.setVisibility(View.VISIBLE);
+                            binding.Width.setVisibility(View.VISIBLE);
+                            binding.UserPlantWidth.setVisibility(View.VISIBLE);
+                            binding.WidthSmall.setVisibility(View.VISIBLE);
+                            binding.UserPlantWidthSmall.setVisibility(View.VISIBLE);
+                            binding.Length.setVisibility(View.VISIBLE);
+                            binding.UserPlantLength.setVisibility(View.VISIBLE);
+                            binding.LengthSmall.setVisibility(View.VISIBLE);
+                            binding.UserPlantLengthSmall.setVisibility(View.VISIBLE);
 
-                                String DiamS = binding.WidthSmall.getText().toString();
-                                int diametrSm = Integer.parseInt (DiamS);
+                            hP = binding.Height.getText().toString().trim();
+                            Bp = binding.Width.getText().toString().trim();
+                            bp = binding.WidthSmall.getText().toString().trim();
+                            Lp = binding.Length.getText().toString().trim();
+                            lp = binding.LengthSmall.getText().toString().trim();
 
-                                String Le = binding.Length.getText().toString();
-                                int length = Integer.parseInt (Le);
 
-                                String LeS = binding.LengthSmall.getText().toString();
-                                int lengthSm = Integer.parseInt (LeS);
-
-                                int S1 = diametr*length;
-                                int S2 = diametrSm*lengthSm;
-                                double gr = sizehpots/6*(S1 + S2 + (Math.sqrt(S1 * S2)));
-                                binding.PotText.setText("Приблизительный объем грунта на четырехугольный горшок составляет " + gr + " л. ");
-
+                            if (TextUtils.isEmpty(hP)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите высоту горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
                             }
-                            catch (NumberFormatException nfe)
-                            {
-                                System.out.println("NumberFormatException: " + nfe.getMessage());
+                            else if (TextUtils.isEmpty(Bp)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите верхнюю ширину горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
+                            }
+                            else if (TextUtils.isEmpty(bp)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите нижнюю ширину горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
+                            }
+                            else if (TextUtils.isEmpty(Lp)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите верхнюю длину горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
+                            }
+                            else if (TextUtils.isEmpty(lp)){
+                                Toast.makeText(PotsCalculateActivity.this,  "Введите нижнюю длину горшка", Toast.LENGTH_SHORT).show();
+                                binding.constraintLayout9.setVisibility(View.GONE);
+                                binding.PotText.setVisibility(View.GONE);
+                            }
+                            else {
+                                try {
+                                    String Height = binding.Height.getText().toString();
+                                    int sizehpots = Integer.parseInt (Height);
+
+                                    String Dia = binding.Width.getText().toString();
+                                    int diametr = Integer.parseInt (Dia);
+
+
+                                    String DiamS = binding.WidthSmall.getText().toString();
+                                    int diametrSm = Integer.parseInt (DiamS);
+
+                                    String Le = binding.Length.getText().toString();
+                                    int length = Integer.parseInt (Le);
+
+                                    String LeS = binding.LengthSmall.getText().toString();
+                                    int lengthSm = Integer.parseInt (LeS);
+
+                                    //int S1 = diametr*length;
+                                    //int S2 = diametrSm*lengthSm;
+                                    //double grunt = (sizehpots*(S1 + S2 + (Math.sqrt(S1 * S2))))/6;
+                                    //Log.e(TAG, "grunt " + grunt);
+
+                                    double S = ((diametr*length)+(diametrSm*lengthSm))/2;
+                                    double grunt = (S*sizehpots)/1000;
+                                    Log.e(TAG, "grunt " + grunt);
+                                    double gr = Math.round(grunt *100.0) / 100.0;
+                                    Log.e(TAG, "gr " + gr);
+                                    binding.PotText.setText("Приблизительный объем грунта на четырехугольный горшок составляет " + gr + " л. ");
+
+                                }
+                                catch (NumberFormatException nfe)
+                                {
+                                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                                }
                             }
                         }
-                    }
-                });
             }
         });
     }
