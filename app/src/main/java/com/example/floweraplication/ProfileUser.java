@@ -218,12 +218,27 @@ public class ProfileUser extends AppCompatActivity {
                             .apply(options)
                             .into(picture);
                 }
+
+                reference.child(auth.getUid()).child("User_plant").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String s =""+snapshot.getChildrenCount();
+                        Log.e(TAG,"s каунт "+s);
+                        binding.textView35.setText(s);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
     }
 

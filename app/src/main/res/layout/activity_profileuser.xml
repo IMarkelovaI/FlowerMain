@@ -74,6 +74,7 @@
         android:id="@+id/loginUserLayout1"
         android:layout_width="317dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -116,13 +117,13 @@
         android:id="@+id/imageView3"
         android:layout_width="153dp"
         android:layout_height="156dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/circle"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:shapeAppearanceOverlay="@style/rounded_circle"/>
+        app:shapeAppearanceOverlay="@style/rounded_circle" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/Redact"
@@ -165,4 +166,21 @@
             android:hint="Email"
             android:text="test1@mail.ru" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="119dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/leaf1"
+        android:drawablePadding="4dp"
+        android:drawableTint="?attr/colorPrimary"
+        android:fontFamily="@font/gsb"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
