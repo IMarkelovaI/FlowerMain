@@ -76,7 +76,6 @@ public class AdapterDirectoryDesiase extends RecyclerView.Adapter<AdapterDirecto
                 intent.putExtra("id", id);
                 intent.putExtra("name", name);
                 intent.putExtra("description",description);
-                Log.i(TAG, "жопа"+name);
 
                 String picture = s;
                 intent.putExtra("picture", picture);

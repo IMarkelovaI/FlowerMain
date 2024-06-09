@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences;
 
-        //nandle click, begin register
         binding.buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,15 +78,11 @@ public class MainActivity extends AppCompatActivity {
     private String name ="", email ="", password = "", repeatLoginPass="";
     private void validateData() {
 
-        //Before creating account, lets do some data validationx/
-        // get data
-
         name = binding.loginUser.getText().toString().trim();
         email = binding.loginEmail.getText().toString() .trim();
         password = binding.loginPass.getText().toString().trim();
         repeatLoginPass = binding.repeatLoginPass.getText().toString().trim();
 
-        //validate data
         if (name.isEmpty()) {
             binding.loginUserLayout.setError("Логин не может быть пустым");
         }
@@ -113,23 +108,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createUserAccount() {
-        //show progress
+
         progressDialog.setMessage("Создание аккаунта");
         progressDialog.show();
 
-        //create user in firebase auth
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        //account creation success, now add in firebase realtime database
+
                         updateUserInfo();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(Exception e) {
-                        //account creating failed
+
                         progressDialog.dismiss();
                         Toast.makeText(MainActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -139,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Сохранение информации пользователя");
         long temeatamp = System.currentTimeMillis();
 
-        //ModelUser model = new ModelUser();
         String id = firebaseAuth.getUid();
         String profileImage = "";
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -147,20 +140,19 @@ public class MainActivity extends AppCompatActivity {
         hashMap.put("id", id);
         hashMap.put("email", email);
         hashMap.put("name", name);
-        hashMap.put("profileImage", profileImage);//add empty, will do later
+        hashMap.put("profileImage", profileImage);
         hashMap.put("userType", "user");;
 
         SharedPreferences.Editor editor = apppref.edit();
         editor.clear();
 
-        //set data to db
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users") ;
         ref.child(id)
                 .setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        //data added to db
+
                     progressDialog.dismiss();
                     Toast.makeText(MainActivity.this, "Акаунт создан", Toast.LENGTH_SHORT).show();
 
@@ -175,12 +167,10 @@ public class MainActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(Exception e) {
-                        //data failed adding to db
+
                         progressDialog.dismiss();
                         Toast .makeText(MainActivity.this, ""+e.getMessage(), Toast. LENGTH_SHORT).show();
             }
                 });
-
-
     }
 }

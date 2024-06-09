@@ -52,8 +52,6 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
 
     private static final String TAG = "PNG_ADAPTER_TAG";
 
-    //private ProgressDialog progressDialog;
-
     public AdapterPngAdmin (Context context, ArrayList<ModelPng> pngArrayList){
         this.context = context;
         this.pngArrayList = pngArrayList;
@@ -74,14 +72,6 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
         holder.titleTv.setText(title);
         Glide.with(context).load(model.getImage()).into(holder.pngView);
 
-
-
-        /*holder.moreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                moreOptionsDialog(model, holder);
-            }
-        });*/
     }
     @Override
     public int getItemCount() {
@@ -104,71 +94,4 @@ public class AdapterPngAdmin extends RecyclerView.Adapter<AdapterPngAdmin.Holder
             pngRl = binding.pngRl;
         }
     }
-    /*private void moreOptionsDialog(ModelPng model, HolderPngAdmin holder) {
-        String[] options = {"Редактировать","Удалить"};
-        AlertDialog.Builder bilder = new AlertDialog.Builder(context);
-        bilder.setTitle("Выбрать опцию")
-                .setItems(options, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(which==0)
-                        {
-
-                        }
-                        else if (which==1)
-                        {
-                            deleatPlant(model,holder);
-                        }
-                    }
-                })
-                .show();
-    }*/
-
-    /*private void deleatPlant(ModelPng model, HolderPngAdmin holder) {
-        String id = model.getId();
-        String name = model.getName();
-
-        Log.d(TAG, "deletePlant: Deleting");
-        progressDialog.setMessage("Удаляется: "+name);
-        progressDialog.show();
-
-        Log.d(TAG, "deletePlant: Deleting from storage");
-        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(id);
-        storageReference.delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG, "onSuccess: Deleted from storage");
-
-                        Log.d(TAG, "onSuccess: Now deleting into from db");
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Plant");
-                        reference.child(id)
-                                .removeValue()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Log.d(TAG, "onSuccess: Deleted from db too");
-                                        progressDialog.dismiss();
-                                        Toast.makeText(context, "Растение удалено", Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Failed to delete from db due to"+e.getMessage());
-                                        progressDialog.dismiss();
-                                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: Failed to delete from storage"+e.getMessage());
-                        progressDialog.dismiss();
-                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }*/
 }

@@ -38,10 +38,6 @@ public class DetailDirectoryActivity extends AppCompatActivity {
      return true;
     }
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +63,6 @@ public class DetailDirectoryActivity extends AppCompatActivity {
 
 
         Glide.with(DetailDirectoryActivity.this).load(getIntent().getStringExtra("picture")).into(PlImage);
-        //Glide.with(this).load("https://luxuryplants.ru/wa-data/public/shop/products/21/03/321/images/26996/26996.1500x0.jpg").into(PlImage);
-
 
         PlName.setText(getIntent().getStringExtra("name"));
         String s = PlName.getText().toString();
@@ -77,22 +71,5 @@ public class DetailDirectoryActivity extends AppCompatActivity {
         Log.w(TAG, "onSuccess: Successfully uploaded"+PlName.getText());
         Description.setText(getIntent().getStringExtra("description"));
 
-
     }
-    /*public void Imageset(String string){
-        Log.w(TAG, "gbpla"+string);
-        switch (string){
-            case ("Парса"):
-                Glide.with(this).load(R.drawable.rust).into(PlImage);
-                break;
-            case("Просса"):
-                Glide.with(DetailDirectoryActivity.this).load(getIntent().getStringExtra("picture")).into(PlImage);
-                break;
-            default:
-                Glide.with(DetailDirectoryActivity.this).load(R.drawable.addcontainer).into(PlImage);
-        }
-
-        Log.w(TAG, "gbpla"+string);*/
-
-
-    }
+}

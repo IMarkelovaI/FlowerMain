@@ -72,8 +72,6 @@ public class HomeFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
 
-        //getFragmentManager().beginTransaction().detach(HomeFragment.this).attach(HomeFragment.this).commit();
-        //init firebase auth
         buttonLight = binding.buttonLight;
         materialSwitch = binding.switch33;
         Profile = binding.ProfileButton;
@@ -103,8 +101,6 @@ public class HomeFragment extends Fragment  {
             }
         });
 
-        //buttonLight.setOnClickListener(new View);
-
         buttonLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,32 +124,10 @@ public class HomeFragment extends Fragment  {
                 startActivity(intent);
             }
         });
-        //loadUserInfo();
 
         return binding.getRoot();
     }
 
-    /*public static void checkIsPlant(){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() ==null){
-
-        }
-        else {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-            reference.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-        }
-    }*/
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -171,9 +145,6 @@ public class HomeFragment extends Fragment  {
         Recycler = new ArrayList<>();
         adapterHomeFragment = new AdapterHomeFragment(getContext(), Recycler);
         recyclerView.setAdapter(adapterHomeFragment);
-
-        //SharedPreferences preferences = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
-        //String user = preferences.getString("mAppIUD", "unknown");
 
         FirebaseUser useri=FirebaseAuth.getInstance().getCurrentUser();
         String userid =useri.getUid();
@@ -212,7 +183,6 @@ public class HomeFragment extends Fragment  {
                             if (map.get("sun")!= null){
                                 sun= map.get("sun").toString();
                             }
-                       // }
                     }
                     Recycler.add(new ModelUserFlow(description,id,name,picture,plant_id,plant_size,plant_width,sun));
                 }
@@ -240,7 +210,7 @@ public class HomeFragment extends Fragment  {
                 }
                 if (profileImage != "")
                 {
-                    //Uri uri = Uri.parse("profileImage");
+
                     RequestOptions options = new RequestOptions()
                             .fitCenter()
                             .bitmapTransform(new RoundedCorners(14))

@@ -88,11 +88,8 @@ public class DobUserPlantActivity extends AppCompatActivity {
         binding = ActivityDobUserPlantBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
 
-
-        //configure progress dialog
         toolbar = binding.toolbar;
         toolbar.setTitleTextAppearance(this, R.style.FontForTitle);
         TypedValue typedValue = new TypedValue();
@@ -114,13 +111,9 @@ public class DobUserPlantActivity extends AppCompatActivity {
         PlName = binding.PlName;
 
         Uri uri = Uri.parse(getIntent().getStringExtra("pngView"));
-        Log.i(TAG,"KKKKKKKKKKKKKKKKKK"+uri);
 
         PlName.setText(getIntent().getStringExtra("PName"));
         Glide.with(DobUserPlantActivity.this).load(getIntent().getStringExtra("pngView")).into(pngView);
-
-        Log.d(TAG, "onSuccess: Successfully uploaded"+pngView);
-
 
         binding.Dob.setOnClickListener(new View.OnClickListener()
         {
@@ -146,20 +139,15 @@ public class DobUserPlantActivity extends AppCompatActivity {
     private String name ="";
     private String pictureU="";
     private void validateData() {
-        //Before adding validate data
-        // get data
+
         name = binding.PlName.getText().toString().trim();
         sun = binding.Sun.getText().toString().trim();
         plant_size = binding.Height.getText().toString().trim();
         plant_width = binding.Width.getText().toString().trim();
         description  = binding.Description.getText().toString().trim();
 
-
-
-
-        //validate if not empty
         if (TextUtils.isEmpty(sun)){
-            Toast.makeText(this,  "Введите солнце", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,  "Введите люксы", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(plant_size)){
             Toast.makeText(this,  "Введите высоту растения", Toast.LENGTH_SHORT).show();
@@ -172,15 +160,11 @@ public class DobUserPlantActivity extends AppCompatActivity {
         }
         else {
 
-
             createPlant();
         }
     }
 
     private void createPlant() {
-        //progressDialog.setMessage("Добавление нового растения");
-        //progressDialog.show();
-
 
         long timestamp = System.currentTimeMillis();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
@@ -190,9 +174,6 @@ public class DobUserPlantActivity extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
         String plant_id = arguments.get("idPl").toString();
 
-        //SharedPreferences sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        //String user_id = sharedPref.getString("mAppIUD", "unknown");
-
         Uri uri = Uri.parse(getIntent().getStringExtra("pngView"));
 
         if(pngUri!=null){
@@ -201,49 +182,41 @@ public class DobUserPlantActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            //get url of uploaded image
+
                             Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                             while (!uriTask.isSuccessful());
                             Uri downloadImageUri = uriTask.getResult();
 
                             if (uriTask.isSuccessful()){
-                                //setup data to save
+
                                 HashMap<String,Object> hashMap = new HashMap<>();
                                 hashMap.put("id", ""+timestamp);
                                 hashMap.put("plant_id", ""+plant_id);
-                                //hashMap.put("user_id", ""+user_id);
                                 hashMap.put("name", ""+name);
                                 hashMap.put("sun", ""+sun);
                                 hashMap.put("plant_size", ""+plant_size);
                                 hashMap.put("plant_width", ""+plant_width);
                                 hashMap.put("description", ""+description);
                                 hashMap.put("picture",""+downloadImageUri);
-                                //hashMap.put("pots_id", "");
-                                Log.e(TAG, "ЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕНННННННННННННННЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ ");
 
-                                //save to db
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
                                 ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
                                         .setValue(hashMap)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-                                                //db updated
 
                                                 Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                                                 cal.setTimeInMillis(timestamp);
                                                 String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
 
                                                 progressDialog.dismiss();
-                                                Log.d(TAG, "onSuccess: Successfully uploaded"+downloadImageUri);
 
                                                 HashMap<String,Object> hashMap = new HashMap<>();
                                                 hashMap.put("id", ""+timestamp);
                                                 hashMap.put("last_day_of_watering", ""+dateW);
                                                 hashMap.put("last_day_of_loosening", ""+dateW);
                                                 hashMap.put("last_day_of_transport", ""+dateW);
-
-                                                Log.e(TAG, "ВВВВВВВВВВВВ "+dateW);
 
                                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
                                                 ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
@@ -262,14 +235,13 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                                                 progressDialog.dismiss();
                                                             }
                                                         });
-                                                //startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                //failed updating db
-                                                //progressDialog.dismiss();
-                                                Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
+
+                                                Log.d(TAG, "Возникла ошибка "+e.getMessage());
                                             }
                                         });
                             }
@@ -278,7 +250,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
+                            Log.d(TAG, "Возникла ошибка "+e.getMessage());
                         }
                     });
         }
@@ -287,15 +259,13 @@ public class DobUserPlantActivity extends AppCompatActivity {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("id", ""+timestamp);
             hashMap.put("plant_id", ""+plant_id);
-            //hashMap.put("user_id", ""+user_id);
             hashMap.put("name", ""+name);
             hashMap.put("picture", ""+uri);
             hashMap.put("sun", ""+sun);
             hashMap.put("plant_size", ""+plant_size);
             hashMap.put("plant_width", ""+plant_width);
             hashMap.put("description", ""+description);
-            //hashMap.put("pots_id", "");
-            Log.e(TAG, "ЕВВВВВВВВВВВВВВВВВВВВВВВВВааааа ");
+
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
             ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
                     .setValue(hashMap)
@@ -313,7 +283,6 @@ public class DobUserPlantActivity extends AppCompatActivity {
                             hashMap.put("last_day_of_loosening", ""+dateW);
                             hashMap.put("last_day_of_transport", ""+dateW);
 
-                            Log.e(TAG, "ЕВВВВВВВВммвмвмвмвмвмвмвмвм ");
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
                             ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
                                     .updateChildren(hashMap)
@@ -343,58 +312,12 @@ public class DobUserPlantActivity extends AppCompatActivity {
         }
     }
 
-    private void addPlantFirebase() {
-        //show progress
-        progressDialog.setMessage("Растение добавляется добавляется");
-        progressDialog.show();
-
-        Bundle arguments = getIntent().getExtras();
-        String plant_id = arguments.get("idPl").toString();
-
-        SharedPreferences sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        String user_id = sharedPref.getString("mAppIUD", "unknown");
-
-        //get timestamp
-        long timestamp = System.currentTimeMillis();
-        //setup info to add in firebase db
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id", ""+timestamp);
-        hashMap.put("plant_id", ""+plant_id);
-        hashMap.put("user_id", ""+user_id);
-        hashMap.put("name", ""+name);
-        hashMap.put("picture", ""+pngView);
-        hashMap.put("sun", ""+sun);
-        hashMap.put("plant_size", ""+plant_size);
-        hashMap.put("plant_width", ""+plant_width);
-        hashMap.put("description", ""+description);
-
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("User_plant");
-        ref.child(""+timestamp)
-                .setValue(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        progressDialog.dismiss();
-                        Toast.makeText(DobUserPlantActivity.this, "Растение пользователя добавлено", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(DobUserPlantActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
     private void pngPickIntent() {
 
-        Log.d(TAG, "pngPickIntent: starting png pick intent");
         Intent intent = new Intent();
         intent. setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser (intent, "Select PNG"), PNG_PICK_CODE);
+        startActivityForResult(Intent.createChooser (intent, "Выбор PNG"), PNG_PICK_CODE);
 
     }
     @Override
@@ -402,12 +325,10 @@ public class DobUserPlantActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == PNG_PICK_CODE) {
-                Log.d(TAG, "onActivityResult: PNG Picked");
+
                 pngUri = data.getData();
-                Log.d(TAG, "onActivityResult: URI: " + pngUri);
 
                 pngUri1 = data.getData();
-                Log.d(TAG, "onActivityResult: URI: " + pngUri1);
             }
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),pngUri);
@@ -425,7 +346,6 @@ public class DobUserPlantActivity extends AppCompatActivity {
             }
         }
         else {
-            Log.d(TAG, "onActivityResult: cancelled picking png");
             Toast.makeText(this, "Отменен выбор изображения", Toast.LENGTH_SHORT).show();
         }
     }

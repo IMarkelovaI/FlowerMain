@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
@@ -57,7 +58,8 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
         notificationBuilder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic__create_white)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic__create_white))
                 .setContentTitle(title)
                 .setContentText(body)
                 .setContentInfo("Info");
@@ -85,7 +87,8 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
         notificationBuilder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic__create_white)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic__create_white))
                 .setContentTitle(title)
                 .setContentText(body)
                 .setContentInfo("Info");

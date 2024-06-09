@@ -74,8 +74,6 @@ public class AuthActivity extends AppCompatActivity {
        });
     }
 
-
-
     private String email ="", password = "";
 
     private void validateDate() {
@@ -114,8 +112,6 @@ public class AuthActivity extends AppCompatActivity {
                 });
     }
 
-
-
     private void checkUser() {
 
         progressDialog.setMessage("Поиск пользователя");
@@ -129,7 +125,7 @@ public class AuthActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         progressDialog.dismiss();
-                        //get user type
+
                         String userType = ""+snapshot.child("userType").getValue();
 
                         String id = ""+snapshot.child("id").getValue();
@@ -137,9 +133,8 @@ public class AuthActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = apppref.edit();
                         editor.clear();
 
-                        //check user type
                         if (userType.equals("user")){
-                            //this is simple user, open user dashboard
+
                             startActivity(new Intent(AuthActivity.this, UserActivity.class)) ;
                             editor.putString("mAppIUD", id);
                             editor.apply();
@@ -147,7 +142,7 @@ public class AuthActivity extends AppCompatActivity {
                         }
 
                         else if (userType.equals("admin")){
-                            //this is admin, open admin dashboard
+
                             startActivity(new Intent(AuthActivity.this, AdminButonsActivity.class)) ;
                             finish();
                         }

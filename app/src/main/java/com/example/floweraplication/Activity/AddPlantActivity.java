@@ -66,7 +66,6 @@ public class AddPlantActivity extends AppCompatActivity {
     private Uri pngUri = null;
     Bitmap bitmap;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +77,6 @@ public class AddPlantActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Подождите");
         progressDialog.setCanceledOnTouchOutside(false);
-
 
         loadPngTypes();
         loadPngPurposes();
@@ -133,8 +131,7 @@ public class AddPlantActivity extends AppCompatActivity {
     private String name ="", description ="", habitat ="", size ="", type_id ="", purpose_id ="", Edur="", Tox="";
 
     private void uploudData() {
-        //Before adding validate data
-        // get data
+
         name = binding.TypeName.getText().toString().trim();
         description = binding.TypeDescr.getText().toString().trim();
         habitat = binding.TypeHabitat.getText().toString().trim();
@@ -153,7 +150,7 @@ public class AddPlantActivity extends AppCompatActivity {
         else {
             Tox = "Нетоксичное";
         }
-        //validate if not empty
+
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this,  "Введите название растения", Toast.LENGTH_SHORT).show();
         }
@@ -183,8 +180,7 @@ public class AddPlantActivity extends AppCompatActivity {
     }
 
     private void createPlant() {
-        //progressDialog.setMessage("Добавление нового растения");
-        //progressDialog.show();
+
         binding.progressbar.setVisibility(View.VISIBLE);
 
         long timestamp = System.currentTimeMillis();
@@ -192,19 +188,18 @@ public class AddPlantActivity extends AppCompatActivity {
         Date now = new Date();
         String fileName = formatter.format(now);
 
-
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName+".png");
         storageReference.putFile(pngUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        //get url of uploaded image
+
                         Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                         while (!uriTask.isSuccessful());
                         Uri downloadImageUri = uriTask.getResult();
 
                         if (uriTask.isSuccessful()){
-                            //setup data to save
+
                             HashMap<String,Object> hashMap = new HashMap<>();
                             hashMap.put("id", ""+timestamp);
                             hashMap.put("name", ""+name);
@@ -215,19 +210,16 @@ public class AddPlantActivity extends AppCompatActivity {
                             hashMap.put("purpose_id", ""+purpose_id);
                             hashMap.put("degree_of_toxicity", ""+Tox);
                             hashMap.put("endurance", ""+Edur);
-                            hashMap.put("image",""+downloadImageUri); //uri of uploaded image
+                            hashMap.put("image",""+downloadImageUri);
 
-                            //save to db
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Plant");
                             ref.child(""+timestamp).setValue(hashMap)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            //db updated
                                             progressDialog.dismiss();
                                             binding.progressbar.setVisibility(View.INVISIBLE);
-                                            Log.d(TAG, "onSuccess: Successfully uploaded"+downloadImageUri);
-                                            Toast.makeText(AddPlantActivity.this, "Successfully uploaded", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AddPlantActivity.this, "Успешное добавление", Toast.LENGTH_SHORT).show();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -235,8 +227,8 @@ public class AddPlantActivity extends AppCompatActivity {
                                             //failed updating db
                                             binding.progressbar.setVisibility(View.INVISIBLE);
                                             //progressDialog.dismiss();
-                                            Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
-                                            Toast.makeText(AddPlantActivity.this, "Failed to upload to db due to"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            Log.d(TAG, "Произошла ошибка "+e.getMessage());
+                                            Toast.makeText(AddPlantActivity.this, "Произошла ошибка "+e.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         }
@@ -246,19 +238,18 @@ public class AddPlantActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         binding.progressbar.setVisibility(View.INVISIBLE);
-                        Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
-                        Toast.makeText(AddPlantActivity.this, "Failed to upload to db due to"+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(AddPlantActivity.this, "Произошла ошибка "+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
     }
     private void pngPickIntent() {
 
-        Log.d(TAG, "pngPickIntent: starting png pick intent");
         Intent intent = new Intent();
         intent. setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser (intent, "Select PNG"), PNG_PICK_CODE);
+        startActivityForResult(Intent.createChooser (intent, "Выбор PNG"), PNG_PICK_CODE);
 
     }
     @Override
@@ -266,9 +257,9 @@ public class AddPlantActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == PNG_PICK_CODE) {
-                Log.d(TAG, "onActivityResult: PNG Picked");
+
                 pngUri = data.getData();
-                Log.d(TAG, "onActivityResult: URI: " + pngUri);
+
             }
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),pngUri);
@@ -282,15 +273,13 @@ public class AddPlantActivity extends AppCompatActivity {
 
 
         } else {
-            Log.d(TAG, "onActivityResult: cancelled picking png");
+
             Toast.makeText(this, "Отменен выбор изображения", Toast.LENGTH_SHORT).show();
         }
     }
 
-    //loadID
     private void loadPngPurposes() {
 
-        Log.d(TAG, "loadPngTypes: Loading png purpose");
         purposeArrayList = new ArrayList<>();
 
         DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Purpose");
@@ -300,7 +289,7 @@ public class AddPlantActivity extends AppCompatActivity {
                 for (DataSnapshot ds: snapshot.getChildren()){
                     ModelPurpose model1 = ds.getValue(ModelPurpose.class);
                     purposeArrayList.add(model1);
-                    Log.d(TAG, "onDataChange"+model1.getName());
+
                 }
             }
             @Override
@@ -310,7 +299,7 @@ public class AddPlantActivity extends AppCompatActivity {
         });
     }
     private void loadPngTypes() {
-        Log.d(TAG, "loadPngTypes: Loading png types");
+
         categoryArrayList = new ArrayList<>();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Type");
@@ -320,7 +309,7 @@ public class AddPlantActivity extends AppCompatActivity {
                 for (DataSnapshot ds: snapshot.getChildren()){
                     ModelCategory model = ds.getValue(ModelCategory.class);
                     categoryArrayList.add(model);
-                    Log.d(TAG, "onDataChange"+model.getName());
+
                 }
             }
 
@@ -332,7 +321,6 @@ public class AddPlantActivity extends AppCompatActivity {
     }
 
     private void typePickDialog() {
-        Log.d(TAG, "typePickDialog: showing type pick dialog");
 
         String[] categoriesArray = new String[categoryArrayList.size()];
         for (int i=0; i<categoryArrayList.size(); i++){
@@ -346,15 +334,12 @@ public class AddPlantActivity extends AppCompatActivity {
                         String category= categoriesArray[which];
                         binding.TypeC.setText(category);
 
-                        Log.d(TAG, "onClick: Selected Type:"+category);
                     }
                 })
                 .show();
     }
 
     private void purposePickDialog() {
-
-        Log.d(TAG, "purposePickDialog: showing purpose pick dialog");
 
         String[] purposesArray = new String[purposeArrayList.size()];
         for (int i=0; i<purposeArrayList.size(); i++){
@@ -368,7 +353,6 @@ public class AddPlantActivity extends AppCompatActivity {
                         String purpose= purposesArray[which];
                         binding.Pur.setText(purpose);
 
-                        Log.d(TAG, "onClick: Selected Purpose:"+purpose);
                     }
                 })
                 .show();

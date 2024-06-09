@@ -63,7 +63,6 @@ public class PotsCalculateActivity extends AppCompatActivity {
         binding.UserPlantLengthSmall.setVisibility(View.GONE);
         binding.calculate.setVisibility(View.GONE);
 
-
         binding.cylinder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
@@ -122,7 +121,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                     }
                     catch (NumberFormatException nfe)
                     {
-                        System.out.println("NumberFormatException: " + nfe.getMessage());
+                        System.out.println("Формат ошибки: " + nfe.getMessage());
                     }
                 }
             }
@@ -191,7 +190,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                     }
                     catch (NumberFormatException nfe)
                     {
-                        System.out.println("NumberFormatException: " + nfe.getMessage());
+                        System.out.println("Формат ошибки: " + nfe.getMessage());
                     }
                 }
             }
@@ -248,7 +247,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                     }
                     catch (NumberFormatException nfe)
                     {
-                        System.out.println("NumberFormatException: " + nfe.getMessage());
+                        System.out.println("Формат ошибки: " + nfe.getMessage());
                     }
                 }
             }
@@ -306,16 +305,12 @@ public class PotsCalculateActivity extends AppCompatActivity {
                     }
                     catch (NumberFormatException nfe)
                     {
-                        System.out.println("NumberFormatException: " + nfe.getMessage());
+                        System.out.println("Формат ошибки: " + nfe.getMessage());
                     }
                 }
             }
         });
-        //тут расчет при нажатии на кнопку расчета
-        //не работает :(
-        //ебучие радиобатоны, их создатель хотел видеть слезы разработчиков и наслаждаться проклятиями с их стороны!!!!
-        //бляяяяяяяяять
-        //сука!!!
+
         binding.calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -347,7 +342,6 @@ public class PotsCalculateActivity extends AppCompatActivity {
                              hP = binding.Height.getText().toString().trim();
                              Dp = binding.Diameter.getText().toString().trim();
 
-
                             if (TextUtils.isEmpty(hP)){
                                 Toast.makeText(PotsCalculateActivity.this,  "Введите высоту горшка", Toast.LENGTH_SHORT).show();
                                 binding.constraintLayout9.setVisibility(View.GONE);
@@ -378,7 +372,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                 }
                                 catch (NumberFormatException nfe)
                                 {
-                                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                                    System.out.println("Формат ошибки: " + nfe.getMessage());
                                 }
                             }
                         }
@@ -441,7 +435,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                 }
                                 catch (NumberFormatException nfe)
                                 {
-                                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                                    System.out.println("Формат ошибки: " + nfe.getMessage());
                                 }
                             }
                         }
@@ -518,35 +512,10 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                     binding.constraintLayout9.setVisibility(View.VISIBLE);
                                     binding.PotText.setVisibility(View.VISIBLE);
                                     binding.PotText.setText("Приблизительный объем грунта на конусообразный горшок составляет " + gr + " л. ");
-                                /*double V1 = (Math.PI*rad2*sizehpots)/3000;
-                                Log.e(TAG, "V1 "+ V1);
-                                double V2 = (Math.PI*radSm2*sizehpots)/3000;
-                                Log.e(TAG, "V2 "+ V2);
-                                double gr1 = Math.round(V1) / 100.0;
-                                Log.e(TAG, "gr1 "+ gr1);
-                                double gr2 = Math.round(V2) / 100.0;
-                                Log.e(TAG, "gr2 "+ gr2);
-                                double gr = gr1-gr2;
-                                Log.e(TAG, "gr "+ gr);*/
-                                    //5,22
-                                    //double gr = Math.PI/3000*(rad2 + radSm2 + (Math.sqrt(rad2 * radSm2)))*sizehpots;
-                                    //Log.e(TAG, "gr "+ gr);
-                                    //1,98
-
-                                    //double gr = ((Math.PI*rad2 + Math.PI*radSm2 + (Math.sqrt(Math.PI*rad2 * Math.PI*radSm2)))*sizehpots)/3000;
-                                    //Log.e(TAG, "gr "+ gr);
-                                    //1,98
-
-                                    //double gr = (Math.PI*sizehpots/3*((diametr +diametr2 * diametrSm + diametrSm2)/2));
-                                    //Log.e(TAG, "gr "+ gr);
-                                    //32...
-                                    //double gr = (Math.PI*sizehpots*(rad2 + radSm2))/3000;
-                                    //Log.e(TAG, "gr "+ gr);
-                                    //1,3
                                 }
                                 catch (NumberFormatException nfe)
                                 {
-                                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                                    System.out.println("Формат ошибки: " + nfe.getMessage());
                                 }
                             }
                         }
@@ -625,11 +594,6 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                     String LeS = binding.LengthSmall.getText().toString();
                                     int lengthSm = Integer.parseInt (LeS);
 
-                                    //int S1 = diametr*length;
-                                    //int S2 = diametrSm*lengthSm;
-                                    //double grunt = (sizehpots*(S1 + S2 + (Math.sqrt(S1 * S2))))/6;
-                                    //Log.e(TAG, "grunt " + grunt);
-
                                     double S = ((diametr*length)+(diametrSm*lengthSm))/2;
                                     double grunt = (S*sizehpots)/1000;
                                     Log.e(TAG, "grunt " + grunt);
@@ -640,7 +604,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                 }
                                 catch (NumberFormatException nfe)
                                 {
-                                    System.out.println("NumberFormatException: " + nfe.getMessage());
+                                    System.out.println("Формат ошибки: " + nfe.getMessage());
                                 }
                             }
                         }

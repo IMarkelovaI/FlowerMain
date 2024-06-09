@@ -15,7 +15,6 @@ public class AdminButonsActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ActivityAdminButonsBinding binding;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,18 +54,18 @@ public class AdminButonsActivity extends AppCompatActivity {
         });
     }
     private void checkUser() {
-        //get current user
+
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser==null) {
-            //not logged in, goto main screen
+
             startActivity(new Intent(this, AuthActivity.class));
             finish();
         }
 
         else {
-            //togged in, get user info
+
             String email = firebaseUser.getEmail();
-            //set in textview of toolbar
+
             binding.textView.setText(email) ;
         }
     }

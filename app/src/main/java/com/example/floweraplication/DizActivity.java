@@ -57,25 +57,19 @@ public class DizActivity extends AppCompatActivity {
 
         Descr = binding.Description;
         Descr1 = binding.description1;
-        //configure progress dialog
 
         toolbar = binding.toolbar;
-
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         pngView = binding.PlImage;
         PlName = binding.PlName;
 
-        //Uri uri = Uri.parse(getIntent().getStringExtra("PlPicture"));
-
         PlName.setText(getIntent().getStringExtra("PlName"));
 
-        //Bundle extras = i.getExtras();
         byte[] bytes = getIntent().getByteArrayExtra("Bitmap");
         Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
         Log.i(TAG, "check"+bytes);
@@ -106,9 +100,6 @@ public class DizActivity extends AppCompatActivity {
                                         String sick_discr = String.valueOf(dataSnapshot.child("Sick_care/description").getValue());
                                         Log.d(TAG, "Хоть бы не сдохнкть "+sick_discr);
                                         Descr1.setText(sick_discr);
-                                        //apppref1 = getSharedPreferences(APP_PREFERENCES1, Context.MODE_PRIVATE);
-                                        //editor1.putString("mAppIUD", plant_id);
-                                        //editor1.apply();
                                         
                                     }
                                 }

@@ -182,68 +182,6 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-        /*Bundle arguments = getIntent().getExtras();
-        String plant_id = arguments.get("plant_idPlU").toString();
-
-        FirebaseUser useri=FirebaseAuth.getInstance().getCurrentUser();
-        String userid =useri.getUid();
-
-
-        String id = arguments.get("idPlU").toString();
-        Uri uri = Uri.parse(getIntent().getStringExtra("picturePl"));
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-        reference.child(firebaseAuth.getUid()).child("User_plant").child(plant_id);
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-
-        StorageReference storageReference = storage.getReferenceFromUrl(String.valueOf(uri));
-        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                reference.child(id).removeValue();
-                startActivity(new Intent(UserPlantRedPlActivity.this, UserActivity.class));
-            }
-        });*/
-
-
-        /*Log.d(TAG, "Пиздец нахуй блять");
-
-        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(userid);
-        storageReference.child(firebaseAuth.getUid()).child("User_plant").child(plant_id);
-        storageReference.delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                        ref.child(firebaseAuth.getUid()).child("User_plant").child(plant_id)
-                                .removeValue()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(UserPlantRedPlActivity.this, "Растение пользователя удалено", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(UserPlantRedPlActivity.this, UserActivity.class));
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-
-                                    }
-                                });
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });*/
-
-
-
     }
 
 
@@ -264,7 +202,7 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
 
         //validate if not empty
         if (TextUtils.isEmpty(sun)){
-            Toast.makeText(this,  "Введите солнце", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,  "Введите люксы", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(plant_size)){
             Toast.makeText(this,  "Введите высоту растения", Toast.LENGTH_SHORT).show();
@@ -281,8 +219,6 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
     }
 
     private void updatePlant() {
-        //progressDialog.setMessage("Добавление нового растения");
-        //progressDialog.show();
 
         long timestamp = System.currentTimeMillis();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
@@ -293,9 +229,6 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
         String plant_id = arguments.get("plant_idPlU").toString();
         String id = arguments.get("idPlU").toString();
-
-        //SharedPreferences sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        //String user_id = sharedPref.getString("mAppIUD", "unknown");
 
         Uri uri = Uri.parse(getIntent().getStringExtra("picturePl"));
 
@@ -315,7 +248,6 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
                                 HashMap<String,Object> hashMap = new HashMap<>();
                                 hashMap.put("id", ""+id);
                                 hashMap.put("plant_id", ""+plant_id);
-                                //hashMap.put("user_id", ""+user_id);
                                 hashMap.put("name", ""+name);
                                 hashMap.put("sun", ""+sun);
                                 hashMap.put("plant_size", ""+plant_size);
@@ -356,7 +288,6 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("id", ""+id);
             hashMap.put("plant_id", ""+plant_id);
-            //hashMap.put("user_id", ""+user_id);
             hashMap.put("name", ""+name);
             hashMap.put("picture", ""+uri);
             hashMap.put("sun", ""+sun);

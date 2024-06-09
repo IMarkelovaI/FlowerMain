@@ -85,10 +85,6 @@ public class PasswordActivity extends AppCompatActivity {
         passwordNew = binding.NewPass.getText().toString() .trim();
         passwordRepeatNew = binding.NewPassRep.getText().toString() .trim();
 
-        Log.i(TAG, "OOOOOOOOO"+passwordOld);
-        Log.i(TAG, "SSSSSSSSSSSSSS"+passwordNew);
-        Log.i(TAG, "Uriririri"+passwordRepeatNew);
-
         if (passwordOld.isEmpty()) {
             binding.OldPass.setError("Введите старый пароль");
         }
@@ -116,14 +112,13 @@ public class PasswordActivity extends AppCompatActivity {
 
     private void updateUserInfo() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Log.d(TAG, "FFFFFFFFFFFFFFF"+ user);
 
             AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), passwordOld);
             user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Log.d(TAG, "User re-authenticated.");
+
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 user.updatePassword(binding.NewPass.getText().toString())
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -156,12 +151,7 @@ public class PasswordActivity extends AppCompatActivity {
                             }
                             else {
                                 binding.OldPass.setError("Вы ввели не тот пароль");
-                                /*try {
-                                    task.getException();
-                                }
-                                catch (Exception e){
-                                    Toast .makeText(PasswordActivity.this, ""+e.getMessage(), Toast. LENGTH_SHORT).show();
-                                }*/
+
                             }
                         }
                     });

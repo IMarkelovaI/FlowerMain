@@ -85,8 +85,6 @@ public class photopredictor extends AppCompatActivity {
         forward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         backword = AnimationUtils.loadAnimation(this, R.anim.rotate_backword);
 
-
-
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +99,6 @@ public class photopredictor extends AppCompatActivity {
             }
         });
 
-
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +112,6 @@ public class photopredictor extends AppCompatActivity {
                 }
             }
         });
-//здесь вылетает при выборе из галереи
         folder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,10 +128,8 @@ public class photopredictor extends AppCompatActivity {
                 i.putExtra("Bitmap", bytes);
                 i.putExtra("PlName",TextDisease.getText().toString());
                 i.putExtra("PictureP",imagePredictDisease.toString());
-                Log.i(TAG, "Пиздец aaaaaaaa "+uri.toString());
                 i.putExtra("Pa", uri.toString());
                 startActivity(i);
-                Log.i(TAG, "Пиздец jjjjjjj "+uri.toString());
             }
         });
     }
@@ -189,9 +183,6 @@ public class photopredictor extends AppCompatActivity {
 
             TextDiseaseAcc.setText(s);
 
-
-
-
             if(TextDisease.getText()!="Здоровое растение"){
                 seccnt.setBackgroundResource(R.drawable.error_container);
                 TypedValue typedValue = new TypedValue();
@@ -203,7 +194,6 @@ public class photopredictor extends AppCompatActivity {
                drawable.setBounds(0, 0, (int) (drawable.getIntrinsicWidth() * 0.6),
                         (int) (drawable.getIntrinsicHeight() * 0.6));
                ScaleDrawable sd = new ScaleDrawable(drawable, 0, 40, 40);
-
 
                 TextDisease.setCompoundDrawables(null, null, sd.getDrawable(), null);
                 arrowPredict.setVisibility(View.VISIBLE);
@@ -233,15 +223,13 @@ public class photopredictor extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode != RESULT_CANCELED) {
             if (requestCode == 3) {
-                //uri = data.getData();
+
                 Bitmap image = (Bitmap) data.getExtras().get("data");
 
                 int dimension = Math.min(image.getWidth(), image.getHeight());
                 image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
                 imagePredictDisease.setImageBitmap(image);
 
-                //assert image != null;
-                //bitmap = Bitmap.createScaledBitmap(image, 359,359,false);
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -250,15 +238,12 @@ public class photopredictor extends AppCompatActivity {
                 String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), image,"IMG_" + System.currentTimeMillis(),null);
                 Uri pa = Uri.parse(path);
                 uri = pa;
-                Log.w(TAG, "Ты не пройдешь "+uri);
+
                 bytes = stream.toByteArray();
                 imagePredictDisease.setAlpha(1f);
                 imagePredictDisease.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 String picture = imagePredictDisease.toString();
-                Log.d(TAG, "ALLLLLPP "+uri);
 
-
-                Log.w(TAG, "Жопа осла"+data.getData());
             }
             else {
                 Uri dat = data.getData();
@@ -276,8 +261,7 @@ public class photopredictor extends AppCompatActivity {
                 String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"IMG_" + System.currentTimeMillis(),null);
                 Uri pa = Uri.parse(path);
                 uri = pa;
-                //assert image != null;
-                //bitmap = Bitmap.createScaledBitmap(image, 359,359,false);
+
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
 
@@ -285,14 +269,11 @@ public class photopredictor extends AppCompatActivity {
                 imagePredictDisease.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 String picture = imagePredictDisease.toString();
 
-                Log.i(TAG, "Пиздец"+dat);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
         animateAdd();
     }
-
-
 
     private void animateAdd(){
         if (isOpen){

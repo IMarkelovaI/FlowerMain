@@ -32,16 +32,12 @@ public class TypeActivity extends AppCompatActivity {
         binding = ActivityTypeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
-        
-        //configure progress dialog
 
         progressDialog = new ProgressDialog( this);
         progressDialog.setTitle("Подождите");
         progressDialog. setCanceledOnTouchOutside(false);
-        
-        //nandle click, begin upload category
+
         binding.buttonType.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -59,11 +55,10 @@ public class TypeActivity extends AppCompatActivity {
     private String name ="";
     private String description ="";
     private void validateData() {
-        //Before adding validate data
-        // get data
+
         name = binding.TypeText.getText().toString().trim();
         description = binding.TypeDesText.getText().toString().trim();
-        //validate if not empty
+
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this,  "Введите категорию", Toast.LENGTH_SHORT).show();
         }
@@ -75,12 +70,12 @@ public class TypeActivity extends AppCompatActivity {
         }
     }
     private void addTypeFirebase() {
-        //show progress
+
         progressDialog.setMessage("Тип добавляется");
         progressDialog.show();
-        //get timestamp
+
         long timestamp = System.currentTimeMillis();
-        //setup info to add in firebase db
+
         String id = firebaseAuth.getUid();
 
         HashMap<String, Object> hashMap = new HashMap<>();

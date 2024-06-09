@@ -119,7 +119,6 @@ public class Photoplant extends AppCompatActivity {
                 }
             }
         });
-//здесь вылетает при выборе из галереи
         folder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,50 +141,17 @@ public class Photoplant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //Intent intent = new Intent(getApplicationContext(), ActivityPhotoplantDob.class);
-
-
-                //BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-                //Bitmap bitmap = BitmapFactory.decodeFile();
-                //imagePredictDisease.buildDrawingCache();
-                //Bitmap bitmap = imagePredictDisease.getDrawingCache();
-
                 Intent i = new Intent(Photoplant.this, ActivityPhotoplantDob.class);
-
-                //i.putExtra("ImageUri",dat);
-                //BitmapDrawable bitmapDrawable = ((BitmapDrawable) imagePredictDisease.getDrawable());
-                //Bitmap b = bitmapDrawable.getBitmap();
-                //Bundle extras = new Bundle();
-                //extras.putParcelable("Image",b);
 
                 i.putExtra("Bitmap", bytes);
                 i.putExtra("PlName",TextDisease.getText().toString());
                 i.putExtra("PictureP",imagePredictDisease.toString());
-                Log.i(TAG, "Пиздец aaaaaaaa "+uri.toString());
                 i.putExtra("Pa", uri.toString());
                 startActivity(i);
-                Log.i(TAG, "Пиздец jjjjjjj "+uri.toString());
-                //ByteArra
-                //Log.d(TAG, "Пиздец"+bitmap);
-                //startActivity(intent);
-
 
             }
         });
     }
-
-    /*public Uri getUri (Bitmap image, Context context){
-        File Images = new File(context.getCodeCacheDir(), "images");
-        Uri uri = null;
-        try {
-            Images.mkdirs();
-            File file = new File(Images,"capha.jpg");
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return uri;
-    }*/
 
     public void classifyImage(Bitmap image){
 
@@ -238,7 +204,6 @@ public class Photoplant extends AppCompatActivity {
             AddPlant.setVisibility(View.VISIBLE);
             textView.setVisibility(View.VISIBLE);
 
-
             //Тут TextDisease хранит название растения
 
             String name = textView.toString();
@@ -270,8 +235,6 @@ public class Photoplant extends AppCompatActivity {
                 image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
                 imagePredictDisease.setImageBitmap(image);
 
-                //assert image != null;
-                //bitmap = Bitmap.createScaledBitmap(image, 359,359,false);
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
                 imagePredictDisease.setAlpha(1f);
@@ -303,8 +266,7 @@ public class Photoplant extends AppCompatActivity {
                 String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"IMG_" + System.currentTimeMillis(),null);
                 Uri pa = Uri.parse(path);
                 uri = pa;
-                //assert image != null;
-                //bitmap = Bitmap.createScaledBitmap(image, 359,359,false);
+
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
 

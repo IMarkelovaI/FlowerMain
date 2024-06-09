@@ -84,7 +84,6 @@ public class PlantDetailActivity extends AppCompatActivity {
                 intent.putExtra("idPl",id);
                 intent.putExtra("PName",name);
                 intent.putExtra("pngView",image);
-                Log.d(TAG, "Пиздец"+name);
 
                 startActivity(intent);
             }

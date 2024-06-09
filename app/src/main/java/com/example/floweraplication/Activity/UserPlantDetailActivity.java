@@ -115,7 +115,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         traText=binding.traText;
         SunT=binding.SunText;
 
-
         TypedValue typedValue1 = new TypedValue();
         Resources.Theme theme = this.getTheme();
         theme.resolveAttribute(com.google.android.material.R.attr.colorError, typedValue1, true);
@@ -127,7 +126,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
         Drawable d = ContextCompat.getDrawable(this,R.drawable.tertitoryred);
         Drawable g = ContextCompat.getDrawable(this,R.drawable.tertitory);
-
 
         Glide.with(UserPlantDetailActivity.this).load(getIntent().getStringExtra("picturePl")).into(PlImage);
 
@@ -151,48 +149,10 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Watering = binding.Watering;
         Loosening = binding.Loosening;
         Transfer = binding.Transfer;
-        Log.e(TAG, "Watering начало on create тупо биндинг "+Watering);
-        Log.e(TAG, "Loosening начало on create тупо биндинг "+Loosening);
-        Log.e(TAG, "Transfer начало on create тупо биндинг "+Transfer);
+        Log.e(TAG, "Watering начало on create биндинг "+Watering);
+        Log.e(TAG, "Loosening начало on create биндинг "+Loosening);
+        Log.e(TAG, "Transfer начало on create биндинг "+Transfer);
 
-        /*if (android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
-            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(UserPlantDetailActivity.this, AlarmReceiver.class);
-            alarmIntent = PendingIntent.getBroadcast(UserPlantDetailActivity.this, 0, intent, PendingIntent.FLAG_MUTABLE);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 12);
-            long timeToStart = calendar.getTimeInMillis();
-            if (System.currentTimeMillis() == timeToStart) {
-                Log.e(TAG, "Ты кто такой? АААААААААААААААААААААААА Симба");
-            }
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeToStart, AlarmManager.INTERVAL_DAY, alarmIntent);
-            Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");
-        }*/
-
-        /*NotificationChannel channel = null;
-        if (android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
-            channel = new NotificationChannel(
-                    "Test",
-                    "Test descr",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-
-            Notification notification = new NotificationCompat.Builder(UserPlantDetailActivity.this, "Test")
-                    .setContentTitle("Необходим уход за "+name)
-                    .setContentText("Настало время ухода за вашим растением")
-                    .setSmallIcon(R.drawable.baseline_notifications_24)
-                    .build();
-            long temeatamp = System.currentTimeMillis();
-            if (System.currentTimeMillis() == temeatamp) {
-                Log.e(TAG, "Ты кто такой? АААААААААААААААААААААААА");
-                notificationManager.notify(42, notification);
-            }
-            Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");
-        }*/
-
-        Log.i(TAG,"KKKKKKKKKKKKKKKKKK"+id);
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Users");
         ref2.child(firebaseAuth.getUid()).child("User_plant").child(id).child("Last_care")
                 .addValueEventListener(new ValueEventListener() {
@@ -209,20 +169,17 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                                 Log.e(TAG,"last_day_of_watering загрузка из бд "+last_day_of_watering);
 
                                 binding.WaterP.setText(last_day_of_watering.toString());
-                                Log.i(TAG,"AAAAAAAAFFFFFFF"+binding.WaterP);
                                 binding.LoosP.setText(last_day_of_loosening.toString());
                                 binding.TransportP.setText(last_day_of_transport.toString());
 
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });
-
         binding.Redact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,7 +194,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 intent.putExtra("plant_sizePlU",hight);
                 intent.putExtra("plant_widthPlU",width);
                 intent.putExtra("sunPlU",sun);
-                Log.d(TAG, "Пиздец"+name);
 
                 startActivity(intent);
             }
@@ -283,7 +239,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                             binding.WaterP.setText(i2 + "/" + i1 + "/" + i);
                             watka=binding.WaterP.getText().toString();
                         }
-
                     }
                 }, year,month,day);
                 dialog.show();
@@ -334,8 +289,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                Log.i(TAG, "vaaaaayyyyyy"+binding.TransportP.getText().toString());
-
                 DatePickerDialog dialog = new DatePickerDialog(UserPlantDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int i, int i1, int i2) {
@@ -359,14 +312,11 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                             binding.TransportP.setText(i2 + "/" + i1 + "/" + i);
                         }
                     }
-                        //binding.TransportP.setText(MessageFormat.format("{0}/{1}/{2}", String.valueOf(i2), String.valueOf(i1+1),String.valueOf(i)));
 
                 }, year,month,day);
                 dialog.show();
             }
         });
-
-        Log.i(TAG, "AAAAAAAAAAAAAAAAAAAAA"+plant_id);
 
         DatabaseReference ref1=FirebaseDatabase.getInstance().getReference().child("Plant").child(plant_id);
         ref1.child("Optimal_condition").addValueEventListener(new ValueEventListener() {
@@ -378,9 +328,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                     Transf = snapshot.child("transfer_time").getValue().toString();
 
                     LightU = snapshot.child("Light").getValue().toString();
-                    Log.i(TAG, "Uriririri"+Water.toString());
-                    Log.i(TAG, "Uririririddddddddddd"+Loos.toString());
-                    Log.i(TAG, "Uririririaaaaaaaaaa"+Transf.toString());
 
                     abundance_of_watering=snapshot.child("abundance_of_watering").getValue().toString();
                     air_hamidity_id = snapshot.child("air_hamidity_id").getValue().toString();
@@ -403,7 +350,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                         System.out.println("int PlantT = " + PlantT);
                         System.out.println("int PlantU = " + PlantU);
 
-
                         if ((PlantU<=PlantT+PlantT*0.2 && PlantU>=PlantT-PlantT*0.2)){
                             binding.SunText.setText("Ваше растение получает достаточно освещения");
                             binding.SunText.setTextColor(colorGreen);
@@ -422,11 +368,10 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                             binding.cl.setBackground(d);
 
                         }
-
                     }
                     catch (NumberFormatException nfe)
                     {
-                        System.out.println("NumberFormatException: " + nfe.getMessage());
+                        System.out.println("Формат ошибки: " + nfe.getMessage());
                     }
 
                     try {
@@ -443,7 +388,7 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                     }
                     catch (NumberFormatException nfe)
                     {
-                        System.out.println("NumberFormatException: " + nfe.getMessage());
+                        System.out.println("Формат ошибки: " + nfe.getMessage());
                     }
 
                     loadW();
@@ -455,7 +400,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
             }
         });
-
         binding.PotsCalc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -479,18 +423,13 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         loser = binding.LoosP.getText().toString();
         trans = binding.TransportP.getText().toString();
         watka = binding.WaterP.getText().toString();
-        Log.i(TAG, "wotkaaaaaaaaa "+watka);
 
-
-        //setup data to save
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("id", ""+id);
         hashMap.put("last_day_of_loosening", ""+loser);
         hashMap.put("last_day_of_transport", ""+trans);
         hashMap.put("last_day_of_watering", ""+watka);
 
-
-        //save to db
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.child(firebaseAuth.getUid()).child("User_plant").child(id).child("Last_care").child(id)
                 .updateChildren(hashMap)
@@ -511,7 +450,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
     private void loadW() {
         Drawable ch = ContextCompat.getDrawable(this, R.drawable.datecheck);
         Drawable chok = ContextCompat.getDrawable(this, R.drawable.variantsurv);
-
 
         int w = Integer.parseInt(Water);
         int l = Integer.parseInt(Loos);
@@ -535,11 +473,8 @@ public class UserPlantDetailActivity extends AppCompatActivity {
 
 
         DateTimeFormatter df = new DateTimeFormatterBuilder()
-                // case insensitive to parse JAN and FEB
                 .parseCaseInsensitive()
-                // add pattern
                 .appendPattern("dd/MM/yyyy")
-                // create formatter (use English Locale to parse month names)
                 .toFormatter(Locale.ENGLISH);
         LocalDate d = LocalDate.parse(loser, df);
         Log.e(TAG, "loser " + d);
@@ -551,11 +486,8 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Log.e(TAG, "millisecondsSinceEpoch loser " + millisecondsSinceEpoch);
 
         DateTimeFormatter df1 = new DateTimeFormatterBuilder()
-                // case insensitive to parse JAN and FEB
                 .parseCaseInsensitive()
-                // add pattern
                 .appendPattern("dd/MM/yyyy")
-                // create formatter (use English Locale to parse month names)
                 .toFormatter(Locale.ENGLISH);
         LocalDate d1 = LocalDate.parse(watka, df1);
         Log.e(TAG, "watka " + d1);
@@ -567,11 +499,8 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Log.e(TAG, "millisecondsSinceEpoch1 watka" + millisecondsSinceEpoch1);
 
         DateTimeFormatter df2 = new DateTimeFormatterBuilder()
-                // case insensitive to parse JAN and FEB
                 .parseCaseInsensitive()
-                // add pattern
                 .appendPattern("dd/MM/yyyy")
-                // create formatter (use English Locale to parse month names)
                 .toFormatter(Locale.ENGLISH);
         LocalDate d2 = LocalDate.parse(trans, df2);
         Log.e(TAG, "trans " + d2);
@@ -581,16 +510,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 .toInstant()
                 .toEpochMilli();
         Log.e(TAG, "millisecondsSinceEpoch2 trans " + millisecondsSinceEpoch2);
-
-        //Date r = Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        /*String date = "04/11/1972";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
-        LocalDate d = LocalDate.parse(loser,formatter);
-        Log.i(TAG, "vjvjvjvkcvlx;s" +d);
-        //System.out.println(formatter.format(formatter.toString(d));
-
-        Date r = Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant());*/
 
         long timestamp = System.currentTimeMillis();
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
@@ -617,7 +536,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Transfer.setText(dateT);
         Log.e(TAG, "Transfer следующее " + dateT);
 
-
         long millisecondsSinceEpoch3 = LocalDate.parse(dateL, df)
                 .atStartOfDay(ZoneOffset.UTC)
                 .toInstant()
@@ -636,16 +554,11 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 .toEpochMilli();
         Log.e(TAG, "millisecondsSinceEpoch5 dateT " + millisecondsSinceEpoch5);
 
-
         if ((System.currentTimeMillis() - (60000 * 24 * 60)) > millisecondsSinceEpoch3) {
-            Log.e(TAG, "Вы проебали дату рыхления АХАХАХА.Ты попался на кликбейт, олух, олух!!! ");
-//Нынешнее время минус сутки (так надо, иначе не работает корректно) - (System.currentTimeMillis() - (60000*24*60))
-//millisecondsSinceEpoch3 - запланированная дата рыхления
+
             binding.cnstcard1.setBackground(ch);
             long LELE = (System.currentTimeMillis() - (60000 * 24 * 60));
             long Lulu = LELE - millisecondsSinceEpoch3;
-            Log.e(TAG, "что это такое LELE " + LELE);
-            Log.e(TAG, "что это такое Lulu " + Lulu);
             long FFF = Lulu / (60000 * 24 * 60);
             FFF = FFF + 1;
             String wff = Long.toString(FFF);
@@ -664,12 +577,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 prop = "ропущено";
             }
 
-            Log.e(TAG, " FFFFFFFFFFF " + FFF);
-// layout = binding.cnstcard;
-//ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) layout.getLayoutParams();
-//params.height = 130;
-//params.width = 115;
-//binding.cnstcard.setLayoutParams(params);
             binding.cnstcardshape1.setVisibility(View.VISIBLE);
             binding.prf.setText("П" + prop + " " + wff + " " + cool + "");
             if (binding.cnstcardshape.getVisibility() == View.VISIBLE || binding.cnstcardshape1.getVisibility() == View.VISIBLE || binding.cnstcardshape2.getVisibility() == View.VISIBLE) {
@@ -686,12 +593,10 @@ public class UserPlantDetailActivity extends AppCompatActivity {
             binding.constraintLayout7.setLayoutParams(params);
         }
         if ((System.currentTimeMillis() - (60000 * 24 * 60)) > millisecondsSinceEpoch5) {
-            Log.e(TAG, "Вы проебали дату пересадки АХАХАХА. Ты попался на кликбейт, олух, олух!!! ");
+
             binding.cnstcard2.setBackground(ch);
             long LELE = (System.currentTimeMillis() - (60000 * 24 * 60));
             long Lulu = LELE - millisecondsSinceEpoch5;
-            Log.e(TAG, "что это такое LELE " + LELE);
-            Log.e(TAG, "что это такое Lulu " + Lulu);
             long FFF = Lulu / (60000 * 24 * 60);
             FFF = FFF + 1;
             String wff = Long.toString(FFF);
@@ -710,12 +615,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 prop = "ропущено";
             }
 
-            Log.e(TAG, " FFFFFFFFFFF " + FFF);
-// layout = binding.cnstcard;
-//ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) layout.getLayoutParams();
-//params.height = 130;
-//params.width = 115;
-//binding.cnstcard.setLayoutParams(params);
             binding.cnstcardshape2.setVisibility(View.VISIBLE);
             binding.prt.setText("П" + prop + " " + wff + " " + cool + "");
             if (binding.cnstcardshape.getVisibility() == View.VISIBLE || binding.cnstcardshape1.getVisibility() == View.VISIBLE || binding.cnstcardshape2.getVisibility() == View.VISIBLE) {
@@ -731,15 +630,9 @@ public class UserPlantDetailActivity extends AppCompatActivity {
             binding.constraintLayout7.setLayoutParams(params);
         }
         if ((System.currentTimeMillis() - (60000 * 24 * 60)) > millisecondsSinceEpoch4) {
-            Log.e(TAG, "Вы проебали дату полива АХАХАХА. Ты попался на кликбейт, олух, олух!!! ");
 
             binding.cnstcard.setBackground(ch);
 
-            Log.i(TAG, "System.currentTimeMillis()" + (System.currentTimeMillis() -
-                    (27000 * 24 * 60 * 60)));
-            Log.i(TAG, "System.currentTimeMillis() cimba" + System.currentTimeMillis());
-            Log.i(TAG, "System.currentTimeMillis() fffffff " + millisecondsSinceEpoch4);
-//- (60000*24*60)
             long LELE = (System.currentTimeMillis() - (60000 * 24 * 60));
             long Lulu = LELE - millisecondsSinceEpoch4;
             Log.e(TAG, "что это такое LELE " + LELE);
@@ -762,12 +655,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 prop = "ропущено";
             }
 
-            Log.e(TAG, " FFFFFFFFFFF " + FFF);
-// layout = binding.cnstcard;
-//ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) layout.getLayoutParams();
-//params.height = 130;
-//params.width = 115;
-//binding.cnstcard.setLayoutParams(params);
             binding.cnstcardshape.setVisibility(View.VISIBLE);
             binding.prw.setText("П" + prop + " " + wff + " " + cool + "");
             if (binding.cnstcardshape.getVisibility() == View.VISIBLE || binding.cnstcardshape1.getVisibility() == View.VISIBLE || binding.cnstcardshape2.getVisibility() == View.VISIBLE) {
@@ -776,24 +663,6 @@ public class UserPlantDetailActivity extends AppCompatActivity {
                 binding.constraintLayout7.setLayoutParams(params);
             }
 
-//с его помощью я понимала диапазон времени, это можешь удалить
-/*NotificationChannel channel = null;
-if (android.os.Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
-channel = new NotificationChannel(
-"Test",
-"Test descr",
-NotificationManager.IMPORTANCE_DEFAULT);
-NotificationManager notificationManager = getSystemService(NotificationManager.class);
-notificationManager.createNotificationChannel(channel);
-
-Notification notification = new NotificationCompat.Builder(UserPlantDetailActivity.this, "Test")
-.setContentTitle("Вы проебали дату полива АХАХАХА ")
-.setContentText("Ты попался на кликбейт, олух, олух!!!")
-.setSmallIcon(R.drawable.baseline_notifications_24)
-.build();
-Log.e(TAG, "Ты кто такой? АААААААААААААААААААААААА");
-notificationManager.notify(42, notification);
-Log.e(TAG, "Время умирать!!! АААААААААААААААААААААААА");*/
         } else {
             binding.cnstcard.setBackground(chok);
             binding.cnstcardshape.setVisibility(View.INVISIBLE);
@@ -806,7 +675,6 @@ Log.e(TAG, "Время умирать!!! ААААААААААААААААААА�
                 params.topMargin = 0;
                 binding.constraintLayout7.setLayoutParams(params);
             }
-
         }
     }
 }
