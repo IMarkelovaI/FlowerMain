@@ -108,7 +108,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="7dp"
-                android:background="@drawable/addcontainer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.225"
                 app:layout_constraintStart_toStartOf="parent"

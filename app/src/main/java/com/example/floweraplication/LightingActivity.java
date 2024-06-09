@@ -75,40 +75,40 @@ public class LightingActivity extends AppCompatActivity {
             NumberFormat format = new DecimalFormat("#0");
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = getTheme();
-            alpha = ((value*MAXALPHA)/maxlux)*100;
+            alpha = ((value*MAXALPHA)/maxlux)*5;
 
-            if (value<50){
+            if (value<207){
                 theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
                 @ColorInt int color = typedValue.data;
                 view.setBackgroundColor(color);
-                lightinfo.setText("Крайне недостаточно света");
+                lightinfo.setText("Крайне недостаточно света для большинства растений");
 
-            } else if (value>=50&&value<100) {
+            } else if (value>=207&&value<807) {
                 theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
                 @ColorInt int color = typedValue.data;
                 view.setBackgroundColor(color);
                 lightinfo.setText("Недостаточно света");
             }
-            else if (value>=100&&value<150) {
-                theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
-                @ColorInt int color = typedValue.data;
-                view.setBackgroundColor(color);
-                lightinfo.setText("Не подходит для растений");}
-            else if (value>=150&&value<500) {
+            else if (value>=807&&value<1614) {
                 theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
                 @ColorInt int color = typedValue.data;
                 view.setBackgroundColor(color);
                 lightinfo.setText("Подходит для тенилюбивых растений");}
-            else if (value>=500&&value<1500) {
+            else if (value>=1614&&value<5000) {
                 theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
                 @ColorInt int color = typedValue.data;
                 view.setBackgroundColor(color);
-                lightinfo.setText("Подходит для комнатных растений");}
-            else if (value>=1500&&value<40000) {
+                lightinfo.setText("Подходит для большинства растений");}
+            else if (value>=5000&&value<20000) {
                 theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
                 @ColorInt int color = typedValue.data;
                 view.setBackgroundColor(color);
                 lightinfo.setText("Подходит для светолюбивых растений");}
+            else if (value>=20000&&value<40000) {
+                theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
+                @ColorInt int color = typedValue.data;
+                view.setBackgroundColor(color);
+                lightinfo.setText("Высок риск получения ожогов растения");}
 
 
             view.setAlpha((float) alpha);

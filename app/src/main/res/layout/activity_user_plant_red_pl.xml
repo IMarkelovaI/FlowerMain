@@ -114,7 +114,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emailUserAuthLayout"
-                app:layout_constraintVertical_bias="0.060000002">
+                app:layout_constraintVertical_bias="0.0">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/SunRed"
@@ -130,17 +130,15 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout6"
-                android:layout_width="124dp"
-                android:layout_height="64dp"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="16dp"
+                android:layout_width="236dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="6dp"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
 
@@ -149,7 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gsr"
-                    android:hint="Высота, см"
+                    android:hint="Высота растения, см"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:text=""
@@ -161,28 +159,26 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout7"
-                android:layout_width="130dp"
+                android:layout_width="260dp"
                 android:layout_height="69dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="6dp"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.38"
-                app:layout_constraintStart_toEndOf="@+id/textInputLayout6"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/WidthRed"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:fontFamily="@font/gsr"
-                    android:hint="Ширина, см"
+                    android:hint="Диаметр корневой зоны, см"
                     android:imeOptions="actionNext"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:text=""
                     android:textIsSelectable="true" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -191,7 +187,7 @@
                 android:id="@+id/textInputLayout8"
                 android:layout_width="342dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="6dp"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
@@ -217,15 +213,17 @@
                 android:id="@+id/DobRed"
                 android:layout_width="155dp"
                 android:layout_height="46dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
                 android:fontFamily="@font/gsm"
                 android:text="Сохранить"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.873"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.547"
+                app:layout_constraintStart_toEndOf="@+id/DeleteRed"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout8"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
@@ -252,7 +250,9 @@
                 android:id="@+id/DeleteRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
                 android:layout_marginTop="28dp"
+                android:layout_marginBottom="10dp"
                 android:clickable="true"
                 android:drawableStart="@drawable/ic_baseline_delete_24"
                 android:drawablePadding="5dp"
@@ -261,10 +261,10 @@
                 android:gravity="center_vertical"
                 android:text="Удалить"
                 android:textColor="?attr/colorError"
-                app:layout_constraintEnd_toStartOf="@+id/DobRed"
-                app:layout_constraintHorizontal_bias="0.83"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout8"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

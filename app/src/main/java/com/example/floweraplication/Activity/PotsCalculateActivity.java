@@ -93,7 +93,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
 
                     if (binding.UserPlantDiameter.getVisibility() == View.VISIBLE ) {
                         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
-                        params.topMargin = 356;
+                        params.topMargin = 248;
                         binding.calculate.setLayoutParams(params);
                     }
 
@@ -158,7 +158,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
 
                     if (binding.UserPlantWidth.getVisibility() == View.VISIBLE ) {
                         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
-                        params.topMargin = 48;
+                        params.topMargin = 16;
                         binding.calculate.setLayoutParams(params);
                     }
 
@@ -226,7 +226,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
 
                     if (binding.UserPlantDiameterSmall.getVisibility() == View.VISIBLE ) {
                         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
-                        params.topMargin = 670;
+                        params.topMargin = 496;
                         binding.calculate.setLayoutParams(params);
                     }
 
@@ -282,7 +282,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
 
                     if (binding.UserPlantLengthSmall.getVisibility() == View.VISIBLE ) {
                         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
-                        params.topMargin = 48;
+                        params.topMargin = 16;
                         binding.calculate.setLayoutParams(params);
                     }
 

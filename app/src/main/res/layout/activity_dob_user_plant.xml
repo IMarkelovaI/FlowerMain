@@ -129,17 +129,15 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout6"
-                android:layout_width="124dp"
-                android:layout_height="64dp"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="16dp"
+                android:layout_width="236dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="6dp"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
 
@@ -160,28 +158,26 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout7"
-                android:layout_width="130dp"
+                android:layout_width="260dp"
                 android:layout_height="69dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="6dp"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.38"
-                app:layout_constraintStart_toEndOf="@+id/textInputLayout6"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Width"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:fontFamily="@font/gsr"
-                    android:hint="Ширина, см"
+                    android:hint="Диаметр корневой зоны, см"
                     android:imeOptions="actionNext"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:text=""
                     android:textIsSelectable="true" />
             </com.google.android.material.textfield.TextInputLayout>
