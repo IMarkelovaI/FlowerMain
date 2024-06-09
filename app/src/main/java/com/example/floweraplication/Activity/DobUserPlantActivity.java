@@ -35,8 +35,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -74,6 +77,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
     Button Dob;
     Toolbar toolbar;
     String watering_time, transfer_time, loosening_time;
+    String W_watering_time;
 
     @Override
     public boolean onSupportNavigateUp()
@@ -115,11 +119,25 @@ public class DobUserPlantActivity extends AppCompatActivity {
         PlName.setText(getIntent().getStringExtra("PName"));
         Glide.with(DobUserPlantActivity.this).load(getIntent().getStringExtra("pngView")).into(pngView);
 
+        Bundle arguments = getIntent().getExtras();
+        String plant_id = arguments.get("idPl").toString();
+
         binding.Dob.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
-                    validateData();
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Plant");
+                reference.child(plant_id).child("Optimal_condition").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        W_watering_time =""+snapshot.child("watering_time").getValue();
+
+                        validateData();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
             }
         });
 
@@ -174,6 +192,14 @@ public class DobUserPlantActivity extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
         String plant_id = arguments.get("idPl").toString();
 
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(timestamp);
+        String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
+        int www = Integer.parseInt(W_watering_time);
+
+        cal.add(Calendar.DAY_OF_YEAR, www);
+        String dateWa = DateFormat.format("dd/MM/yyyy", cal).toString();
+
         Uri uri = Uri.parse(getIntent().getStringExtra("pngView"));
 
         if(pngUri!=null){
@@ -198,6 +224,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                 hashMap.put("plant_width", ""+plant_width);
                                 hashMap.put("description", ""+description);
                                 hashMap.put("picture",""+downloadImageUri);
+                                hashMap.put("next_day_of_watering",""+dateWa);
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
                                 ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
@@ -205,10 +232,6 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-
-                                                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-                                                cal.setTimeInMillis(timestamp);
-                                                String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
 
                                                 progressDialog.dismiss();
 
@@ -265,6 +288,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
             hashMap.put("plant_size", ""+plant_size);
             hashMap.put("plant_width", ""+plant_width);
             hashMap.put("description", ""+description);
+            hashMap.put("next_day_of_watering",""+dateWa);
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
             ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)

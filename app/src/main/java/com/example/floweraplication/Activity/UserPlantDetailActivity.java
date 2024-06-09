@@ -520,6 +520,26 @@ public class UserPlantDetailActivity extends AppCompatActivity {
         Watering.setText(dateW);
         Log.e(TAG, "Watering следующее " + dateW);
 
+        Bundle arguments = getIntent().getExtras();
+        String id = arguments.get("idPlU").toString();
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("next_day_of_watering", ""+dateW);
+        //save to db
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("User_plant").child(id)
+                .updateChildren(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.i(TAG, "появилась следующая дата полива");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+
         Calendar cal1 = Calendar.getInstance(Locale.ENGLISH);
         cal1.setTimeInMillis(millisecondsSinceEpoch);
         cal1.add(Calendar.DAY_OF_YEAR, l);

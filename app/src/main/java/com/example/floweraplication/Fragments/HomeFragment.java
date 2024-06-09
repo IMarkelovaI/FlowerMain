@@ -29,8 +29,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.floweraplication.LightingActivity;
 import com.example.floweraplication.ProfileUser;
 import com.example.floweraplication.adapters.AdapterHomeFragment;
+import com.example.floweraplication.adapters.AdapterHomeFragmentWater;
 import com.example.floweraplication.models.ModelUserFlow;
 import com.example.floweraplication.databinding.FragmentHomeBinding;
+import com.example.floweraplication.models.ModelUserFlowWater;
 import com.example.floweraplication.photopredictor;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,7 +43,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 public class HomeFragment extends Fragment  {
@@ -54,10 +62,13 @@ public class HomeFragment extends Fragment  {
     Context context;
 
     private ArrayList<ModelUserFlow> Recycler;
+    private ArrayList<ModelUserFlowWater> Recycler1;
     private AdapterHomeFragment adapterHomeFragment;
-    private String description,id,name,picture,plant_id,plant_size,plant_width,sun,user_id;
+    private AdapterHomeFragmentWater adapterHomeFragmentWater;
+    private String description,id,name,picture,plant_id,plant_size,plant_width,sun,user_id, last_day_of_watering, idW, last_day_of_watering2, next_day_of_watering;
     private static final String TAG = "PNG_LIST_TAG";
     RecyclerView recyclerView;
+    RecyclerView recyclerView1;
     DatabaseReference databaseReference;
     SharedPreferences sharedPreferences;
     boolean nightMODE;
@@ -67,6 +78,7 @@ public class HomeFragment extends Fragment  {
 
     public SharedPreferences apppref;
     public static final String APP_PREFERENCES = "apppref";
+    ArrayList b= new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -133,8 +145,10 @@ public class HomeFragment extends Fragment  {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = binding.moiFlow;
+        recyclerView1 = binding.moiFlowWater;
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
 
@@ -142,9 +156,17 @@ public class HomeFragment extends Fragment  {
         recyclerView.setAdapter(adapterHomeFragment);
         recyclerView.setHasFixedSize(true);
 
+        recyclerView1.setLayoutManager(linearLayoutManager1);
+        recyclerView1.setAdapter(adapterHomeFragmentWater);
+        recyclerView1.setHasFixedSize(true);
+
         Recycler = new ArrayList<>();
         adapterHomeFragment = new AdapterHomeFragment(getContext(), Recycler);
         recyclerView.setAdapter(adapterHomeFragment);
+
+        Recycler1 = new ArrayList<>();
+        adapterHomeFragmentWater = new AdapterHomeFragmentWater(getContext(), Recycler1);
+        recyclerView1.setAdapter(adapterHomeFragmentWater);
 
         FirebaseUser useri=FirebaseAuth.getInstance().getCurrentUser();
         String userid =useri.getUid();
@@ -183,11 +205,49 @@ public class HomeFragment extends Fragment  {
                             if (map.get("sun")!= null){
                                 sun= map.get("sun").toString();
                             }
+                            if (map.get("next_day_of_watering")!= null){
+                                next_day_of_watering= map.get("next_day_of_watering").toString();
+                            }
+                            else if (map.get("next_day_of_watering")== null) {
+                                break;
+                            }
                     }
                     Recycler.add(new ModelUserFlow(description,id,name,picture,plant_id,plant_size,plant_width,sun));
+                    Recycler1.add(new ModelUserFlowWater(id,picture,next_day_of_watering));
+                    Collections.sort(Recycler1, new Comparator<ModelUserFlowWater>() {
+
+                        @Override
+                        public int compare(ModelUserFlowWater l1, ModelUserFlowWater l2) {
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+
+                            Date d1 = null;
+                            Date d2 = null;
+
+                            try {
+                                d1 = sdf.parse(String.valueOf(l1.getNext_day_of_watering()));
+
+                                d2 = sdf.parse(String.valueOf(l2.getNext_day_of_watering()));
+
+                            } catch (ParseException e) {
+
+                                e.printStackTrace();
+                            }
+
+                            if (d1 != null && d1.after(d2)) {
+
+                                return 1;
+
+                            } else {
+
+                                return -1;
+                            }
+                        }
+                    });
                 }
                 loadUserInfo();
                 adapterHomeFragment.notifyDataSetChanged();
+                adapterHomeFragmentWater.notifyDataSetChanged();
 
             }
             @Override

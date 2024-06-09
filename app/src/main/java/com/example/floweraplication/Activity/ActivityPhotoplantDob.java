@@ -74,6 +74,7 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
     Button Dob;
     Toolbar toolbar;
     String plant_id;
+    String W_watering_time;
 
     @Override
     public boolean onSupportNavigateUp()
@@ -197,165 +198,185 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
 
     private void createPlant() {
 
-        long timestamp = System.currentTimeMillis();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
-        Date now = new Date();
-        String fileName = formatter.format(now);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Plant");
+        reference.child(plant_id).child("Optimal_condition").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                W_watering_time =""+snapshot.child("watering_time").getValue();
 
-        Bundle arguments = getIntent().getExtras();
-        String plant_name = arguments.get("PlName").toString();
+                long timestamp = System.currentTimeMillis();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
+                Date now = new Date();
+                String fileName = formatter.format(now);
 
-        Uri uri = Uri.parse(getIntent().getStringExtra("Pa"));
+                Bundle arguments = getIntent().getExtras();
+                String plant_name = arguments.get("PlName").toString();
+                Log.i(TAG, "JJJJJJKJJJJJJJ"+plant_id);
 
-        if(pngUri!=null){
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName+".png");
-            storageReference.putFile(pngUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                cal.setTimeInMillis(timestamp);
+                String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
 
-                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                            while (!uriTask.isSuccessful());
-                            Uri downloadImageUri = uriTask.getResult();
+                int www = Integer.parseInt(W_watering_time);
+                cal.add(Calendar.DAY_OF_YEAR, www);
+                Log.e(TAG, "cal.add(Calendar.DAY_OF_YEAR, w) " + cal);
+                String dateWa = DateFormat.format("dd/MM/yyyy", cal).toString();
+                Log.e(TAG, "Watering следующее " + dateWa);
 
-                            if (uriTask.isSuccessful()){
+                Uri uri = Uri.parse(getIntent().getStringExtra("Pa"));
 
-                                HashMap<String,Object> hashMap = new HashMap<>();
-                                hashMap.put("id", ""+timestamp);
-                                hashMap.put("plant_id", ""+plant_id);
-                                hashMap.put("name", ""+name);
-                                hashMap.put("sun", ""+sun);
-                                hashMap.put("plant_size", ""+plant_size);
-                                hashMap.put("plant_width", ""+plant_width);
-                                hashMap.put("description", ""+description);
-                                hashMap.put("picture",""+downloadImageUri);
+                if(pngUri!=null){
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName+".png");
+                    storageReference.putFile(pngUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    //get url of uploaded image
+                                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                                    while (!uriTask.isSuccessful());
+                                    Uri downloadImageUri = uriTask.getResult();
 
-                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                                ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
-                                        .setValue(hashMap)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-                                                cal.setTimeInMillis(timestamp);
-                                                String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
+                                    if (uriTask.isSuccessful()){
+                                        //setup data to save
+                                        HashMap<String,Object> hashMap = new HashMap<>();
+                                        hashMap.put("id", ""+timestamp);
+                                        hashMap.put("plant_id", ""+plant_id);
+                                        hashMap.put("name", ""+name);
+                                        hashMap.put("sun", ""+sun);
+                                        hashMap.put("plant_size", ""+plant_size);
+                                        hashMap.put("plant_width", ""+plant_width);
+                                        hashMap.put("description", ""+description);
+                                        hashMap.put("picture",""+downloadImageUri); //uri of uploaded image
+                                        hashMap.put("next_day_of_watering",""+dateWa);
 
-                                                HashMap<String,Object> hashMap = new HashMap<>();
-                                                hashMap.put("id", ""+timestamp);
-                                                hashMap.put("last_day_of_watering", ""+dateW);
-                                                hashMap.put("last_day_of_loosening", ""+dateW);
-                                                hashMap.put("last_day_of_transport", ""+dateW);
+                                        //save to db
+                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                        ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
+                                                .setValue(hashMap)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
 
-                                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                                                ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
-                                                        .updateChildren(hashMap)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void unused) {
-                                                                progressDialog.dismiss();
+                                                        HashMap<String,Object> hashMap = new HashMap<>();
+                                                        hashMap.put("id", ""+timestamp);
+                                                        hashMap.put("last_day_of_watering", ""+dateW);
+                                                        hashMap.put("last_day_of_loosening", ""+dateW);
+                                                        hashMap.put("last_day_of_transport", ""+dateW);
 
-                                                                startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                progressDialog.dismiss();
-                                                            }
-                                                        });
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
+                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
+                                                                .updateChildren(hashMap)
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void unused) {
+                                                                        progressDialog.dismiss();
 
-                                                Log.d(TAG, "Произошла ошибка "+e.getMessage());
-                                            }
-                                        });
-                            }
+                                                                        startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
+                                                                    }
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        progressDialog.dismiss();
+                                                                    }
+                                                                });
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
 
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "Произошла ошибка "+e.getMessage());
-                        }
-                    });
-        }
-        else{
+                                                        Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
+                                                    }
+                                                });
+                                    }
 
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName+".png");
-            storageReference.putFile(uri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
+                                }
+                            });
+                }
+                else{
 
-                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                            while (!uriTask.isSuccessful());
-                            Uri downloadImageUri = uriTask.getResult();
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName+".png");
+                    storageReference.putFile(uri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    //get url of uploaded image
+                                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                                    while (!uriTask.isSuccessful());
+                                    Uri downloadImageUri = uriTask.getResult();
 
-                            if (uriTask.isSuccessful()){
+                                    if (uriTask.isSuccessful()){
+                                        //setup data to save
+                                        HashMap<String,Object> hashMap = new HashMap<>();
+                                        hashMap.put("id", ""+timestamp);
+                                        hashMap.put("plant_id", ""+plant_id);
+                                        hashMap.put("name", ""+name);
+                                        hashMap.put("sun", ""+sun);
+                                        hashMap.put("plant_size", ""+plant_size);
+                                        hashMap.put("plant_width", ""+plant_width);
+                                        hashMap.put("description", ""+description);
+                                        hashMap.put("picture",""+downloadImageUri); //uri of uploaded image
+                                        hashMap.put("next_day_of_watering",""+dateWa);
 
-                                HashMap<String,Object> hashMap = new HashMap<>();
-                                hashMap.put("id", ""+timestamp);
-                                hashMap.put("plant_id", ""+plant_id);
-                                hashMap.put("name", ""+name);
-                                hashMap.put("sun", ""+sun);
-                                hashMap.put("plant_size", ""+plant_size);
-                                hashMap.put("plant_width", ""+plant_width);
-                                hashMap.put("description", ""+description);
-                                hashMap.put("picture",""+downloadImageUri);
+                                        //save to db
+                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                        ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
+                                                .setValue(hashMap)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
 
-                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                                ref.child(firebaseAuth.getUid()).child("User_plant").child(""+timestamp)
-                                        .setValue(hashMap)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-                                                cal.setTimeInMillis(timestamp);
-                                                String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();
+                                                        HashMap<String,Object> hashMap = new HashMap<>();
+                                                        hashMap.put("id", ""+timestamp);
+                                                        hashMap.put("last_day_of_watering", ""+dateW);
+                                                        hashMap.put("last_day_of_loosening", ""+dateW);
+                                                        hashMap.put("last_day_of_transport", ""+dateW);
 
-                                                HashMap<String,Object> hashMap = new HashMap<>();
-                                                hashMap.put("id", ""+timestamp);
-                                                hashMap.put("last_day_of_watering", ""+dateW);
-                                                hashMap.put("last_day_of_loosening", ""+dateW);
-                                                hashMap.put("last_day_of_transport", ""+dateW);
+                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
+                                                                .updateChildren(hashMap)
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void unused) {
+                                                                        progressDialog.dismiss();
 
-                                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                                                ref.child(firebaseAuth.getUid()).child("User_plant").child(String.valueOf(timestamp)).child("Last_care").child(""+timestamp)
-                                                        .updateChildren(hashMap)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void unused) {
-                                                                progressDialog.dismiss();
+                                                                        startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
+                                                                    }
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        progressDialog.dismiss();
+                                                                    }
+                                                                });
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
 
-                                                                startActivity(new Intent(ActivityPhotoplantDob.this, UserActivity.class));
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                progressDialog.dismiss();
-                                                            }
-                                                        });
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
+                                                        Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
+                                                    }
+                                                });
+                                    }
 
-                                                Log.d(TAG, "Произошла ошибка "+e.getMessage());
-                                            }
-                                        });
-                            }
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "Произошла ошибка "+e.getMessage());
-                        }
-                    });
-        }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "onFailure: Failed to upload to db due to"+e.getMessage());
+                                }
+                            });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     private void pngPickIntent() {
