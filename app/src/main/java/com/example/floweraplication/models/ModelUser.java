@@ -6,9 +6,6 @@ public class ModelUser implements Serializable {
 
     String id, email, profileImage,name;
     public ModelUser(){}
-
-
-
     public ModelUser(String id, String email,String profileImage,String name) {
         this.id = id;
         this.email = email;
@@ -16,7 +13,6 @@ public class ModelUser implements Serializable {
         this.profileImage=profileImage;
 
     }
-
     public String getId() { return id; }
 
     public void setId(String id) {

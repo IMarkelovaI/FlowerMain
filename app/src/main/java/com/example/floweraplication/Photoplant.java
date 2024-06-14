@@ -229,7 +229,6 @@ public class Photoplant extends AppCompatActivity {
                 String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap,"IMG_" + System.currentTimeMillis(),null);
                 Uri pa = Uri.parse(path);
                 uri = pa;
-                Log.w(TAG, "Ты не пройдешь "+uri);
                 bytes = stream.toByteArray();
                 int dimension = Math.min(image.getWidth(), image.getHeight());
                 image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
@@ -240,16 +239,13 @@ public class Photoplant extends AppCompatActivity {
                 imagePredictDisease.setAlpha(1f);
                 imagePredictDisease.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 String picture = imagePredictDisease.toString();
-                Log.d(TAG, "ALLLLLPP "+uri);
 
                 i.putExtra("Picture",uri);
                 i.putExtra("PlName",TextDisease.getText().toString());
-                Log.w(TAG, "Жопа осла"+data.getData());
 
             }
             else {
                 Uri dat = data.getData();
-                Log.d(TAG,"dat fffffffffffff"+dat);
                 Bitmap image = null;
                 try {
                     image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), dat);

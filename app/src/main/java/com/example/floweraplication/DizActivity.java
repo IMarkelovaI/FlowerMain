@@ -72,10 +72,8 @@ public class DizActivity extends AppCompatActivity {
 
         byte[] bytes = getIntent().getByteArrayExtra("Bitmap");
         Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
-        Log.i(TAG, "check"+bytes);
         pngView.setImageBitmap(bmp);
         Uri uri = Uri.parse(getIntent().getStringExtra("Pa"));
-        Log.i(TAG, "Uriririri"+uri);
 
         Bundle arguments = getIntent().getExtras();
         String Desiase_name = arguments.get("PlName").toString();
@@ -93,12 +91,10 @@ public class DizActivity extends AppCompatActivity {
                                     String name = String.valueOf(dataSnapshot.child("name").getValue());
                                     if(name.equals(Desiase_name)){
                                         String plant_descr = String.valueOf(dataSnapshot.child("description").getValue());
-                                        Log.d(TAG, "Хоть бы не сдохнкть "+plant_descr);
 
                                         Descr.setText(plant_descr);
 
                                         String sick_discr = String.valueOf(dataSnapshot.child("Sick_care/description").getValue());
-                                        Log.d(TAG, "Хоть бы не сдохнкть "+sick_discr);
                                         Descr1.setText(sick_discr);
                                         
                                     }

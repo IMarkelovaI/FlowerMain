@@ -29,9 +29,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp()
     {
-        Intent intent = new Intent(PotsCalculateActivity.this, UserActivity.class);
-        startActivity(intent);
-        finish();
+        onBackPressed();
         return true;
     }
     @Override
