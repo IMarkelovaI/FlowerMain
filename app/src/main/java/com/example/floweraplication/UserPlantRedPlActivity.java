@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.floweraplication.Activity.DobUserPlantActivity;
 import com.example.floweraplication.Activity.UserActivity;
+import com.example.floweraplication.Activity.UserPlantDetailActivity;
 import com.example.floweraplication.databinding.ActivityDobUserPlantBinding;
 import com.example.floweraplication.databinding.ActivityUserPlantRedPlBinding;
 import com.example.floweraplication.models.ModelPng;
@@ -264,7 +265,18 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
                                             public void onSuccess(Void unused) {
                                                 progressDialog.dismiss();
                                                 Toast.makeText(UserPlantRedPlActivity.this, "Растение пользователя изменено", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(UserPlantRedPlActivity.this, UserActivity.class));
+                                                Intent intent = new Intent(getApplicationContext(), UserPlantDetailActivity.class);
+
+                                                intent.putExtra("idPlU",id);
+                                                intent.putExtra("plant_idPlU",plant_id);
+                                                intent.putExtra("picturePl",downloadImageUri.toString());
+                                                intent.putExtra("namePlU",name);
+                                                intent.putExtra("sunPlU",sun);
+                                                intent.putExtra("plant_sizePlU",plant_size);
+                                                intent.putExtra("plant_widthPlU",plant_width);
+                                                intent.putExtra("descriptionPlU",description);
+
+                                                startActivity(intent);
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -303,7 +315,18 @@ public class UserPlantRedPlActivity extends AppCompatActivity {
                         public void onSuccess(Void unused) {
                             progressDialog.dismiss();
                             Toast.makeText(UserPlantRedPlActivity.this, "Растение пользователя изменено", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(UserPlantRedPlActivity.this, UserActivity.class));
+                            Intent intent = new Intent(getApplicationContext(), UserPlantDetailActivity.class);
+
+                            intent.putExtra("idPlU",id);
+                            intent.putExtra("plant_idPlU",plant_id);
+                            intent.putExtra("picturePl",uri.toString());
+                            intent.putExtra("namePlU",name);
+                            intent.putExtra("sunPlU",sun);
+                            intent.putExtra("plant_sizePlU",plant_size);
+                            intent.putExtra("plant_widthPlU",plant_width);
+                            intent.putExtra("descriptionPlU",description);
+
+                            startActivity(intent);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

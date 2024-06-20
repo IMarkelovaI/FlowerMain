@@ -115,7 +115,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         double rd2 = (Math.pow(rad,2));
                         double grunt = (Math.PI*rd2*sizehpots)/1000;
                         double gr = Math.round(grunt * 100.0) / 100.0;
-                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальный диаметр контейнера должен быть " + diametr +". Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
+                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальный диаметр контейнера должен быть " + diametr +" см. Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
                     }
                     catch (NumberFormatException nfe)
                     {
@@ -183,8 +183,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         Log.e(TAG, "grunt" +grunt);
                         double gr = Math.round(grunt *100.0) / 100.0;
                         Log.e(TAG, "gr" +gr);
-                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальная ширина контейнера должена быть " + diametr +". Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
-
+                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальная ширина контейнера должна быть " + diametr +" см. Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
                     }
                     catch (NumberFormatException nfe)
                     {
@@ -366,7 +365,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                     Log.e(TAG, "gr " + gr);
                                     binding.constraintLayout9.setVisibility(View.VISIBLE);
                                     binding.PotText.setVisibility(View.VISIBLE);
-                                    binding.PotText.setText("Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
+                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальный диаметр контейнера должен быть " + diametr +" см. Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
                                 }
                                 catch (NumberFormatException nfe)
                                 {
@@ -428,7 +427,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                     Log.e(TAG, "gr " + gr);
                                     binding.constraintLayout9.setVisibility(View.VISIBLE);
                                     binding.PotText.setVisibility(View.VISIBLE);
-                                    binding.PotText.setText("Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
+                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальная ширина контейнера должна быть " + diametr +" см. Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
 
                                 }
                                 catch (NumberFormatException nfe)
@@ -509,7 +508,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                     Log.e(TAG, "gr "+ gr);
                                     binding.constraintLayout9.setVisibility(View.VISIBLE);
                                     binding.PotText.setVisibility(View.VISIBLE);
-                                    binding.PotText.setText("Приблизительный объем грунта на конусообразный горшок составляет " + gr + " л. ");
+                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальный верхний диаметр контейнера должен быть " + diametr +" см., малый диаметр  "+diametrSm+" см. Приблизительный объем грунта на конусообразный горшок составляет " + gr + " л. ");
                                 }
                                 catch (NumberFormatException nfe)
                                 {
@@ -597,7 +596,8 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                     Log.e(TAG, "grunt " + grunt);
                                     double gr = Math.round(grunt *100.0) / 100.0;
                                     Log.e(TAG, "gr " + gr);
-                                    binding.PotText.setText("Приблизительный объем грунта на четырехугольный горшок составляет " + gr + " л. ");
+                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальная ширина верхней стороны контейнера " +
+                                            "должна быть " + diametr +" см., малая ширина "+diametrSm+" см. Максимальная длина верхней стороны горшка должна быть " + length +" см., малая длина "+lengthSm+" см. Приблизительный объем грунта на черырехугольного горшка составляет " + gr + " л. ");
 
                                 }
                                 catch (NumberFormatException nfe)
