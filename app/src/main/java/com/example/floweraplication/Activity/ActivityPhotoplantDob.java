@@ -114,11 +114,12 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
 
         PlName.setText(getIntent().getStringExtra("PlName"));
 
-        byte[] bytes = getIntent().getByteArrayExtra("Bitmap");
-        Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
+        //byte[] bytes = getIntent().getByteArrayExtra("Bitmap");
+        //Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
 
-        pngView.setImageBitmap(bmp);
+
         Uri uri = Uri.parse(getIntent().getStringExtra("Pa"));
+        pngView.setImageURI(uri);
 
         binding.Dob.setOnClickListener(new View.OnClickListener()
         {
@@ -232,6 +233,7 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     //get url of uploaded image
+                                    Toast.makeText(ActivityPhotoplantDob.this, "Растение создается....", Toast.LENGTH_SHORT).show();
                                     Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                                     while (!uriTask.isSuccessful());
                                     Uri downloadImageUri = uriTask.getResult();
@@ -317,6 +319,7 @@ public class ActivityPhotoplantDob extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     //get url of uploaded image
+                                    Toast.makeText(ActivityPhotoplantDob.this, "Растение создается....", Toast.LENGTH_SHORT).show();
                                     Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                                     while (!uriTask.isSuccessful());
                                     Uri downloadImageUri = uriTask.getResult();

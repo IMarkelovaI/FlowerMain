@@ -13,23 +13,22 @@
         android:id="@+id/textView18"
         android:layout_width="329dp"
         android:layout_height="63dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/productsans"
         android:paddingTop="5dp"
         android:text="Растения"
         android:textColor="?attr/colorOnBackground"
         android:textSize="40dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
-        app:layout_constraintHorizontal_bias="0.928"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </TextView>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="385dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
         android:padding="1dp"
         app:boxCollapsedPaddingTop="2dp"
         app:boxCornerRadiusBottomEnd="30dp"
@@ -39,7 +38,6 @@
         app:expandedHintEnabled="true"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/plantRv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18">
@@ -67,14 +65,17 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/plantRv"
         android:layout_width="372dp"
-        android:layout_height="537dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="160dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="28dp"
         android:layout_weight="1"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:paddingBottom="?actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         tools:listitem="@layout/row_png_user">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -84,10 +85,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="32dp"
         android:background="#00FFFFFF"
         android:tint="?attr/colorOnSurface"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_menu_24" />
 

@@ -39,6 +39,6 @@ public class ModelType {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description.replace("_b","\n");
     }
 }

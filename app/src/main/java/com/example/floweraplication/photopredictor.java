@@ -125,7 +125,7 @@ public class photopredictor extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(photopredictor.this, DizActivity.class);
 
-                i.putExtra("Bitmap", bytes);
+                //i.putExtra("Bitmap", bytes);
                 i.putExtra("PlName",TextDisease.getText().toString());
                 i.putExtra("PictureP",imagePredictDisease.toString());
                 i.putExtra("Pa", uri.toString());

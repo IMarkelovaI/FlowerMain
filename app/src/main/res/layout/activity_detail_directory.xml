@@ -54,7 +54,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:paddingBottom="64dp"
         app:layout_anchor="@+id/nestedScrollView2"
@@ -90,8 +90,8 @@
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/productsans"
-                android:textColor="?attr/colorOnSurface"
                 android:gravity="center"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="36sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

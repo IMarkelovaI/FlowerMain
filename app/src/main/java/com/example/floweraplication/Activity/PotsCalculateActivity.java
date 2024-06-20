@@ -91,7 +91,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
 
                     if (binding.UserPlantDiameter.getVisibility() == View.VISIBLE ) {
                         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
-                        params.topMargin = 248;
+                        params.topMargin = 264;
                         binding.calculate.setLayoutParams(params);
                     }
 
@@ -223,7 +223,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
 
                     if (binding.UserPlantDiameterSmall.getVisibility() == View.VISIBLE ) {
                         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.calculate.getLayoutParams();
-                        params.topMargin = 496;
+                        params.topMargin = 528;
                         binding.calculate.setLayoutParams(params);
                     }
 
@@ -438,7 +438,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         }
                         if(binding.cone.isChecked()){
                             //Конус
-                            Log.d(TAG, "Конус ");
+                            Log.d(TAG, "Конус");
                             binding.cylinder.setChecked(false);
                             binding.rectangle.setChecked(false);
                             binding.quadrilateral.setChecked(false);

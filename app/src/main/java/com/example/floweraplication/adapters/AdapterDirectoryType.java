@@ -94,6 +94,9 @@ public class AdapterDirectoryType extends RecyclerView.Adapter<AdapterDirectoryT
             case("Лютикоцветные"):
                 s="https://shans-group.com/upload/iblock/05d/%D0%9B%D1%8E%D1%82%D0%B8%D0%BA%20%D0%BF%D0%BE%D0%BB%D0%B7%D1%83%D1%87%D0%B8%D0%B8%CC%86.jpg";
                 break;
+            case("Папоротниковидные"):
+                s="https://media.izi.travel/767a01dd-79c0-42ee-99fc-bacd302e64bb/bd668a95-0dac-4d8f-be42-6847ffcc62ae_800x600.jpg";
+                break;
             default:
                 s="https://dacha.avgust.com/upload/iblock/51d/51d46aa0661159801b6a097e2ee91de8.jpg";
         }

@@ -193,7 +193,7 @@ public class AddPlantActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                        Toast.makeText(AddPlantActivity.this, "Растение создается....", Toast.LENGTH_SHORT).show();
                         Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                         while (!uriTask.isSuccessful());
                         Uri downloadImageUri = uriTask.getResult();

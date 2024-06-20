@@ -70,10 +70,10 @@ public class DizActivity extends AppCompatActivity {
 
         PlName.setText(getIntent().getStringExtra("PlName"));
 
-        byte[] bytes = getIntent().getByteArrayExtra("Bitmap");
-        Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
-        pngView.setImageBitmap(bmp);
+        //byte[] bytes = getIntent().getByteArrayExtra("Bitmap");
+        //Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
         Uri uri = Uri.parse(getIntent().getStringExtra("Pa"));
+        pngView.setImageURI(uri);
 
         Bundle arguments = getIntent().getExtras();
         String Desiase_name = arguments.get("PlName").toString();

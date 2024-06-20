@@ -209,6 +209,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                            Toast.makeText(DobUserPlantActivity.this, "Растение создается....", Toast.LENGTH_SHORT).show();
                             Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                             while (!uriTask.isSuccessful());
                             Uri downloadImageUri = uriTask.getResult();
@@ -311,6 +312,7 @@ public class DobUserPlantActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void unused) {
 
+                            Toast.makeText(DobUserPlantActivity.this, "Растение создается....", Toast.LENGTH_SHORT).show();
                             Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                             cal.setTimeInMillis(timestamp);
                             String dateW = DateFormat.format("dd/MM/yyyy", cal).toString();

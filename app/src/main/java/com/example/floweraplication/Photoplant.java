@@ -143,7 +143,7 @@ public class Photoplant extends AppCompatActivity {
 
                 Intent i = new Intent(Photoplant.this, ActivityPhotoplantDob.class);
 
-                i.putExtra("Bitmap", bytes);
+                //i.putExtra("Bitmap", bytes);
                 i.putExtra("PlName",TextDisease.getText().toString());
                 i.putExtra("PictureP",imagePredictDisease.toString());
                 i.putExtra("Pa", uri.toString());
