@@ -249,7 +249,21 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                                             public void onSuccess(Void unused) {
                                                                 progressDialog.dismiss();
 
-                                                                startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+                                                                //startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+
+                                                                Intent intent = new Intent(getApplicationContext(), UserPlantDetailActivity.class);
+
+                                                                intent.putExtra("idPlU",timestamp);
+                                                                intent.putExtra("plant_idPlU",plant_id);
+                                                                intent.putExtra("picturePl",downloadImageUri.toString());
+                                                                intent.putExtra("namePlU",name);
+                                                                intent.putExtra("sunPlU",sun);
+                                                                intent.putExtra("plant_sizePlU",plant_size);
+                                                                intent.putExtra("plant_widthPlU",plant_width);
+                                                                intent.putExtra("descriptionPlU",description);
+
+                                                                startActivity(intent);
+
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {
@@ -315,7 +329,18 @@ public class DobUserPlantActivity extends AppCompatActivity {
                                         public void onSuccess(Void unused) {
                                             progressDialog.dismiss();
 
-                                            startActivity(new Intent(DobUserPlantActivity.this, UserActivity.class));
+                                            Intent intent = new Intent(getApplicationContext(), UserPlantDetailActivity.class);
+
+                                            intent.putExtra("idPlU",timestamp);
+                                            intent.putExtra("plant_idPlU",plant_id);
+                                            intent.putExtra("picturePl",uri.toString());
+                                            intent.putExtra("namePlU",name);
+                                            intent.putExtra("sunPlU",sun);
+                                            intent.putExtra("plant_sizePlU",plant_size);
+                                            intent.putExtra("plant_widthPlU",plant_width);
+                                            intent.putExtra("descriptionPlU",description);
+
+                                            startActivity(intent);
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
