@@ -142,6 +142,7 @@ public class DirectoryActivity extends AppCompatActivity {
                     soil_typeArrayList.add(model2);
                 }
                 adapterDirectorySoilType = new AdapterDirectorySoil_type(DirectoryActivity.this, soil_typeArrayList);
+                Collections.sort(soil_typeArrayList, ModelSoil_type.BY_NAME_ALPHABETICAL);
                 binding.recyclerSoilType.setAdapter(adapterDirectorySoilType);
             }
 
@@ -166,6 +167,7 @@ public class DirectoryActivity extends AppCompatActivity {
                     fertilizerArrayList.add(model3);
                 }
                 adapterDirectoryFertilizer = new AdapterDirectoryFertilizer(DirectoryActivity.this, fertilizerArrayList);
+                Collections.sort(fertilizerArrayList, ModelFertilizer.BY_NAME_ALPHABETICAL);
                 binding.recyclerViewFertilizer.setAdapter(adapterDirectoryFertilizer);
             }
 

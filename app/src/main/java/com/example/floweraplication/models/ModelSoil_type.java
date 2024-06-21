@@ -1,5 +1,7 @@
 package com.example.floweraplication.models;
 
+import java.util.Comparator;
+
 public class ModelSoil_type {
     String id, name, description;
     public ModelSoil_type(){
@@ -10,6 +12,12 @@ public class ModelSoil_type {
         this.name = name;
         this.description = description;
     }
+    public static final Comparator<ModelSoil_type> BY_NAME_ALPHABETICAL = new Comparator<ModelSoil_type>() {
+        @Override
+        public int compare(ModelSoil_type modelPng1, ModelSoil_type modelPng2) {
+            return modelPng1.name.compareTo(modelPng2.name);
+        }
+    };
 
     public String getId() {
         return id;
