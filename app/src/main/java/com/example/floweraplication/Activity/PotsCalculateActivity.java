@@ -100,22 +100,23 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         String WidhtP = arguments.get("WidhtP").toString();
                         String HeightP = arguments.get("HeightP").toString();
 
-                        int Widht = Integer.parseInt(WidhtP.trim());
-                        int Height = Integer.parseInt(HeightP.trim());
-                        int sizehpots = Height * 1/3;
-
-                        String si = String.valueOf(sizehpots);
+                        double Widht = Double.parseDouble(WidhtP.trim());
+                        double Height = Double.parseDouble(HeightP.trim());
+                        double sizehpots = Height * 1/3;
+                        double s = Math.round(sizehpots * 100.0) / 100.0;
+                        String si = String.valueOf(s);
                         binding.Height.setText(si);
                         double d = Widht * 2.5;
-                        int diametr = (int)d;
+                        double diametr = (double)d;
+                        double dia = Math.round(diametr * 100.0) / 100.0;
+                        String di = String.valueOf(dia);
 
-                        String di = String.valueOf(diametr);
                         binding.Diameter.setText(di);
                         double rad = d/2;
                         double rd2 = (Math.pow(rad,2));
                         double grunt = (Math.PI*rd2*sizehpots)/1000;
                         double gr = Math.round(grunt * 100.0) / 100.0;
-                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальный диаметр контейнера должен быть " + diametr +" см. Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
+                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + s + " см. Максимальный диаметр контейнера должен быть " + dia +" см. Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
                     }
                     catch (NumberFormatException nfe)
                     {
@@ -165,16 +166,16 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         String WidhtP = arguments.get("WidhtP").toString();
                         String HeightP = arguments.get("HeightP").toString();
 
-                        int Widht = Integer.parseInt(WidhtP.trim());
-                        int Height = Integer.parseInt(HeightP.trim());
-                        int sizehpots = Height * 1/3;
-
-                        String si = String.valueOf(sizehpots);
+                        double Widht = Double.parseDouble(WidhtP.trim());
+                        double Height = Double.parseDouble(HeightP.trim());
+                        double sizehpots = Height * 1/3;
+                        double s = Math.round(sizehpots * 100.0) / 100.0;
+                        String si = String.valueOf(s);
                         binding.Height.setText(si);
                         double d = Widht * 2.5;
-                        int diametr = (int)d;
-
-                        String di = String.valueOf(diametr);
+                        double diametr = (double) d;
+                        double dia = Math.round(diametr * 100.0) / 100.0;
+                        String di = String.valueOf(dia);
                         binding.Width.setText(di);
                         Log.e(TAG, "diametr " +diametr);
                         Log.e(TAG, "sizehpots " +sizehpots);
@@ -183,7 +184,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         Log.e(TAG, "grunt" +grunt);
                         double gr = Math.round(grunt *100.0) / 100.0;
                         Log.e(TAG, "gr" +gr);
-                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальная ширина контейнера должна быть " + diametr +" см. Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
+                        binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + s + " см. Максимальная ширина контейнера должна быть " + dia +" см. Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
                     }
                     catch (NumberFormatException nfe)
                     {
@@ -232,14 +233,16 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         String WidhtP = arguments.get("WidhtP").toString();
                         String HeightP = arguments.get("HeightP").toString();
 
-                        int Widht = Integer.parseInt(WidhtP.trim());
-                        int Height = Integer.parseInt(HeightP.trim());
-                        int sizehpots = Height * 1/3;
-                        String si = String.valueOf(sizehpots);
+                        double Widht = Double.parseDouble(WidhtP.trim());
+                        double Height = Double.parseDouble(HeightP.trim());
+                        double sizehpots = Height * 1/3;
+                        double s = Math.round(sizehpots * 100.0) / 100.0;
+                        String si = String.valueOf(s);
                         binding.Height.setText(si);
                         double d = Widht * 2.5;
-                        int diametr = (int)d;
-                        String di = String.valueOf(diametr);
+                        double diametr = (double)d;
+                        double dia = Math.round(diametr * 100.0) / 100.0;
+                        String di = String.valueOf(dia);
                         binding.Diameter.setText(di);
                     }
                     catch (NumberFormatException nfe)
@@ -288,15 +291,16 @@ public class PotsCalculateActivity extends AppCompatActivity {
                         String WidhtP = arguments.get("WidhtP").toString();
                         String HeightP = arguments.get("HeightP").toString();
 
-                        int Widht = Integer.parseInt(WidhtP.trim());
-                        int Height = Integer.parseInt(HeightP.trim());
-                        int sizehpots = Height * 1/3;
-
-                        String si = String.valueOf(sizehpots);
+                        double Widht = Double.parseDouble(WidhtP.trim());
+                        double Height = Double.parseDouble(HeightP.trim());
+                        double sizehpots = Height * 1/3;
+                        double s = Math.round(sizehpots * 100.0) / 100.0;
+                        String si = String.valueOf(s);
                         binding.Height.setText(si);
                         double d = Widht * 2.5;
-                        int diametr = (int)d;
-                        String di = String.valueOf(diametr);
+                        double diametr = (double)d;
+                        double dia = Math.round(diametr * 100.0) / 100.0;
+                        String di = String.valueOf(dia);
                         binding.Width.setText(di);
 
                     }
@@ -352,10 +356,12 @@ public class PotsCalculateActivity extends AppCompatActivity {
                             else {
                                 try {
                                     String Height = binding.Height.getText().toString();
-                                    int sizehpots = Integer.parseInt (Height);
+                                    double sizehpots = Double.parseDouble (Height);
+                                    double s = Math.round(sizehpots * 100.0) / 100.0;
                                     Log.d(TAG, "sizehpots " + sizehpots);
                                     String Dia = binding.Diameter.getText().toString();
-                                    int diametr = Integer.parseInt (Dia);
+                                    double diametr = Double.parseDouble (Dia);
+                                    double dia = Math.round(diametr * 100.0) / 100.0;
                                     Log.d(TAG, "diametr " + diametr);
                                     double rad = diametr/2;
                                     double rd2 = (Math.pow(rad,2));
@@ -365,7 +371,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                     Log.e(TAG, "gr " + gr);
                                     binding.constraintLayout9.setVisibility(View.VISIBLE);
                                     binding.PotText.setVisibility(View.VISIBLE);
-                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальный диаметр контейнера должен быть " + diametr +" см. Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
+                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + s + " см. Максимальный диаметр контейнера должен быть " + dia +" см. Приблизительный объем грунта на цилиндрический горшок составляет " + gr + " л. ");
                                 }
                                 catch (NumberFormatException nfe)
                                 {
@@ -415,10 +421,12 @@ public class PotsCalculateActivity extends AppCompatActivity {
                             else {
                                 try {
                                     String Height = binding.Height.getText().toString();
-                                    int sizehpots = Integer.parseInt (Height);
+                                    double sizehpots = Double.parseDouble (Height);
+                                    double s = Math.round(sizehpots * 100.0) / 100.0;
                                     Log.e(TAG, "sizehpots " + sizehpots);
                                     String Dia = binding.Width.getText().toString();
-                                    int diametr = Integer.parseInt (Dia);
+                                    double diametr = Double.parseDouble (Dia);
+                                    double dia = Math.round(diametr * 100.0) / 100.0;
                                     Log.e(TAG, "diametr " + diametr);
 
                                     double grunt = (diametr*diametr*sizehpots);
@@ -427,7 +435,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                     Log.e(TAG, "gr " + gr);
                                     binding.constraintLayout9.setVisibility(View.VISIBLE);
                                     binding.PotText.setVisibility(View.VISIBLE);
-                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальная ширина контейнера должна быть " + diametr +" см. Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
+                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + s + " см. Максимальная ширина контейнера должна быть " + dia +" см. Приблизительный объем грунта на прямоугольный горшок составляет " + gr + " л. ");
 
                                 }
                                 catch (NumberFormatException nfe)
@@ -484,15 +492,18 @@ public class PotsCalculateActivity extends AppCompatActivity {
                             else {
                                 try {
                                     String Height = binding.Height.getText().toString();
-                                    int sizehpots = Integer.parseInt (Height);
+                                    double sizehpots = Double.parseDouble (Height);
+                                    double s = Math.round(sizehpots * 100.0) / 100.0;
                                     Log.e(TAG, "sizehpots "+ sizehpots);
 
                                     String Dia = binding.Diameter.getText().toString();
-                                    int diametr = Integer.parseInt (Dia);
+                                    double diametr = Double.parseDouble (Dia);
+                                    double dia = Math.round(diametr * 100.0) / 100.0;
                                     double diametr2 = (Math.pow(diametr,2));
 
                                     String DiamS = binding.DiameterSmall.getText().toString();
-                                    int diametrSm = Integer.parseInt (DiamS);
+                                    double diametrSm = Double.parseDouble (DiamS);
+                                    double diam = Math.round(diametrSm * 100.0) / 100.0;
                                     double diametrSm2 = (Math.pow(diametrSm,2));
 
                                     double rad1 = diametr/2;
@@ -508,7 +519,7 @@ public class PotsCalculateActivity extends AppCompatActivity {
                                     Log.e(TAG, "gr "+ gr);
                                     binding.constraintLayout9.setVisibility(View.VISIBLE);
                                     binding.PotText.setVisibility(View.VISIBLE);
-                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальный верхний диаметр контейнера должен быть " + diametr +" см., малый диаметр  "+diametrSm+" см. Приблизительный объем грунта на конусообразный горшок составляет " + gr + " л. ");
+                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + s + " см. Максимальный верхний диаметр контейнера должен быть " + dia +" см., малый диаметр  "+diam+" см. Приблизительный объем грунта на конусообразный горшок составляет " + gr + " л. ");
                                 }
                                 catch (NumberFormatException nfe)
                                 {
@@ -576,28 +587,32 @@ public class PotsCalculateActivity extends AppCompatActivity {
                             else {
                                 try {
                                     String Height = binding.Height.getText().toString();
-                                    int sizehpots = Integer.parseInt (Height);
+                                    double sizehpots = Double.parseDouble (Height);
+                                    double s = Math.round(sizehpots * 100.0) / 100.0;
 
                                     String Dia = binding.Width.getText().toString();
-                                    int diametr = Integer.parseInt (Dia);
-
+                                    double diametr = Double.parseDouble (Dia);
+                                    double dia = Math.round(diametr * 100.0) / 100.0;
 
                                     String DiamS = binding.WidthSmall.getText().toString();
-                                    int diametrSm = Integer.parseInt (DiamS);
+                                    double diametrSm = Double.parseDouble (DiamS);
+                                    double diam = Math.round(diametrSm * 100.0) / 100.0;
 
                                     String Le = binding.Length.getText().toString();
-                                    int length = Integer.parseInt (Le);
+                                    double length = Double.parseDouble (Le);
+                                    double le = Math.round(length * 100.0) / 100.0;
 
                                     String LeS = binding.LengthSmall.getText().toString();
-                                    int lengthSm = Integer.parseInt (LeS);
+                                    double lengthSm = Double.parseDouble (LeS);
+                                    double len = Math.round(lengthSm * 100.0) / 100.0;
 
                                     double S = ((diametr*length)+(diametrSm*lengthSm))/2;
                                     double grunt = (S*sizehpots)/1000;
                                     Log.e(TAG, "grunt " + grunt);
                                     double gr = Math.round(grunt *100.0) / 100.0;
                                     Log.e(TAG, "gr " + gr);
-                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + sizehpots + " см. Максимальная ширина верхней стороны контейнера " +
-                                            "должна быть " + diametr +" см., малая ширина "+diametrSm+" см. Максимальная длина верхней стороны горшка должна быть " + length +" см., малая длина "+lengthSm+" см. Приблизительный объем грунта на черырехугольного горшка составляет " + gr + " л. ");
+                                    binding.PotText.setText("Оптимальная высота горшка для вашего растения должна быть не менее " + s + " см. Максимальная ширина верхней стороны контейнера " +
+                                            "должна быть " + dia +" см., малая ширина "+diam+" см. Максимальная длина верхней стороны горшка должна быть " + le +" см., малая длина "+len+" см. Приблизительный объем грунта на черырехугольного горшка составляет " + gr + " л. ");
 
                                 }
                                 catch (NumberFormatException nfe)
