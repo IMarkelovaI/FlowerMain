@@ -94,6 +94,18 @@ public class AdapterDirectoryType extends RecyclerView.Adapter<AdapterDirectoryT
             case("Лютикоцветные"):
                 s="https://shans-group.com/upload/iblock/05d/%D0%9B%D1%8E%D1%82%D0%B8%D0%BA%20%D0%BF%D0%BE%D0%BB%D0%B7%D1%83%D1%87%D0%B8%D0%B8%CC%86.jpg";
                 break;
+            case("Кутровые"):
+                s="https://flori-da.ru/wp-content/uploads/2014/10/%D1%81%D1%82%D0%B5%D1%84%D0%B0%D0%BD%D0%BE%D1%82%D0%B8%D1%81.jpg";
+                break;
+            case("Первоцветные"):
+                s="https://blumgarden.ru/wp-content/uploads/2019/11/primula-bulleya-3.jpg";
+                break;
+            case("Асфоделовые"):
+                s="https://img.freepik.com/free-photo/spring-macro-outdoors-closeup-plant_1122-1569.jpg";
+                break;
+            case("Толстянковые"):
+                s="https://blumgarden.ru/wp-content/uploads/2020/10/ochitok-vidnyj-sedum-brilliant.jpg";
+                break;
             default:
                 s="https://dacha.avgust.com/upload/iblock/51d/51d46aa0661159801b6a097e2ee91de8.jpg";
         }
