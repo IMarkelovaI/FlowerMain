@@ -198,7 +198,17 @@ public class Photoplant extends AppCompatActivity {
                     "Амараллис", "Адениум", "Ипомея", "Гербера", "Клематис (Ломонос)", "Молочай красивейший", "Сурфиния", "Цикламен", "Плюмерия", "Фиалка",
                     "Эхинопсис (Кактус)", "Мирсина африканская", "Хавортия", "Роза", "Эхеверия Жемчужина Нюрнберга", "Седум Буррито (Очиток ослика)", "Алоэ",
                     "Маммиллярия перистая (Кактус)", "Маммиллярия парноколючковая (Кактус)"};
-            TextDisease.setText(classes[maxPos]);
+            if (classes[maxPos]=="Маммиллярия перистая (Кактус)")
+            {
+                TextDisease.setText("Маммиллярия парноколючковая (Кактус)");
+
+            }
+            else if (classes[maxPos]=="Маммиллярия парноколючковая (Кактус)")
+            {
+                TextDisease.setText("Маммиллярия перистая (Кактус)");
+
+            }
+            else {TextDisease.setText(classes[maxPos]);}
 
             caption.setVisibility(View.GONE);
             AddPlant.setVisibility(View.VISIBLE);
