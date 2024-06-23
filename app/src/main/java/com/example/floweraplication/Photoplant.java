@@ -28,6 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -206,6 +207,12 @@ public class Photoplant extends AppCompatActivity {
             else if (classes[maxPos]=="Маммиллярия парноколючковая (Кактус)")
             {
                 TextDisease.setText("Маммиллярия перистая (Кактус)");
+
+            }
+            else if (classes[maxPos]=="Фаленопсис приятный (Орхидея альбинос)")
+            {
+                TextDisease.setTextSize(32);
+                TextDisease.setText(classes[maxPos]);
 
             }
             else {TextDisease.setText(classes[maxPos]);}

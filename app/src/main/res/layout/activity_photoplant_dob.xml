@@ -74,7 +74,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailUserAuthLayout"
                 android:layout_width="260dp"
-                android:layout_height="69dp"
+                android:layout_height="wrap_content"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
@@ -89,7 +89,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/PlName"
                     android:layout_width="260dp"
-                    android:layout_height="55dp"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/gsr"
                     android:hint="Название"
                     android:imeOptions="actionNext"
@@ -184,7 +184,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout8"
                 android:layout_width="342dp"
-                android:layout_height="69dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -198,7 +198,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Description"
                     android:layout_width="342dp"
-                    android:layout_height="55dp"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/gsr"
                     android:hint="Описание"
                     android:imeOptions="actionNext"
